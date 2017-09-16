@@ -33,6 +33,7 @@ final class MenuController: NSObject {
     
     @IBAction func presentPreferences(_ sender: NSMenuItem) {
         preferencesWindowController.showWindow(self)
+        NSApp.activate(ignoringOtherApps: true)
     }
     
     @IBAction func quit(_ sender: NSMenuItem) {
