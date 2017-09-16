@@ -12,6 +12,8 @@ final class Menu: NSMenu {
 
     private let service: ServiceProtocol
     
+    private var coins: [Coin] = []
+
     // MARK: - Init
     
     init(service: ServiceProtocol) {
@@ -33,23 +35,39 @@ final class Menu: NSMenu {
     // MARK: - Model
 
     private func updateCoins() {
-        service.getAllCoins { result in
+        service.getAllCoins { [weak self] result in
             guard let coins = result.value else {
                 return
             }
             
-            print(coins)
+            self?.coins = coins
+            self?.render()
         }
     }
     
     // MARK: - Render
     
     func render() {
+        removeAllItems()
+        
+        let sectionOne = sectionOneItems()
         let sectionTwo = sectionTwoItems()
-        sectionTwo.forEach(addItem)
+        let allItems = sectionOne + sectionTwo
+        
+        allItems.forEach(addItem)
     }
     
     // MARK: - Items
+    
+    private func sectionOneItems() -> [NSMenuItem] {
+        guard !coins.isEmpty else {
+            return []
+        }
+        
+        return coins[0...10].map {
+            NSMenuItem(title: $0.name, action: nil, keyEquivalent: "")
+        }
+    }
     
     private func sectionTwoItems() -> [NSMenuItem] {
         return [

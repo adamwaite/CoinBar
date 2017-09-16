@@ -26,6 +26,16 @@ final class Service: ServiceProtocol {
     }
     
     func getAllCoins(completion: @escaping (Result<[Coin]>) -> ()) {
-        networking.getAllCoins(completion: completion)
+        networking.getAllCoins { result in
+            
+            guard let coins = result.value else {
+                completion(result)
+                return
+            }
+            
+            let sortedCoins = coins.sorted { $0.rankValue < $1.rankValue }
+            let sortedResult: Result<[Coin]> = .success(sortedCoins)
+            completion(sortedResult)
+        }
     }
 }

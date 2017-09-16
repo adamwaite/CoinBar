@@ -14,9 +14,7 @@ protocol NetworkingProtocol {
 
 final class Networking: NetworkingProtocol {
     
-    init() {
-        
-    }
+    // MARK: <NetworkingProtocol>
     
     func getAllCoins(completion: @escaping (Result<[Coin]>) -> ()) {
         guard let request = makeRequest(webService: CoinWebService.all) else {
@@ -30,16 +28,30 @@ final class Networking: NetworkingProtocol {
         let task = session.dataTask(with: request) { data, response, error in
 
             guard let data = data, error == nil else {
-                let result: Result<[Coin]> = .error("There was a problem downloading coins")
+                let result: Result<[Coin]> = .error("Error downloading coins")
                 completion(result)
                 return
             }
             
-            print(data)
+            do {
+                let decoder = JSONDecoder()
+                let coins = try decoder.decode([Coin].self, from: data)
+                let result: Result<[Coin]> = .success(coins)
+                completion(result)
+            }
+            
+            catch let error {
+                print(error)
+                let result: Result<[Coin]> = .error("Error parsing coins")
+                completion(result)
+                return
+            }
         }
         
         task.resume()
     }
+    
+    // MARK: - Utility
     
     private func makeRequest(webService: WebService) -> URLRequest? {
         guard let base = URL(string: webService.base),
