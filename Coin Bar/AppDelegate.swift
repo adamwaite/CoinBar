@@ -10,17 +10,27 @@ import Cocoa
 
 @NSApplicationMain
 class AppDelegate: NSObject, NSApplicationDelegate {
-
-
-
+    
+    private let statusItem = NSStatusBar.system.statusItem(withLength: NSStatusItem.squareLength)
+    
     func applicationDidFinishLaunching(_ aNotification: Notification) {
-        // Insert code here to initialize your application
+        configureStatusItem()
     }
 
     func applicationWillTerminate(_ aNotification: Notification) {
         // Insert code here to tear down your application
     }
 
+    private func configureStatusItem() {
+        
+        if let button = statusItem.button {
+            button.image = NSImage(named:NSImage.Name("status-bar-icon"))
+            //button.action = #selector(printQuote(_:))
+        }
+        
+        statusItem.menu = Menu()
+    
+    }
 
 }
 
