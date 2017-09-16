@@ -12,7 +12,8 @@ import Cocoa
 class AppDelegate: NSObject, NSApplicationDelegate {
     
     private let statusItem = NSStatusBar.system.statusItem(withLength: NSStatusItem.squareLength)
-    
+    private let service = Service()
+
     func applicationDidFinishLaunching(_ aNotification: Notification) {
         configureStatusItem()
     }
