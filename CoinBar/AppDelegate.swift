@@ -11,12 +11,7 @@ import Cocoa
 @NSApplicationMain
 class AppDelegate: NSObject, NSApplicationDelegate {
     
-//    private let service = Service()
-
-    
-    // MARK: - UI
-    
-    
+    private let service = Service()
 
 }
 
