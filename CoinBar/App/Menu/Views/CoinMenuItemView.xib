@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="13196" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+    <dependencies>
+        <deployment identifier="macosx"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="13196"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <customObject id="-2" userLabel="File's Owner"/>
+        <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
+        <customObject id="-3" userLabel="Application" customClass="NSObject"/>
+        <customView id="c22-O7-iKe" customClass="CoinMenuItemView" customModule="CoinBar" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="220" height="25"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+            <subviews>
+                <imageView identifier="Background" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="adv-Ov-T5k">
+                    <rect key="frame" x="0.0" y="0.0" width="220" height="25"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" id="B8h-dF-vqG"/>
+                </imageView>
+                <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="22Z-53-Sm9">
+                    <rect key="frame" x="20" y="5" width="16" height="16"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="16" id="T5X-pJ-g16"/>
+                        <constraint firstAttribute="width" constant="16" id="Udm-1g-Uf4"/>
+                    </constraints>
+                    <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="status-bar-icon" id="gUg-Tl-hQz"/>
+                </imageView>
+                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="D21-rs-aM9">
+                    <rect key="frame" x="42" y="5" width="38" height="17"/>
+                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="COIN" id="hVJ-Tx-EXd">
+                        <font key="font" metaFont="systemBold"/>
+                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
+                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="WN8-iE-thm">
+                    <rect key="frame" x="142" y="5" width="37" height="17"/>
+                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Label" id="eJP-H7-Odc">
+                        <font key="font" metaFont="system"/>
+                        <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
+                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="vF4-jN-qcZ">
+                    <rect key="frame" x="179" y="5" width="23" height="17"/>
+                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="3.2" id="hQG-8b-mxp">
+                        <font key="font" metaFont="system"/>
+                        <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
+            </subviews>
+            <constraints>
+                <constraint firstItem="vF4-jN-qcZ" firstAttribute="leading" secondItem="WN8-iE-thm" secondAttribute="trailing" constant="4" id="20O-wD-Tps"/>
+                <constraint firstItem="WN8-iE-thm" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="D21-rs-aM9" secondAttribute="trailing" constant="8" id="4ck-ni-WaR"/>
+                <constraint firstAttribute="trailing" secondItem="vF4-jN-qcZ" secondAttribute="trailing" constant="20" id="Kax-af-b9M"/>
+                <constraint firstItem="D21-rs-aM9" firstAttribute="leading" secondItem="22Z-53-Sm9" secondAttribute="trailing" constant="8" id="LOa-FZ-T9M"/>
+                <constraint firstItem="22Z-53-Sm9" firstAttribute="leading" secondItem="c22-O7-iKe" secondAttribute="leading" constant="20" id="QDB-x1-uyM"/>
+                <constraint firstItem="vF4-jN-qcZ" firstAttribute="centerY" secondItem="WN8-iE-thm" secondAttribute="centerY" id="Xru-Ka-C1h"/>
+                <constraint firstItem="22Z-53-Sm9" firstAttribute="centerY" secondItem="c22-O7-iKe" secondAttribute="centerY" id="m9t-MX-i9c"/>
+                <constraint firstItem="D21-rs-aM9" firstAttribute="centerY" secondItem="22Z-53-Sm9" secondAttribute="centerY" id="uKJ-jD-UvY"/>
+                <constraint firstItem="WN8-iE-thm" firstAttribute="centerY" secondItem="D21-rs-aM9" secondAttribute="centerY" id="zB4-Sv-1OL"/>
+            </constraints>
+            <connections>
+                <outlet property="imageView" destination="22Z-53-Sm9" id="m8E-fH-CG2"/>
+                <outlet property="percentChangeLabel" destination="vF4-jN-qcZ" id="laL-XM-1d5"/>
+                <outlet property="priceLabel" destination="WN8-iE-thm" id="CGK-bb-rKp"/>
+                <outlet property="symbolLabel" destination="D21-rs-aM9" id="6lR-O9-gb0"/>
+            </connections>
+            <point key="canvasLocation" x="80" y="83.5"/>
+        </customView>
+    </objects>
+    <resources>
+        <image name="status-bar-icon" width="18" height="18"/>
+    </resources>
+</document>

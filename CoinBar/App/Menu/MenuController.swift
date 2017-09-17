@@ -80,11 +80,22 @@ final class MenuController: NSObject {
         return coins.enumerated().map {
             let index = $0.offset
             let coin = $0.element
-            let menuItem = NSMenuItem(title: coin.name, action: #selector(MenuController.viewCoin(_:)), keyEquivalent: "")
+            let menuItem = NSMenuItem(title: coin.symbol, action: #selector(MenuController.viewCoin(_:)), keyEquivalent: "")
             menuItem.tag = index
             menuItem.target = self
+            if let coinMenuItemView = makeCoinMenuItemView(coin: coin) {
+                menuItem.view = coinMenuItemView
+            }
             return menuItem
         }
+    }
+    
+    private func makeCoinMenuItemView(coin: Coin) -> CoinMenuItemView? {
+        guard let coinMenuItemView = CoinMenuItemView.createFromNib() else { return nil }
+        coinMenuItemView.configure(with: coin, imageCache: imageCache)
+        let clickRecognizer = NSClickGestureRecognizer(target: self, action: #selector(MenuController.viewCoin(_:)))
+        coinMenuItemView.addGestureRecognizer(clickRecognizer)
+        return coinMenuItemView
     }
     
     private func makeSeperatorItem() -> NSMenuItem {
@@ -105,8 +116,10 @@ final class MenuController: NSObject {
     
     // MARK: - Actions
     
-    @objc private func viewCoin(_ sender: NSMenuItem) {
-        let coin = coins[sender.tag]
+    @objc private func viewCoin(_ sender: NSClickGestureRecognizer) {
+        guard let index = sender.view?.enclosingMenuItem?.tag else { return }
+        
+        let coin = coins[index]
         if let url = coin.url {
             NSWorkspace.shared.open(url)
         }

@@ -16,7 +16,16 @@ struct Coin: Codable {
     let name: String
     let symbol: String
     let rank: String
-
+    let percentChange1h: String?
+    
+    private enum CodingKeys : String, CodingKey {
+        case id
+        case name
+        case symbol
+        case rank
+        case percentChange1h = "percent_change_1h"
+    }
+    
     // MARK: - Computed Properties
     
     var url: URL? {

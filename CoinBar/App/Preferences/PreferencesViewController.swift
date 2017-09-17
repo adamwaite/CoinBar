@@ -80,5 +80,4 @@ extension PreferencesViewController: NSTableViewDelegate, NSTableViewDataSource 
         
         return cell
     }
-
 }
