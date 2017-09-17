@@ -13,6 +13,10 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     
     fileprivate let service = Service()
 
+    func applicationDidFinishLaunching(_ notification: Notification) {
+        service.refreshCoins()
+    }
+    
 }
 
 // MARK: Shared

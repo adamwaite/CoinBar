@@ -22,15 +22,28 @@ final class PreferencesViewController: NSViewController {
     
     // MARK: - Lifecycle
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        
+    override func viewDidAppear() {
+        super.viewDidAppear()
+        service.refreshCoins()
     }
     
     func configure(service: ServiceProtocol) {
         self.service = service
     }
     
+}
+
+// MARK: - <ServiceObserver>
+
+extension PreferencesViewController: ServiceObserver {
+    
+    var serviceObserverIdentifier: String {
+        return "Preferences"
+    }
+    
+    func coinsUpdated() {
+        
+    }
 }
 
 // MARK: - <NSTableViewDelegate> / <NSTableViewDataSource>

@@ -8,14 +8,46 @@
 
 import Foundation
 
+// MARK: <ServiceObserver>
+
+protocol ServiceObserver {
+    
+    var serviceObserverIdentifier: String { get }
+    
+    func coinsUpdated()
+    
+}
+
+// MARK: <ServiceProtocol> and Service
+
 protocol ServiceProtocol {
-    func getAllCoins(completion: @escaping (Result<[Coin]>) -> ())
+    
+    // Update
+    func refreshCoins()
+    
+    // Observers
+    func registerObserver(_ observer: ServiceObserver)
+    func deregisterObserver(_ observer: ServiceObserver)
+    
+    // Read
+//    func getCoins() -> [Coin]
+//    func getCoins(search: String) -> [Coin]
+//    func getFavouriteCoins() -> [Coin]
+//    func getLastRefreshDate() -> Date
+//    func getPreferences() -> UserPreferences
+    
+    // Preferences
+//    func addFavourite(coin: Coin)
+//    func removeFavourite(coin: Coin)
 }
 
 final class Service: ServiceProtocol {
     
     private let networking: NetworkingProtocol
+
     private let persistence: PersistenceProtocol
+    
+    private var observers: [String: ServiceObserver] = [:]
 
     // MARK: - Init
     
@@ -32,17 +64,24 @@ final class Service: ServiceProtocol {
     
     // MARK: - <ServiceProtocol>
     
-    func getAllCoins(completion: @escaping (Result<[Coin]>) -> ()) {
-        networking.getAllCoins { result in
-            
-            guard let coins = result.value else {
-                completion(result)
+    func refreshCoins() {
+        networking.getAllCoins { [weak self] result in
+            if let error = result.error {
+                print(error)
                 return
             }
             
-            let sortedCoins = coins.sorted { $0.rankValue < $1.rankValue }
-            let sortedResult: Result<[Coin]> = .success(sortedCoins)
-            completion(sortedResult)
+            
+            
+            self?.observers.values.forEach { $0.coinsUpdated() }
         }
+    }
+    
+    func registerObserver(_ observer: ServiceObserver) {
+        observers[observer.serviceObserverIdentifier] = observer
+    }
+    
+    func deregisterObserver(_ observer: ServiceObserver) {
+        observers[observer.serviceObserverIdentifier] = nil
     }
 }
