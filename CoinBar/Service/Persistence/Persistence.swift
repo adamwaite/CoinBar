@@ -10,9 +10,12 @@ import Cocoa
 
 protocol PersistenceProtocol {
     
-    func writeCoins(coins: [Coin])
     func readCoins() -> [Coin]
+    func writeCoins(coins: [Coin])
     
+    func readUserPreferences() -> UserPreferences
+    func writeUserPreferences(preferences: UserPreferences)
+
 }
 
 final class Persistence: PersistenceProtocol {
@@ -40,6 +43,25 @@ final class Persistence: PersistenceProtocol {
     func writeCoins(coins: [Coin]) {
         if let encoded = try? encoder.encode(coins) {
             valueStore.set(encoded, forKey: "coins")
+        }
+    }
+    
+    // MARK: - Preferences
+    
+    func readUserPreferences() -> UserPreferences {
+        guard let encoded: Data = valueStore.value(forKey: "preferences"),
+            let prefs = try? decoder.decode(UserPreferences.self, from: encoded) else {
+                let defaultPreferences = UserPreferences.defaultPreferences()
+                writeUserPreferences(preferences: defaultPreferences)
+                return defaultPreferences
+        }
+        
+        return prefs
+    }
+    
+    func writeUserPreferences(preferences: UserPreferences) {
+        if let encoded = try? encoder.encode(preferences) {
+            valueStore.set(encoded, forKey: "preferences")
         }
     }
 }

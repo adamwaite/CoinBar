@@ -8,6 +8,19 @@
 
 import Foundation
 
-struct UserPreferences {
+struct UserPreferences: Codable {
     
+    let favourites: String
+    
+    var splitFavourites: [String] {
+        return favourites.components(separatedBy: ",")
+    }
+
+}
+
+extension UserPreferences {
+    
+    static func defaultPreferences() -> UserPreferences {
+        return UserPreferences(favourites: "bitcoin,ethereum,litecoin")
+    }
 }

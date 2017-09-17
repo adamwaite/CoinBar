@@ -32,9 +32,9 @@ protocol ServiceProtocol {
     // Read
     func getCoins() -> [Coin]
 //    func getCoins(search: String) -> [Coin]
-//    func getFavouriteCoins() -> [Coin]
+    func getFavouriteCoins() -> [Coin]
 //    func getLastRefreshDate() -> Date
-//    func getPreferences() -> UserPreferences
+    func getPreferences() -> UserPreferences
     
     // Preferences
 //    func addFavourite(coin: Coin)
@@ -94,5 +94,15 @@ final class Service: ServiceProtocol {
     
     func getCoins() -> [Coin] {
         return persistence.readCoins()
+    }
+    
+    func getFavouriteCoins() -> [Coin] {
+        let coins = getCoins()
+        let preferences = getPreferences()
+        return coins.filter { preferences.splitFavourites.contains($0.id) }
+    }
+    
+    func getPreferences() -> UserPreferences {
+        return persistence.readUserPreferences()
     }
 }

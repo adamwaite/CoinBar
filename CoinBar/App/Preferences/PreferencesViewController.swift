@@ -46,7 +46,7 @@ extension PreferencesViewController: ServiceObserver {
     
     func coinsUpdated() {
         DispatchQueue.main.async {
-            self.coins = self.service.getCoins()
+            self.coins = self.service.getFavouriteCoins()
             self.coinsTableView.reloadData()
         }
     }

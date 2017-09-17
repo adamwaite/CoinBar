@@ -21,7 +21,6 @@
 		99D3E98F1F6D0180003C1CB3 /* UserPreferences.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99D3E98E1F6D0180003C1CB3 /* UserPreferences.swift */; };
 		99D3E9911F6D01CA003C1CB3 /* Networking.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99D3E9901F6D01CA003C1CB3 /* Networking.swift */; };
 		99D3E9931F6D01DC003C1CB3 /* Persistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99D3E9921F6D01DC003C1CB3 /* Persistence.swift */; };
-		99D3E9951F6D0301003C1CB3 /* Parser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99D3E9941F6D0301003C1CB3 /* Parser.swift */; };
 		99D3E9971F6D05A6003C1CB3 /* WebServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99D3E9961F6D05A6003C1CB3 /* WebServices.swift */; };
 /* End PBXBuildFile section */
 
@@ -55,7 +54,6 @@
 		99D3E98E1F6D0180003C1CB3 /* UserPreferences.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserPreferences.swift; sourceTree = "<group>"; };
 		99D3E9901F6D01CA003C1CB3 /* Networking.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Networking.swift; sourceTree = "<group>"; };
 		99D3E9921F6D01DC003C1CB3 /* Persistence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Persistence.swift; sourceTree = "<group>"; };
-		99D3E9941F6D0301003C1CB3 /* Parser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Parser.swift; sourceTree = "<group>"; };
 		99D3E9961F6D05A6003C1CB3 /* WebServices.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebServices.swift; sourceTree = "<group>"; };
 		99D3E99F1F6D528D003C1CB3 /* CoinBar.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = CoinBar.entitlements; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -171,7 +169,6 @@
 			children = (
 				99D3E9901F6D01CA003C1CB3 /* Networking.swift */,
 				99D3E9961F6D05A6003C1CB3 /* WebServices.swift */,
-				99D3E9941F6D0301003C1CB3 /* Parser.swift */,
 			);
 			path = Networking;
 			sourceTree = "<group>";
@@ -298,7 +295,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				99A0C6641F6E5D5500390B95 /* ValueStore.swift in Sources */,
-				99D3E9951F6D0301003C1CB3 /* Parser.swift in Sources */,
 				99D3E9971F6D05A6003C1CB3 /* WebServices.swift in Sources */,
 				99D3E98F1F6D0180003C1CB3 /* UserPreferences.swift in Sources */,
 				99D3E9851F6D0014003C1CB3 /* Result.swift in Sources */,
