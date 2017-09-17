@@ -30,7 +30,7 @@ protocol ServiceProtocol {
     func deregisterObserver(_ observer: ServiceObserver)
     
     // Read
-//    func getCoins() -> [Coin]
+    func getCoins() -> [Coin]
 //    func getCoins(search: String) -> [Coin]
 //    func getFavouriteCoins() -> [Coin]
 //    func getLastRefreshDate() -> Date
@@ -64,6 +64,8 @@ final class Service: ServiceProtocol {
     
     // MARK: - <ServiceProtocol>
     
+    // MARK: Update
+    
     func refreshCoins() {
         networking.getAllCoins { [weak self] result in
             if let error = result.error {
@@ -71,11 +73,14 @@ final class Service: ServiceProtocol {
                 return
             }
             
-            
-            
-            self?.observers.values.forEach { $0.coinsUpdated() }
+            if let coins = result.value {
+                self?.persistence.writeCoins(coins: coins)
+                self?.observers.values.forEach { $0.coinsUpdated() }
+            }
         }
     }
+    
+    // MARK: Observers
     
     func registerObserver(_ observer: ServiceObserver) {
         observers[observer.serviceObserverIdentifier] = observer
@@ -83,5 +88,11 @@ final class Service: ServiceProtocol {
     
     func deregisterObserver(_ observer: ServiceObserver) {
         observers[observer.serviceObserverIdentifier] = nil
+    }
+    
+    // MARK: Read
+    
+    func getCoins() -> [Coin] {
+        return persistence.readCoins()
     }
 }

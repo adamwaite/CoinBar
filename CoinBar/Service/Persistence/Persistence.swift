@@ -13,7 +13,6 @@ protocol PersistenceProtocol {
     func writeCoins(coins: [Coin])
     func readCoins() -> [Coin]
     
-    
 }
 
 final class Persistence: PersistenceProtocol {

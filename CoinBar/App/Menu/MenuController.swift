@@ -15,7 +15,8 @@ final class MenuController: NSObject {
     // MARK: Service
     
     private var service: ServiceProtocol!
-    
+    private var imageCache: ImageCacheProtocol!
+
     // MARK: UI
     
     private let statusItem = NSStatusBar.system.statusItem(withLength: NSStatusItem.squareLength)
@@ -26,7 +27,7 @@ final class MenuController: NSObject {
         let storyboard = NSStoryboard(name: NSStoryboard.Name("Main"), bundle: nil)
         let preferencesWindowController = storyboard.instantiateController(withIdentifier: NSStoryboard.SceneIdentifier("Preferences")) as! NSWindowController
         let preferencesViewController = preferencesWindowController.window!.contentViewController as! PreferencesViewController
-        preferencesViewController.configure(service: self.service)
+        preferencesViewController.configure(service: self.service, imageCache: self.imageCache)
         return preferencesWindowController
     }()
     
@@ -36,14 +37,16 @@ final class MenuController: NSObject {
         super.awakeFromNib()
         
         let service = NSApplication.shared.service
-        configure(service: service)
+        let imageCache = NSApplication.shared.imageCache
+        configure(service: service, imageCache: imageCache)
         
         statusItem.menu = statusMenu
         statusItem.button?.image = NSImage(named: NSImage.Name("status-bar-icon"))
     }
     
-    func configure(service: ServiceProtocol) {
+    func configure(service: ServiceProtocol, imageCache: ImageCacheProtocol) {
         self.service = service
+        self.imageCache = imageCache
     }
 
     // MARK: - Actions

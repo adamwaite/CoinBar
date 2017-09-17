@@ -15,8 +15,8 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "99D3E95E1F6CF8F1003C1CB3"
-               BuildableName = "Coin Bar.app"
-               BlueprintName = "Coin Bar"
+               BuildableName = "CoinBar.app"
+               BlueprintName = "CoinBar"
                ReferencedContainer = "container:CoinBar.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -34,8 +34,8 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "99D3E9701F6CF8F1003C1CB3"
-               BuildableName = "Coin BarTests.xctest"
-               BlueprintName = "Coin BarTests"
+               BuildableName = "CoinBarTests.xctest"
+               BlueprintName = "CoinBarTests"
                ReferencedContainer = "container:CoinBar.xcodeproj">
             </BuildableReference>
          </TestableReference>
@@ -44,8 +44,8 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "99D3E95E1F6CF8F1003C1CB3"
-            BuildableName = "Coin Bar.app"
-            BlueprintName = "Coin Bar"
+            BuildableName = "CoinBar.app"
+            BlueprintName = "CoinBar"
             ReferencedContainer = "container:CoinBar.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
@@ -68,8 +68,8 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "99D3E95E1F6CF8F1003C1CB3"
-            BuildableName = "Coin Bar.app"
-            BlueprintName = "Coin Bar"
+            BuildableName = "CoinBar.app"
+            BlueprintName = "CoinBar"
             ReferencedContainer = "container:CoinBar.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
@@ -87,8 +87,8 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "99D3E95E1F6CF8F1003C1CB3"
-            BuildableName = "Coin Bar.app"
-            BlueprintName = "Coin Bar"
+            BuildableName = "CoinBar.app"
+            BlueprintName = "CoinBar"
             ReferencedContainer = "container:CoinBar.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>

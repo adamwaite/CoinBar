@@ -12,6 +12,7 @@ import Cocoa
 class AppDelegate: NSObject, NSApplicationDelegate {
     
     fileprivate let service = Service()
+    fileprivate let imageCache = ImageCache()
 
     func applicationDidFinishLaunching(_ notification: Notification) {
         service.refreshCoins()
@@ -23,8 +24,15 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
 extension NSApplication {
 
+    var _delegate: AppDelegate {
+        return self.delegate as! AppDelegate
+    }
+    
     var service: ServiceProtocol {
-        let delegate = self.delegate as! AppDelegate
-        return delegate.service
+        return _delegate.service
+    }
+    
+    var imageCache: ImageCacheProtocol {
+        return _delegate.imageCache!
     }
 }

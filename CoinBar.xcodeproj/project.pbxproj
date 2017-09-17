@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		995F49621F6DC6AA000B8711 /* MenuController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 995F49611F6DC6AA000B8711 /* MenuController.swift */; };
+		998136C01F6EDCD2003381BA /* ImageCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 998136BF1F6EDCD2003381BA /* ImageCache.swift */; };
 		99A0C6621F6DCDF500390B95 /* PreferencesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99A0C6611F6DCDF500390B95 /* PreferencesViewController.swift */; };
 		99A0C6641F6E5D5500390B95 /* ValueStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99A0C6631F6E5D5500390B95 /* ValueStore.swift */; };
 		99D3E9631F6CF8F1003C1CB3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99D3E9621F6CF8F1003C1CB3 /* AppDelegate.swift */; };
@@ -36,15 +37,16 @@
 
 /* Begin PBXFileReference section */
 		995F49611F6DC6AA000B8711 /* MenuController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuController.swift; sourceTree = "<group>"; };
+		998136BF1F6EDCD2003381BA /* ImageCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCache.swift; sourceTree = "<group>"; };
 		998518E01F6DC8240072EADB /* CoinBarTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoinBarTests.swift; sourceTree = "<group>"; };
 		99A0C6611F6DCDF500390B95 /* PreferencesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreferencesViewController.swift; sourceTree = "<group>"; };
 		99A0C6631F6E5D5500390B95 /* ValueStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValueStore.swift; sourceTree = "<group>"; };
-		99D3E95F1F6CF8F1003C1CB3 /* Coin Bar.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Coin Bar.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		99D3E95F1F6CF8F1003C1CB3 /* CoinBar.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CoinBar.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		99D3E9621F6CF8F1003C1CB3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		99D3E9661F6CF8F1003C1CB3 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		99D3E9691F6CF8F1003C1CB3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		99D3E96B1F6CF8F1003C1CB3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		99D3E9711F6CF8F1003C1CB3 /* Coin BarTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Coin BarTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		99D3E9711F6CF8F1003C1CB3 /* CoinBarTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CoinBarTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		99D3E9771F6CF8F1003C1CB3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		99D3E9821F6CFFD8003C1CB3 /* Service.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Service.swift; sourceTree = "<group>"; };
 		99D3E9841F6D0014003C1CB3 /* Result.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Result.swift; sourceTree = "<group>"; };
@@ -105,8 +107,8 @@
 		99D3E9601F6CF8F1003C1CB3 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				99D3E95F1F6CF8F1003C1CB3 /* Coin Bar.app */,
-				99D3E9711F6CF8F1003C1CB3 /* Coin BarTests.xctest */,
+				99D3E95F1F6CF8F1003C1CB3 /* CoinBar.app */,
+				99D3E9711F6CF8F1003C1CB3 /* CoinBarTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -177,6 +179,7 @@
 		99D3E9991F6D05BA003C1CB3 /* Persistence */ = {
 			isa = PBXGroup;
 			children = (
+				998136BF1F6EDCD2003381BA /* ImageCache.swift */,
 				99D3E9921F6D01DC003C1CB3 /* Persistence.swift */,
 				99A0C6631F6E5D5500390B95 /* ValueStore.swift */,
 			);
@@ -194,9 +197,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		99D3E95E1F6CF8F1003C1CB3 /* Coin Bar */ = {
+		99D3E95E1F6CF8F1003C1CB3 /* CoinBar */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 99D3E97A1F6CF8F1003C1CB3 /* Build configuration list for PBXNativeTarget "Coin Bar" */;
+			buildConfigurationList = 99D3E97A1F6CF8F1003C1CB3 /* Build configuration list for PBXNativeTarget "CoinBar" */;
 			buildPhases = (
 				99D3E95B1F6CF8F1003C1CB3 /* Sources */,
 				99D3E95C1F6CF8F1003C1CB3 /* Frameworks */,
@@ -206,14 +209,14 @@
 			);
 			dependencies = (
 			);
-			name = "Coin Bar";
+			name = CoinBar;
 			productName = "Coin Bar";
-			productReference = 99D3E95F1F6CF8F1003C1CB3 /* Coin Bar.app */;
+			productReference = 99D3E95F1F6CF8F1003C1CB3 /* CoinBar.app */;
 			productType = "com.apple.product-type.application";
 		};
-		99D3E9701F6CF8F1003C1CB3 /* Coin BarTests */ = {
+		99D3E9701F6CF8F1003C1CB3 /* CoinBarTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 99D3E97D1F6CF8F1003C1CB3 /* Build configuration list for PBXNativeTarget "Coin BarTests" */;
+			buildConfigurationList = 99D3E97D1F6CF8F1003C1CB3 /* Build configuration list for PBXNativeTarget "CoinBarTests" */;
 			buildPhases = (
 				99D3E96D1F6CF8F1003C1CB3 /* Sources */,
 				99D3E96E1F6CF8F1003C1CB3 /* Frameworks */,
@@ -224,9 +227,9 @@
 			dependencies = (
 				99D3E9731F6CF8F1003C1CB3 /* PBXTargetDependency */,
 			);
-			name = "Coin BarTests";
+			name = CoinBarTests;
 			productName = "Coin BarTests";
-			productReference = 99D3E9711F6CF8F1003C1CB3 /* Coin BarTests.xctest */;
+			productReference = 99D3E9711F6CF8F1003C1CB3 /* CoinBarTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
 /* End PBXNativeTarget section */
@@ -264,8 +267,8 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				99D3E95E1F6CF8F1003C1CB3 /* Coin Bar */,
-				99D3E9701F6CF8F1003C1CB3 /* Coin BarTests */,
+				99D3E95E1F6CF8F1003C1CB3 /* CoinBar */,
+				99D3E9701F6CF8F1003C1CB3 /* CoinBarTests */,
 			);
 		};
 /* End PBXProject section */
@@ -306,6 +309,7 @@
 				99D3E98D1F6D016B003C1CB3 /* Coin.swift in Sources */,
 				99D3E9911F6D01CA003C1CB3 /* Networking.swift in Sources */,
 				995F49621F6DC6AA000B8711 /* MenuController.swift in Sources */,
+				998136C01F6EDCD2003381BA /* ImageCache.swift in Sources */,
 				99D3E9931F6D01DC003C1CB3 /* Persistence.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -322,7 +326,7 @@
 /* Begin PBXTargetDependency section */
 		99D3E9731F6CF8F1003C1CB3 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 99D3E95E1F6CF8F1003C1CB3 /* Coin Bar */;
+			target = 99D3E95E1F6CF8F1003C1CB3 /* CoinBar */;
 			targetProxy = 99D3E9721F6CF8F1003C1CB3 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -526,7 +530,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		99D3E97A1F6CF8F1003C1CB3 /* Build configuration list for PBXNativeTarget "Coin Bar" */ = {
+		99D3E97A1F6CF8F1003C1CB3 /* Build configuration list for PBXNativeTarget "CoinBar" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				99D3E97B1F6CF8F1003C1CB3 /* Debug */,
@@ -535,7 +539,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		99D3E97D1F6CF8F1003C1CB3 /* Build configuration list for PBXNativeTarget "Coin BarTests" */ = {
+		99D3E97D1F6CF8F1003C1CB3 /* Build configuration list for PBXNativeTarget "CoinBarTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				99D3E97E1F6CF8F1003C1CB3 /* Debug */,

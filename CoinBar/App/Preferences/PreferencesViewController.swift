@@ -12,9 +12,10 @@ final class PreferencesViewController: NSViewController {
     
     // MARK: - Properties
     
-    // MARK: Service
-    
     private var service: ServiceProtocol!
+    private var imageCache: ImageCacheProtocol!
+
+    fileprivate var coins: [Coin] = []
     
     // MARK: UI
     
@@ -24,11 +25,13 @@ final class PreferencesViewController: NSViewController {
     
     override func viewDidAppear() {
         super.viewDidAppear()
+        service.registerObserver(self)
         service.refreshCoins()
     }
     
-    func configure(service: ServiceProtocol) {
+    func configure(service: ServiceProtocol, imageCache: ImageCacheProtocol) {
         self.service = service
+        self.imageCache = imageCache
     }
     
 }
@@ -42,7 +45,10 @@ extension PreferencesViewController: ServiceObserver {
     }
     
     func coinsUpdated() {
-        
+        DispatchQueue.main.async {
+            self.coins = self.service.getCoins()
+            self.coinsTableView.reloadData()
+        }
     }
 }
 
@@ -51,28 +57,26 @@ extension PreferencesViewController: ServiceObserver {
 extension PreferencesViewController: NSTableViewDelegate, NSTableViewDataSource {
     
     func numberOfRows(in tableView: NSTableView) -> Int {
-        return 100
+        return coins.count
     }
     
     func tableView(_ tableView: NSTableView, viewFor tableColumn: NSTableColumn?, row: Int) -> NSView? {
         
-        guard let column = tableColumn, let columnIndex = tableView.tableColumns.index(of: column) else {
+        guard let cell = tableView.makeView(withIdentifier: NSUserInterfaceItemIdentifier("Coin"), owner: nil) as? NSTableCellView else {
             return nil
         }
         
-        switch columnIndex {
+        let coin = coins[row]
         
-        case 0:
-            guard let cell = tableView.makeView(withIdentifier: NSUserInterfaceItemIdentifier("Symbol"), owner: nil) as? NSTableCellView else { return nil }
-            cell.textField?.stringValue = "😀"
-            return cell
-            
-        default:
-            guard let cell = tableView.makeView(withIdentifier: NSUserInterfaceItemIdentifier("Name"), owner: nil) as? NSTableCellView else { return nil }
-            cell.textField?.stringValue = "Smile"
-            return cell
+        cell.textField?.stringValue = coin.symbol
+        
+        imageCache.getCoinImage(for: coin) { result in
+            if let image = result.value {
+                cell.imageView?.image = image
+            }
         }
         
+        return cell
     }
 
 }
