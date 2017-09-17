@@ -12,8 +12,8 @@
             <objects>
                 <menu id="2PT-OU-SuK"/>
                 <customObject id="Ady-hI-5gd" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
-                <customObject id="Voe-Tx-rLC" customClass="AppDelegate" customModule="Coin_Bar" customModuleProvider="target"/>
-                <customObject id="bgo-Nw-AU7" customClass="MenuController" customModule="Coin_Bar" customModuleProvider="target">
+                <customObject id="Voe-Tx-rLC" customClass="AppDelegate" customModule="CoinBar" customModuleProvider="target"/>
+                <customObject id="bgo-Nw-AU7" customClass="MenuController" customModule="CoinBar" customModuleProvider="target">
                     <connections>
                         <outlet property="statusMenu" destination="2PT-OU-SuK" id="jQc-TY-OT6"/>
                     </connections>
@@ -51,7 +51,7 @@
         <!--Preferences View Controller-->
         <scene sceneID="bmm-8u-iAA">
             <objects>
-                <viewController id="jBT-Zd-f6y" customClass="PreferencesViewController" customModule="Coin_Bar" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="jBT-Zd-f6y" customClass="PreferencesViewController" customModule="CoinBar" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" id="OrN-5e-gUB">
                         <rect key="frame" x="0.0" y="0.0" width="400" height="500"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -144,6 +144,9 @@
                                         <segment image="NSRemoveTemplate" width="32" tag="1"/>
                                     </segments>
                                 </segmentedCell>
+                                <connections>
+                                    <action selector="addOrRemoveCurrency:" target="jBT-Zd-f6y" id="mAi-cc-zLJ"/>
+                                </connections>
                             </segmentedControl>
                             <stackView distribution="fill" orientation="horizontal" alignment="firstBaseline" spacing="16" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="URR-BT-MIy">
                                 <rect key="frame" x="20" y="150" width="360" height="21"/>

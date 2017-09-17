@@ -31,7 +31,7 @@ protocol ServiceProtocol {
     
     // Read
     func getCoins() -> [Coin]
-//    func getCoins(search: String) -> [Coin]
+    func getCoin(search: String) -> Coin?
     func getFavouriteCoins() -> [Coin]
 //    func getLastRefreshDate() -> Date
     func getPreferences() -> UserPreferences
@@ -94,6 +94,12 @@ final class Service: ServiceProtocol {
     
     func getCoins() -> [Coin] {
         return persistence.readCoins()
+    }
+    
+    func getCoin(search: String) -> Coin? {
+        let coins = getCoins()
+        let coin = coins.lazy.first { $0.symbol.lowercased() == search.lowercased() }
+        return coin
     }
     
     func getFavouriteCoins() -> [Coin] {
