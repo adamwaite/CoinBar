@@ -50,7 +50,7 @@ final class PreferencesViewController: NSViewController {
         }
         
         if sender.selectedSegment == 1 {
-            
+            removeCurrency()
         }
     }
     
@@ -64,11 +64,12 @@ final class PreferencesViewController: NSViewController {
         
         alert.messageText = "Add Coin"
 
-        let textField = NSTextField(frame: NSRect(x: 0, y: 0, width: 200, height: 24))
+        let textField = NSTextField(frame: NSRect(x: 0, y: 0, width: 300, height: 24))
         textField.placeholderString = "e.g. BTC"
         alert.accessoryView = textField
         
         alert.beginSheetModal(for: window) { response in
+
             switch response {
             
             case .alertFirstButtonReturn:
@@ -82,24 +83,15 @@ final class PreferencesViewController: NSViewController {
                 return
             }
         }
-//        msg.addButtonWithTitle("OK")      // 1st button
-//        msg.addButtonWithTitle("Cancel")  // 2nd button
-//        msg.messageText = title
-//        msg.informativeText = question
-//
-//        let txt = NSTextField(frame: NSRect(x: 0, y: 0, width: 200, height: 24))
-//        txt.stringValue = defaultValue
-//
-//        msg.accessoryView = txt
-//        let response: NSModalResponse = msg.runModal()
-//
-//        if (response == NSAlertFirstButtonReturn) {
-//            return txt.stringValue
-//        } else {
-//            return ""
-//        }
     }
     
+    private func removeCurrency() {
+        let selected = coinsTableView.selectedRow
+        guard selected >= 0 else { return }
+        let coin = coins[selected]
+        service.removeFavourite(coin: coin)
+        reloadData()
+    }
 }
 
 // MARK: - <ServiceObserver>

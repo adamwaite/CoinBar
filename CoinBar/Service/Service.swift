@@ -11,9 +11,9 @@ import Foundation
 // MARK: <ServiceObserver>
 
 protocol ServiceObserver {
-    
+
     var serviceObserverIdentifier: String { get }
-    
+
     func coinsUpdated()
     
 }
@@ -120,6 +120,7 @@ final class Service: ServiceProtocol {
         newFavourites.append(coin.id)
         let newPrefs = UserPreferences(favourites: newFavourites)
         persistence.writeUserPreferences(preferences: newPrefs)
+        observers.values.forEach { $0.coinsUpdated() }
     }
     
     func removeFavourite(coin: Coin) {
@@ -130,6 +131,7 @@ final class Service: ServiceProtocol {
         }
         let newPrefs = UserPreferences(favourites: newFavourites)
         persistence.writeUserPreferences(preferences: newPrefs)
+        observers.values.forEach { $0.coinsUpdated() }
     }
 
 }
