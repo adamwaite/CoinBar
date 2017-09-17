@@ -7,3 +7,14 @@
 //
 
 import Foundation
+
+protocol PersistenceProtocol {
+    
+}
+
+final class Persistence: PersistenceProtocol {
+    
+    init(valueStore: ValueStore) {
+        
+    }
+}

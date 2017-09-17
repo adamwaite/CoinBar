@@ -14,7 +14,7 @@ final class MenuController: NSObject {
     
     // MARK: Service
     
-    private let service: ServiceProtocol
+    private var service: ServiceProtocol!
     
     // MARK: UI
     
@@ -25,35 +25,32 @@ final class MenuController: NSObject {
     private lazy var preferencesWindowController: NSWindowController = {
         let storyboard = NSStoryboard(name: NSStoryboard.Name("Main"), bundle: nil)
         let preferencesWindowController = storyboard.instantiateController(withIdentifier: NSStoryboard.SceneIdentifier("Preferences")) as! NSWindowController
-        
+        let preferencesViewController = preferencesWindowController.window!.contentViewController as! PreferencesViewController
+        preferencesViewController.configure(service: self.service)
         return preferencesWindowController
     }()
-    
-    // MARK: - Init
-    
-    init(service: ServiceProtocol) {
-        self.service = service
-        super.init()
-    }
-    
-    convenience override init() {
-        let service = NSApplication.shared.service
-        self.init(service: service)
-    }
     
     // MARK: - Lifecycle
     
     override func awakeFromNib() {
         super.awakeFromNib()
+        
+        let service = NSApplication.shared.service
+        configure(service: service)
+        
         statusItem.menu = statusMenu
         statusItem.button?.image = NSImage(named: NSImage.Name("status-bar-icon"))
+    }
+    
+    func configure(service: ServiceProtocol) {
+        self.service = service
     }
 
     // MARK: - Actions
     
     @IBAction func presentPreferences(_ sender: NSMenuItem) {
-        preferencesWindowController.showWindow(self)
         NSApp.activate(ignoringOtherApps: true)
+        preferencesWindowController.showWindow(self)
     }
     
     @IBAction func quit(_ sender: NSMenuItem) {

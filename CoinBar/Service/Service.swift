@@ -15,15 +15,22 @@ protocol ServiceProtocol {
 final class Service: ServiceProtocol {
     
     private let networking: NetworkingProtocol
+    private let persistence: PersistenceProtocol
+
+    // MARK: - Init
     
-    init(networking: NetworkingProtocol) {
+    init(networking: NetworkingProtocol, persistence: PersistenceProtocol) {
         self.networking = networking
+        self.persistence = persistence
     }
     
     convenience init() {
         let networking = Networking()
-        self.init(networking: networking)
+        let persistence = Persistence(valueStore: UserDefaults.standard)
+        self.init(networking: networking, persistence: persistence)
     }
+    
+    // MARK: - <ServiceProtocol>
     
     func getAllCoins(completion: @escaping (Result<[Coin]>) -> ()) {
         networking.getAllCoins { result in
