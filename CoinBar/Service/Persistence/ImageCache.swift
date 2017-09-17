@@ -79,13 +79,8 @@ final class ImageCache: ImageCacheProtocol {
         
         let session = URLSession.shared
         
-        
-        
         let task = session.dataTask(with: imageURL) { [weak self] data, response, error in
 
-            let img = NSImage(data: data!)
-            print(img)
-            
             guard error == nil,
                 let data = data,
                 let image = NSImage(data: data) else {
@@ -105,9 +100,15 @@ final class ImageCache: ImageCacheProtocol {
         
     }
     
-    private func cachedImage(for: Coin) -> NSImage? {
-        // TODO
-        return nil
+    private func cachedImage(for coin: Coin) -> NSImage? {
+        let file = URL(fileURLWithPath: "\(coin.id).png", relativeTo: appDirectory)
+        
+        guard let data = try? Data(contentsOf: file),
+            let image = NSImage(data: data) else {
+                return nil
+        }
+
+        return image
     }
     
     private func saveImage(_ image: NSImage, for coin: Coin) {
@@ -120,6 +121,5 @@ final class ImageCache: ImageCacheProtocol {
 
         let file = URL(fileURLWithPath: "\(coin.id).png", relativeTo: appDirectory)
         try? imageData.write(to: file)
-        
     }
 }

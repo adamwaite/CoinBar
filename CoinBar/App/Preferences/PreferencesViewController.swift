@@ -69,9 +69,11 @@ extension PreferencesViewController: NSTableViewDelegate, NSTableViewDataSource 
         let coin = coins[row]
         
         cell.textField?.stringValue = coin.symbol
+        cell.imageView?.image = nil
         
         imageCache.getCoinImage(for: coin) { result in
-            if let image = result.value {
+            guard let image = result.value else { return }
+            DispatchQueue.main.async {
                 cell.imageView?.image = image
             }
         }
