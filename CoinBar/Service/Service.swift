@@ -37,8 +37,8 @@ protocol ServiceProtocol {
     func getPreferences() -> UserPreferences
     
     // Preferences
-//    func addFavourite(coin: Coin)
-//    func removeFavourite(coin: Coin)
+    func addFavourite(coin: Coin)
+    func removeFavourite(coin: Coin)
 }
 
 final class Service: ServiceProtocol {
@@ -99,10 +99,31 @@ final class Service: ServiceProtocol {
     func getFavouriteCoins() -> [Coin] {
         let coins = getCoins()
         let preferences = getPreferences()
-        return coins.filter { preferences.splitFavourites.contains($0.id) }
+        return coins.filter { preferences.favourites.contains($0.id) }
     }
     
     func getPreferences() -> UserPreferences {
         return persistence.readUserPreferences()
     }
+    
+    // MARK: Preferences
+    
+    func addFavourite(coin: Coin) {
+        let prefs = getPreferences()
+        var newFavourites = prefs.favourites
+        newFavourites.append(coin.id)
+        let newPrefs = UserPreferences(favourites: newFavourites)
+        persistence.writeUserPreferences(preferences: newPrefs)
+    }
+    
+    func removeFavourite(coin: Coin) {
+        let prefs = getPreferences()
+        var newFavourites = prefs.favourites
+        if let index = newFavourites.index(of: coin.id) {
+            newFavourites.remove(at: index)
+        }
+        let newPrefs = UserPreferences(favourites: newFavourites)
+        persistence.writeUserPreferences(preferences: newPrefs)
+    }
+
 }

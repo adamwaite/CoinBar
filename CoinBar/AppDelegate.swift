@@ -14,10 +14,6 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     fileprivate let service = Service()
     fileprivate let imageCache = ImageCache()
 
-    func applicationDidFinishLaunching(_ notification: Notification) {
-        service.refreshCoins()
-    }
-    
 }
 
 // MARK: Shared

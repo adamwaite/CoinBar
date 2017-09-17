@@ -10,17 +10,12 @@ import Foundation
 
 struct UserPreferences: Codable {
     
-    let favourites: String
-    
-    var splitFavourites: [String] {
-        return favourites.components(separatedBy: ",")
-    }
-
+    let favourites: [String]
 }
 
 extension UserPreferences {
     
     static func defaultPreferences() -> UserPreferences {
-        return UserPreferences(favourites: "bitcoin,ethereum,litecoin")
+        return UserPreferences(favourites: ["bitcoin", "ethereum", "litecoin"])
     }
 }

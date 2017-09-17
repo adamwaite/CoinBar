@@ -12,11 +12,11 @@ final class MenuController: NSObject {
     
     // MARK: - Properties
     
-    // MARK: Service
-    
     private var service: ServiceProtocol!
     private var imageCache: ImageCacheProtocol!
-
+   
+    fileprivate var coins: [Coin] = []
+    
     // MARK: UI
     
     private let statusItem = NSStatusBar.system.statusItem(withLength: NSStatusItem.squareLength)
@@ -42,21 +42,98 @@ final class MenuController: NSObject {
         
         statusItem.menu = statusMenu
         statusItem.button?.image = NSImage(named: NSImage.Name("status-bar-icon"))
+    
     }
     
     func configure(service: ServiceProtocol, imageCache: ImageCacheProtocol) {
         self.service = service
         self.imageCache = imageCache
+        
+        service.registerObserver(self)
+        service.refreshCoins()
+
+        coins = service.getFavouriteCoins()
+        reloadData()
+    }
+    
+    // MARK: - UI
+    
+    fileprivate func reloadData() {
+        
+        statusMenu.removeAllItems()
+        
+        let coinItems = makeCoinItems()
+        coinItems.forEach { statusMenu.addItem($0) }
+        
+        let seperator = makeSeperatorItem()
+        statusMenu.addItem(seperator)
+        
+        let preferencesItem = makePreferencesItem()
+        statusMenu.addItem(preferencesItem)
+        
+        let quitItem = makeQuitItem()
+        statusMenu.addItem(quitItem)
+        
     }
 
+    private func makeCoinItems() -> [NSMenuItem] {
+        return coins.enumerated().map {
+            let index = $0.offset
+            let coin = $0.element
+            let menuItem = NSMenuItem(title: coin.name, action: #selector(MenuController.viewCoin(_:)), keyEquivalent: "")
+            menuItem.tag = index
+            menuItem.target = self
+            return menuItem
+        }
+    }
+    
+    private func makeSeperatorItem() -> NSMenuItem {
+        return NSMenuItem.separator()
+    }
+    
+    private func makePreferencesItem() -> NSMenuItem {
+        let item = NSMenuItem(title: "Preferences", action: #selector(MenuController.presentPreferences(_:)), keyEquivalent: "")
+        item.target = self
+        return item
+    }
+    
+    private func makeQuitItem() -> NSMenuItem {
+        let item = NSMenuItem(title: "Quit CoinBar", action: #selector(MenuController.quit(_:)), keyEquivalent: "")
+        item.target = self
+        return item
+    }
+    
     // MARK: - Actions
     
-    @IBAction func presentPreferences(_ sender: NSMenuItem) {
+    @objc private func viewCoin(_ sender: NSMenuItem) {
+        let coin = coins[sender.tag]
+        if let url = coin.url {
+            NSWorkspace.shared.open(url)
+        }
+    }
+    
+    @objc private func presentPreferences(_ sender: NSMenuItem) {
         NSApp.activate(ignoringOtherApps: true)
         preferencesWindowController.showWindow(self)
     }
     
-    @IBAction func quit(_ sender: NSMenuItem) {
+    @objc private func quit(_ sender: NSMenuItem) {
         NSApplication.shared.terminate(self)
+    }
+}
+
+// MARK: - <ServiceObserver>
+
+extension MenuController: ServiceObserver {
+    
+    var serviceObserverIdentifier: String {
+        return "Menu"
+    }
+    
+    func coinsUpdated() {
+        DispatchQueue.main.async {
+            self.coins = self.service.getFavouriteCoins()
+            self.reloadData()
+        }
     }
 }

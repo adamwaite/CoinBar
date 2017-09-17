@@ -10,27 +10,7 @@
         <!--Application-->
         <scene sceneID="JPo-4y-FX3">
             <objects>
-                <menu id="2PT-OU-SuK">
-                    <items>
-                        <menuItem isSeparatorItem="YES" id="QaZ-U3-B9C"/>
-                        <menuItem title="Refresh" id="mbe-ts-TwD">
-                            <modifierMask key="keyEquivalentModifierMask"/>
-                        </menuItem>
-                        <menuItem isSeparatorItem="YES" id="YOx-x6-gRP"/>
-                        <menuItem title="Preferences" id="OjZ-Sm-G0C" userLabel="Preferences">
-                            <modifierMask key="keyEquivalentModifierMask"/>
-                            <connections>
-                                <action selector="presentPreferences:" target="bgo-Nw-AU7" id="4zF-5M-CjE"/>
-                            </connections>
-                        </menuItem>
-                        <menuItem title="Quit CoinBar" id="bYn-Cm-zCI" userLabel="Quit CoinBar">
-                            <modifierMask key="keyEquivalentModifierMask"/>
-                            <connections>
-                                <action selector="quit:" target="bgo-Nw-AU7" id="9ka-7V-M6q"/>
-                            </connections>
-                        </menuItem>
-                    </items>
-                </menu>
+                <menu id="2PT-OU-SuK"/>
                 <customObject id="Ady-hI-5gd" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
                 <customObject id="Voe-Tx-rLC" customClass="AppDelegate" customModule="Coin_Bar" customModuleProvider="target"/>
                 <customObject id="bgo-Nw-AU7" customClass="MenuController" customModule="Coin_Bar" customModuleProvider="target">
