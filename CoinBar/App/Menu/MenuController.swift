@@ -12,14 +12,34 @@ final class MenuController: NSObject {
     
     // MARK: - Properties
     
+    // MARK: Service
+    
+    private let service: ServiceProtocol
+    
+    // MARK: UI
+    
     private let statusItem = NSStatusBar.system.statusItem(withLength: NSStatusItem.squareLength)
 
-    @IBOutlet weak var statusMenu: NSMenu!
+    @IBOutlet private(set) weak var statusMenu: NSMenu!
 
     private lazy var preferencesWindowController: NSWindowController = {
         let storyboard = NSStoryboard(name: NSStoryboard.Name("Main"), bundle: nil)
-        return storyboard.instantiateController(withIdentifier: NSStoryboard.SceneIdentifier("Preferences")) as! NSWindowController
+        let preferencesWindowController = storyboard.instantiateController(withIdentifier: NSStoryboard.SceneIdentifier("Preferences")) as! NSWindowController
+        
+        return preferencesWindowController
     }()
+    
+    // MARK: - Init
+    
+    init(service: ServiceProtocol) {
+        self.service = service
+        super.init()
+    }
+    
+    convenience override init() {
+        let service = NSApplication.shared.service
+        self.init(service: service)
+    }
     
     // MARK: - Lifecycle
     

@@ -11,7 +11,19 @@ import Cocoa
 @NSApplicationMain
 class AppDelegate: NSObject, NSApplicationDelegate {
     
-    private let service = Service()
+    fileprivate let service = Service()
 
 }
 
+// MARK: Shared
+
+extension NSApplication {
+    
+    private var _delegate: AppDelegate {
+        return delegate as! AppDelegate
+    }
+    
+    var service: ServiceProtocol {
+        return _delegate.service
+    }
+}
