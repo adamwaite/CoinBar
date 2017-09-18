@@ -21,23 +21,17 @@ protocol PersistenceProtocol {
 final class Persistence: PersistenceProtocol {
     
     private let valueStore: ValueStore
-    private let encoder: Encoder
-    private let decoder: Decoder
+    private let encoder = JSONEncoder()
+    private let decoder = JSONDecoder()
 
     // MARK: - Init
     
-    init(valueStore: ValueStore, encoder: Encoder, decoder: Decoder) {
+    init(valueStore: ValueStore) {
         self.valueStore = valueStore
-        self.encoder = encoder
-        self.decoder = decoder
     }
     
     convenience init() {
-        self.init(
-            valueStore: UserDefaults.standard,
-            encoder: JSONEncoder(),
-            decoder: JSONDecoder()
-        )
+        self.init(valueStore: UserDefaults.standard)
     }
     
     // MARK: - Coins
