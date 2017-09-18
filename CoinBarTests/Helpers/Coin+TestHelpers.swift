@@ -24,4 +24,18 @@ extension Coin {
             percentChange7d: "5"
         )
     }
+    
+    static var ethereum: Coin {
+        return Coin(
+            id: "ethereum",
+            name: "Ethereum",
+            symbol: "ETH",
+            rank: "2",
+            priceUSD: "300.00",
+            priceBTC: "0.1",
+            percentChange1h: "2",
+            percentChange24h: "4",
+            percentChange7d: "10"
+        )
+    }
 }

@@ -27,7 +27,10 @@ final class PersistenceTests: XCTestCase {
     }
     
     private class StubEncoder: CoinBar.Encoder {
+        var value: Encodable? = nil
+        
         func encode<T>(_ value: T) throws -> Data where T : Encodable {
+            self.value = value
             return Data()
         }
     }
@@ -57,24 +60,55 @@ final class PersistenceTests: XCTestCase {
     
     override func tearDown() {
         stubValueStore = nil
+        stubEncoder = nil
+        stubDecoder = nil
         subject = nil
         super.tearDown()
+    }
+    
+    private func saveCoins(_ coins: [Coin]?) {
+        guard let coins = coins else {
+            stubValueStore.set(nil, forKey: "coins")
+            return
+        }
+        
+        stubValueStore.set(Data(), forKey: "coins")
+        stubDecoder.coins = coins
     }
     
     // MARK: - readCoins
     
     func test_readCoins_valueStoreEmpty_returnsEmpty() {
-        stubValueStore.set(nil, forKey: "coins")
+        saveCoins(nil)
         let coins = subject.readCoins()
         XCTAssertTrue(coins.isEmpty)
     }
     
     func test_readCoins_valueStorePopulated_returnsDecodedCoins() {
-        stubValueStore.set(Data(), forKey: "coins")
-        stubDecoder.coins = [Coin.bitcoin]
+        saveCoins([Coin.bitcoin])
         let coins = subject.readCoins()
         XCTAssertEqual(coins, [Coin.bitcoin])
     }
     
+    // MARK: - writeCoins
+    
+    func test_writeCoins_encodesAndSaves() {
+        saveCoins([Coin.bitcoin])
+        subject.writeCoins {
+            var coins = $0
+            coins.append(Coin.ethereum)
+            return coins
+        }
+        
+        XCTAssertEqual(stubEncoder.value as! [Coin], [Coin.bitcoin, Coin.ethereum])
+        XCTAssertEqual(stubValueStore.value(forKey: "coins"), Data())
+    }
+    
+    // MARK: - readPreferences
+
+    
+    
+    // MARK: - writePreferences
+
     
 }
