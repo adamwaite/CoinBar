@@ -15,6 +15,9 @@
 		994CA9781F70793500FFE717 /* CoinService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 994CA9771F70793500FFE717 /* CoinService.swift */; };
 		994CA97A1F70793E00FFE717 /* PreferencesService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 994CA9791F70793E00FFE717 /* PreferencesService.swift */; };
 		995F49621F6DC6AA000B8711 /* MenuController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 995F49611F6DC6AA000B8711 /* MenuController.swift */; };
+		9964551F1F7082A20039DCFB /* Encoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9964551E1F7082A20039DCFB /* Encoder.swift */; };
+		996455211F7082B50039DCFB /* Decoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 996455201F7082B50039DCFB /* Decoder.swift */; };
+		996455241F7088760039DCFB /* Coin+TestHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 996455231F7088760039DCFB /* Coin+TestHelpers.swift */; };
 		998136C01F6EDCD2003381BA /* ImageCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 998136BF1F6EDCD2003381BA /* ImageCache.swift */; };
 		998136C21F6F1129003381BA /* CoinMenuItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 998136C11F6F1129003381BA /* CoinMenuItemView.swift */; };
 		998136C51F6F1150003381BA /* NibLoadable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 998136C41F6F1150003381BA /* NibLoadable.swift */; };
@@ -53,6 +56,9 @@
 		994CA9771F70793500FFE717 /* CoinService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoinService.swift; sourceTree = "<group>"; };
 		994CA9791F70793E00FFE717 /* PreferencesService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreferencesService.swift; sourceTree = "<group>"; };
 		995F49611F6DC6AA000B8711 /* MenuController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuController.swift; sourceTree = "<group>"; };
+		9964551E1F7082A20039DCFB /* Encoder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Encoder.swift; sourceTree = "<group>"; };
+		996455201F7082B50039DCFB /* Decoder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Decoder.swift; sourceTree = "<group>"; };
+		996455231F7088760039DCFB /* Coin+TestHelpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Coin+TestHelpers.swift"; sourceTree = "<group>"; };
 		998136BF1F6EDCD2003381BA /* ImageCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCache.swift; sourceTree = "<group>"; };
 		998136C11F6F1129003381BA /* CoinMenuItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoinMenuItemView.swift; sourceTree = "<group>"; };
 		998136C41F6F1150003381BA /* NibLoadable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NibLoadable.swift; sourceTree = "<group>"; };
@@ -131,6 +137,14 @@
 			path = "Supporting Files";
 			sourceTree = "<group>";
 		};
+		996455221F7088620039DCFB /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				996455231F7088760039DCFB /* Coin+TestHelpers.swift */,
+			);
+			path = Helpers;
+			sourceTree = "<group>";
+		};
 		998136C31F6F1140003381BA /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
@@ -195,6 +209,7 @@
 			children = (
 				998518E01F6DC8240072EADB /* CoinBarTests.swift */,
 				99D3E9771F6CF8F1003C1CB3 /* Info.plist */,
+				996455221F7088620039DCFB /* Helpers */,
 				994CA96C1F7078D900FFE717 /* Service */,
 				994CA9731F70790400FFE717 /* Model */,
 			);
@@ -248,6 +263,8 @@
 			children = (
 				99D3E9921F6D01DC003C1CB3 /* Persistence.swift */,
 				99A0C6631F6E5D5500390B95 /* ValueStore.swift */,
+				9964551E1F7082A20039DCFB /* Encoder.swift */,
+				996455201F7082B50039DCFB /* Decoder.swift */,
 			);
 			path = Persistence;
 			sourceTree = "<group>";
@@ -369,6 +386,7 @@
 				99D3E9971F6D05A6003C1CB3 /* WebServices.swift in Sources */,
 				99D3E98F1F6D0180003C1CB3 /* Preferences.swift in Sources */,
 				998136C51F6F1150003381BA /* NibLoadable.swift in Sources */,
+				996455211F7082B50039DCFB /* Decoder.swift in Sources */,
 				998136C21F6F1129003381BA /* CoinMenuItemView.swift in Sources */,
 				99D3E9851F6D0014003C1CB3 /* Result.swift in Sources */,
 				99D3E9831F6CFFD8003C1CB3 /* Service.swift in Sources */,
@@ -377,6 +395,7 @@
 				99A0C6621F6DCDF500390B95 /* PreferencesViewController.swift in Sources */,
 				994CA9781F70793500FFE717 /* CoinService.swift in Sources */,
 				994CA97A1F70793E00FFE717 /* PreferencesService.swift in Sources */,
+				9964551F1F7082A20039DCFB /* Encoder.swift in Sources */,
 				99D3E98D1F6D016B003C1CB3 /* Coin.swift in Sources */,
 				99D3E9911F6D01CA003C1CB3 /* Networking.swift in Sources */,
 				994CA9681F70414000FFE717 /* FiatCurrency.swift in Sources */,
@@ -391,6 +410,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				996455241F7088760039DCFB /* Coin+TestHelpers.swift in Sources */,
 				994CA96E1F7078EA00FFE717 /* ServiceTests.swift in Sources */,
 				994CA9721F7078FF00FFE717 /* NetworkingTests.swift in Sources */,
 				994CA9701F7078F900FFE717 /* PersistenceTests.swift in Sources */,
@@ -566,13 +586,13 @@
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = PNRPD9DG72;
-				INFOPLIST_FILE = "Coin BarTests/Info.plist";
+				INFOPLIST_FILE = CoinBarTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "adamjwaite.co.uk.Coin-BarTests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 4.0;
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Coin Bar.app/Contents/MacOS/Coin Bar";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/CoinBar.app/Contents/MacOS/CoinBar";
 			};
 			name = Debug;
 		};
@@ -585,12 +605,12 @@
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = PNRPD9DG72;
-				INFOPLIST_FILE = "Coin BarTests/Info.plist";
+				INFOPLIST_FILE = CoinBarTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "adamjwaite.co.uk.Coin-BarTests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Coin Bar.app/Contents/MacOS/Coin Bar";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/CoinBar.app/Contents/MacOS/CoinBar";
 			};
 			name = Release;
 		};

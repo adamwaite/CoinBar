@@ -35,31 +35,24 @@ final class PreferencesService: CoinServiceProtocol {
             preferences.favourites.append(coin)
             return preferences
         }
-        
-//        let prefs = getPreferences()
-//        var newFavourites = prefs.favourites
-//        newFavourites.append(coin.id)
-//        let newPrefs = Preferences(favourites: newFavourites, fiatCurrency: prefs.fiatCurrency)
-//        persistence.writePreferences(preferences: newPrefs)
-//        observers.values.forEach { $0.coinsUpdated() }
     }
     
     func removeFavourite(_ coin: Coin) {
-//        let prefs = getPreferences()
-//        var newFavourites = prefs.favourites
-//        if let index = newFavourites.index(of: coin.id) {
-//            newFavourites.remove(at: index)
-//        }
-//        let newPrefs = Preferences(favourites: newFavourites, fiatCurrency: prefs.fiatCurrency)
-//        persistence.writePreferences(preferences: newPrefs)
-//        observers.values.forEach { $0.coinsUpdated() }
+        persistence.writePreferences {
+            var preferences: Preferences = $0
+            if let index = preferences.favourites.map({ $0.id }).index(of: coin.id) {
+                preferences.favourites.remove(at: index)
+            }
+            return preferences
+        }
     }
     
     func orderFavouriteCoins(_ coins: [Coin]) {
-//        let prefs = getPreferences()
-//        let newFavourites = coins.map { $0.id }
-//        let newPrefs = Preferences(favourites: newFavourites, fiatCurrency: prefs.fiatCurrency)
-//        persistence.writePreferences(preferences: newPrefs)
-//        observers.values.forEach { $0.coinsUpdated() }
+        persistence.writePreferences {
+            var preferences: Preferences = $0
+            preferences.favourites = coins
+            return preferences
+        }
     }
+    
 }

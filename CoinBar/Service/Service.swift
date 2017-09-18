@@ -59,7 +59,7 @@ final class Service: ServiceProtocol {
     
     convenience init() {
         let networking = Networking()
-        let persistence = Persistence(valueStore: UserDefaults.standard)
+        let persistence = Persistence()
         self.init(networking: networking, persistence: persistence)
     }
     
@@ -68,7 +68,8 @@ final class Service: ServiceProtocol {
     // MARK: Update
     
     func refreshCoins() {
-fatalError()
+        return
+        //fatalError()
         //        networking.getAllCoins { [weak self] result in
 //            if let error = result.error {
 //                print(error)
@@ -107,7 +108,8 @@ fatalError()
     }
     
     func getFavouriteCoins() -> [Coin] {
-fatalError()
+        return []
+//fatalError()
         //        let coins = getCoins()
 //        let preferences = getPreferences()
 //        return preferences.favourites.flatMap { identifier in
