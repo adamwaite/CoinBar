@@ -25,6 +25,13 @@ final class PreferencesViewController: NSViewController {
         }
     }
     
+    @IBOutlet weak var currencySelect: NSPopUpButton! {
+        didSet {
+            currencySelect.removeAllItems()
+            currencySelect.addItems(withTitles: FiatCurrency.all.map { $0.rawValue })
+        }
+    }
+    
     // MARK: - Lifecycle
     
     override func viewDidAppear() {
@@ -43,6 +50,12 @@ final class PreferencesViewController: NSViewController {
     private func reloadData() {
         coins = service.getFavouriteCoins()
         coinsTableView.reloadData()
+        
+//        let preferences = service.getPreferences()
+//        let fiatCurrencies = currencySelect.itemTitles
+//        if let index = fiatCurrencies.index(of: preferences.fiatCurrency) {
+//            currencySelect.selectItem(at: index)
+//        }
     }
     
     // MARK: - Actions

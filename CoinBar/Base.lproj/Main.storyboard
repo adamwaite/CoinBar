@@ -211,6 +211,7 @@
                     </view>
                     <connections>
                         <outlet property="coinsTableView" destination="dCg-Fu-oEj" id="bhw-hF-djs"/>
+                        <outlet property="currencySelect" destination="wX1-fc-DYr" id="ZRZ-95-RV9"/>
                     </connections>
                 </viewController>
                 <customObject id="rFU-Qh-wQR" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>

@@ -14,6 +14,12 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     fileprivate let service = Service()
     fileprivate let imageCache = ImageCache()
 
+    func applicationDidFinishLaunching(_ notification: Notification) {
+        
+        if let domain = Bundle.main.bundleIdentifier {
+            UserDefaults.standard.removePersistentDomain(forName: domain)
+        }
+    }
 }
 
 // MARK: Shared

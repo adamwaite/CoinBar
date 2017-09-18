@@ -43,7 +43,7 @@ final class CoinMenuItemView: NSView, NibLoadable {
         
         // Value label
         
-        priceLabel.stringValue = "0.00"
+        priceLabel.stringValue = coin.priceUSD
         
         // Percent change label
         

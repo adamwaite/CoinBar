@@ -91,7 +91,10 @@ final class MenuController: NSObject {
     }
     
     private func makeCoinMenuItemView(coin: Coin) -> CoinMenuItemView? {
-        guard let coinMenuItemView = CoinMenuItemView.createFromNib() else { return nil }
+        guard let coinMenuItemView = CoinMenuItemView.createFromNib() else {
+            return nil
+        }
+        
         coinMenuItemView.configure(with: coin, imageCache: imageCache)
         let clickRecognizer = NSClickGestureRecognizer(target: self, action: #selector(MenuController.viewCoin(_:)))
         coinMenuItemView.addGestureRecognizer(clickRecognizer)

@@ -34,7 +34,7 @@ protocol ServiceProtocol {
     func getCoin(search: String) -> Coin?
     func getFavouriteCoins() -> [Coin]
 //    func getLastRefreshDate() -> Date
-    func getPreferences() -> UserPreferences
+    func getPreferences() -> Preferences
     
     // Preferences
     func addFavourite(coin: Coin)
@@ -68,17 +68,18 @@ final class Service: ServiceProtocol {
     // MARK: Update
     
     func refreshCoins() {
-        networking.getAllCoins { [weak self] result in
-            if let error = result.error {
-                print(error)
-                return
-            }
-            
-            if let coins = result.value {
-                self?.persistence.writeCoins(coins: coins)
-                self?.observers.values.forEach { $0.coinsUpdated() }
-            }
-        }
+fatalError()
+        //        networking.getAllCoins { [weak self] result in
+//            if let error = result.error {
+//                print(error)
+//                return
+//            }
+//
+//            if let coins = result.value {
+//                self?.persistence.writeCoins(coins: coins)
+//                self?.observers.values.forEach { $0.coinsUpdated() }
+//            }
+//        }
     }
     
     // MARK: Observers
@@ -94,54 +95,59 @@ final class Service: ServiceProtocol {
     // MARK: Read
     
     func getCoins() -> [Coin] {
-        return persistence.readCoins()
+        fatalError()
+        //return persistence.readCoins()
     }
     
     func getCoin(search: String) -> Coin? {
-        let coins = getCoins()
-        let coin = coins.lazy.first { $0.symbol.lowercased() == search.lowercased() }
-        return coin
+fatalError()
+        //        let coins = getCoins()
+//        let coin = coins.lazy.first { $0.symbol.lowercased() == search.lowercased() }
+//        return coin
     }
     
     func getFavouriteCoins() -> [Coin] {
-        let coins = getCoins()
-        let preferences = getPreferences()
-        return preferences.favourites.flatMap { identifier in
-            return coins.lazy.first { $0.id == identifier }
-        }
+fatalError()
+        //        let coins = getCoins()
+//        let preferences = getPreferences()
+//        return preferences.favourites.flatMap { identifier in
+//            return coins.lazy.first { $0.id == identifier }
+//        }
     }
     
-    func getPreferences() -> UserPreferences {
-        return persistence.readUserPreferences()
+    func getPreferences() -> Preferences {
+        fatalError()
+        //        return persistence.readPreferences()
     }
     
     // MARK: Preferences
     
     func addFavourite(coin: Coin) {
-        let prefs = getPreferences()
-        var newFavourites = prefs.favourites
-        newFavourites.append(coin.id)
-        let newPrefs = UserPreferences(favourites: newFavourites)
-        persistence.writeUserPreferences(preferences: newPrefs)
-        observers.values.forEach { $0.coinsUpdated() }
+//        let prefs = getPreferences()
+//        var newFavourites = prefs.favourites
+//        newFavourites.append(coin.id)
+//        let newPrefs = Preferences(favourites: newFavourites, fiatCurrency: prefs.fiatCurrency)
+//        persistence.writePreferences(preferences: newPrefs)
+//        observers.values.forEach { $0.coinsUpdated() }
     }
     
     func removeFavourite(coin: Coin) {
-        let prefs = getPreferences()
-        var newFavourites = prefs.favourites
-        if let index = newFavourites.index(of: coin.id) {
-            newFavourites.remove(at: index)
-        }
-        let newPrefs = UserPreferences(favourites: newFavourites)
-        persistence.writeUserPreferences(preferences: newPrefs)
-        observers.values.forEach { $0.coinsUpdated() }
+//        let prefs = getPreferences()
+//        var newFavourites = prefs.favourites
+//        if let index = newFavourites.index(of: coin.id) {
+//            newFavourites.remove(at: index)
+//        }
+//        let newPrefs = Preferences(favourites: newFavourites, fiatCurrency: prefs.fiatCurrency)
+//        persistence.writePreferences(preferences: newPrefs)
+//        observers.values.forEach { $0.coinsUpdated() }
     }
     
     func orderFavourites(coins: [Coin]) {
-        let newFavourites = coins.map { $0.id }
-        let newPrefs = UserPreferences(favourites: newFavourites)
-        persistence.writeUserPreferences(preferences: newPrefs)
-        observers.values.forEach { $0.coinsUpdated() }
+//        let prefs = getPreferences()
+//        let newFavourites = coins.map { $0.id }
+//        let newPrefs = Preferences(favourites: newFavourites, fiatCurrency: prefs.fiatCurrency)
+//        persistence.writePreferences(preferences: newPrefs)
+//        observers.values.forEach { $0.coinsUpdated() }
     }
 
 }

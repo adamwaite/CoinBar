@@ -11,10 +11,10 @@ import Cocoa
 protocol PersistenceProtocol {
     
     func readCoins() -> [Coin]
-    func writeCoins(coins: [Coin])
+    func writeCoins(write: ([Coin]) -> ([Coin]))
     
-    func readUserPreferences() -> UserPreferences
-    func writeUserPreferences(preferences: UserPreferences)
+    func readPreferences() -> Preferences
+    func writePreferences(write: (Preferences) -> (Preferences))
 
 }
 
@@ -40,7 +40,13 @@ final class Persistence: PersistenceProtocol {
         return coins
     }
     
-    func writeCoins(coins: [Coin]) {
+    func writeCoins(write: ([Coin]) -> ([Coin])) {
+        let coins = readCoins()
+        let updated = write(coins)
+        saveCoins(updated)
+    }
+    
+    private func saveCoins(_ coins: [Coin]) {
         if let encoded = try? encoder.encode(coins) {
             valueStore.set(encoded, forKey: "coins")
         }
@@ -48,18 +54,24 @@ final class Persistence: PersistenceProtocol {
     
     // MARK: - Preferences
     
-    func readUserPreferences() -> UserPreferences {
+    func readPreferences() -> Preferences {
         guard let encoded: Data = valueStore.value(forKey: "preferences"),
-            let prefs = try? decoder.decode(UserPreferences.self, from: encoded) else {
-                let defaultPreferences = UserPreferences.defaultPreferences()
-                writeUserPreferences(preferences: defaultPreferences)
+            let prefs = try? decoder.decode(Preferences.self, from: encoded) else {
+                let defaultPreferences = Preferences.defaultPreferences()
+                savePreferences(defaultPreferences)
                 return defaultPreferences
         }
         
         return prefs
     }
     
-    func writeUserPreferences(preferences: UserPreferences) {
+    func writePreferences(write: (Preferences) -> (Preferences)) {
+        let preferences = readPreferences()
+        let updated = write(preferences)
+        savePreferences(updated)
+    }
+    
+    private func savePreferences(_ preferences: Preferences) {
         if let encoded = try? encoder.encode(preferences) {
             valueStore.set(encoded, forKey: "preferences")
         }

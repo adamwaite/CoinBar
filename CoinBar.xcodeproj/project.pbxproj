@@ -7,6 +7,13 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		994CA9681F70414000FFE717 /* FiatCurrency.swift in Sources */ = {isa = PBXBuildFile; fileRef = 994CA9671F70414000FFE717 /* FiatCurrency.swift */; };
+		994CA96E1F7078EA00FFE717 /* ServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 994CA96D1F7078EA00FFE717 /* ServiceTests.swift */; };
+		994CA9701F7078F900FFE717 /* PersistenceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 994CA96F1F7078F900FFE717 /* PersistenceTests.swift */; };
+		994CA9721F7078FF00FFE717 /* NetworkingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 994CA9711F7078FF00FFE717 /* NetworkingTests.swift */; };
+		994CA9761F70792C00FFE717 /* ImageService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 994CA9751F70792C00FFE717 /* ImageService.swift */; };
+		994CA9781F70793500FFE717 /* CoinService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 994CA9771F70793500FFE717 /* CoinService.swift */; };
+		994CA97A1F70793E00FFE717 /* PreferencesService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 994CA9791F70793E00FFE717 /* PreferencesService.swift */; };
 		995F49621F6DC6AA000B8711 /* MenuController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 995F49611F6DC6AA000B8711 /* MenuController.swift */; };
 		998136C01F6EDCD2003381BA /* ImageCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 998136BF1F6EDCD2003381BA /* ImageCache.swift */; };
 		998136C21F6F1129003381BA /* CoinMenuItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 998136C11F6F1129003381BA /* CoinMenuItemView.swift */; };
@@ -21,7 +28,7 @@
 		99D3E9851F6D0014003C1CB3 /* Result.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99D3E9841F6D0014003C1CB3 /* Result.swift */; };
 		99D3E9871F6D00E6003C1CB3 /* Error.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99D3E9861F6D00E6003C1CB3 /* Error.swift */; };
 		99D3E98D1F6D016B003C1CB3 /* Coin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99D3E98C1F6D016B003C1CB3 /* Coin.swift */; };
-		99D3E98F1F6D0180003C1CB3 /* UserPreferences.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99D3E98E1F6D0180003C1CB3 /* UserPreferences.swift */; };
+		99D3E98F1F6D0180003C1CB3 /* Preferences.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99D3E98E1F6D0180003C1CB3 /* Preferences.swift */; };
 		99D3E9911F6D01CA003C1CB3 /* Networking.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99D3E9901F6D01CA003C1CB3 /* Networking.swift */; };
 		99D3E9931F6D01DC003C1CB3 /* Persistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99D3E9921F6D01DC003C1CB3 /* Persistence.swift */; };
 		99D3E9971F6D05A6003C1CB3 /* WebServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99D3E9961F6D05A6003C1CB3 /* WebServices.swift */; };
@@ -38,6 +45,13 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		994CA9671F70414000FFE717 /* FiatCurrency.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FiatCurrency.swift; sourceTree = "<group>"; };
+		994CA96D1F7078EA00FFE717 /* ServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceTests.swift; sourceTree = "<group>"; };
+		994CA96F1F7078F900FFE717 /* PersistenceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistenceTests.swift; sourceTree = "<group>"; };
+		994CA9711F7078FF00FFE717 /* NetworkingTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkingTests.swift; sourceTree = "<group>"; };
+		994CA9751F70792C00FFE717 /* ImageService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageService.swift; sourceTree = "<group>"; };
+		994CA9771F70793500FFE717 /* CoinService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoinService.swift; sourceTree = "<group>"; };
+		994CA9791F70793E00FFE717 /* PreferencesService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreferencesService.swift; sourceTree = "<group>"; };
 		995F49611F6DC6AA000B8711 /* MenuController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuController.swift; sourceTree = "<group>"; };
 		998136BF1F6EDCD2003381BA /* ImageCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCache.swift; sourceTree = "<group>"; };
 		998136C11F6F1129003381BA /* CoinMenuItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoinMenuItemView.swift; sourceTree = "<group>"; };
@@ -57,7 +71,7 @@
 		99D3E9841F6D0014003C1CB3 /* Result.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Result.swift; sourceTree = "<group>"; };
 		99D3E9861F6D00E6003C1CB3 /* Error.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Error.swift; sourceTree = "<group>"; };
 		99D3E98C1F6D016B003C1CB3 /* Coin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coin.swift; sourceTree = "<group>"; };
-		99D3E98E1F6D0180003C1CB3 /* UserPreferences.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserPreferences.swift; sourceTree = "<group>"; };
+		99D3E98E1F6D0180003C1CB3 /* Preferences.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Preferences.swift; sourceTree = "<group>"; };
 		99D3E9901F6D01CA003C1CB3 /* Networking.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Networking.swift; sourceTree = "<group>"; };
 		99D3E9921F6D01DC003C1CB3 /* Persistence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Persistence.swift; sourceTree = "<group>"; };
 		99D3E9961F6D05A6003C1CB3 /* WebServices.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebServices.swift; sourceTree = "<group>"; };
@@ -82,6 +96,32 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		994CA96C1F7078D900FFE717 /* Service */ = {
+			isa = PBXGroup;
+			children = (
+				994CA96D1F7078EA00FFE717 /* ServiceTests.swift */,
+				994CA96F1F7078F900FFE717 /* PersistenceTests.swift */,
+				994CA9711F7078FF00FFE717 /* NetworkingTests.swift */,
+			);
+			path = Service;
+			sourceTree = "<group>";
+		};
+		994CA9731F70790400FFE717 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		994CA97B1F70799A00FFE717 /* Types */ = {
+			isa = PBXGroup;
+			children = (
+				99D3E9841F6D0014003C1CB3 /* Result.swift */,
+				99D3E9861F6D00E6003C1CB3 /* Error.swift */,
+			);
+			path = Types;
+			sourceTree = "<group>";
+		};
 		995F49601F6DC302000B8711 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
@@ -139,6 +179,7 @@
 			children = (
 				99D3E9621F6CF8F1003C1CB3 /* AppDelegate.swift */,
 				99D3E9681F6CF8F1003C1CB3 /* Main.storyboard */,
+				994CA97B1F70799A00FFE717 /* Types */,
 				99D3E98A1F6D014C003C1CB3 /* App */,
 				998136C31F6F1140003381BA /* Extensions */,
 				99D3E98B1F6D015A003C1CB3 /* Model */,
@@ -154,6 +195,8 @@
 			children = (
 				998518E01F6DC8240072EADB /* CoinBarTests.swift */,
 				99D3E9771F6CF8F1003C1CB3 /* Info.plist */,
+				994CA96C1F7078D900FFE717 /* Service */,
+				994CA9731F70790400FFE717 /* Model */,
 			);
 			path = CoinBarTests;
 			sourceTree = "<group>";
@@ -162,8 +205,10 @@
 			isa = PBXGroup;
 			children = (
 				99D3E9821F6CFFD8003C1CB3 /* Service.swift */,
-				99D3E9841F6D0014003C1CB3 /* Result.swift */,
-				99D3E9861F6D00E6003C1CB3 /* Error.swift */,
+				994CA9771F70793500FFE717 /* CoinService.swift */,
+				994CA9751F70792C00FFE717 /* ImageService.swift */,
+				998136BF1F6EDCD2003381BA /* ImageCache.swift */,
+				994CA9791F70793E00FFE717 /* PreferencesService.swift */,
 				99D3E9981F6D05B0003C1CB3 /* Networking */,
 				99D3E9991F6D05BA003C1CB3 /* Persistence */,
 			);
@@ -183,7 +228,8 @@
 			isa = PBXGroup;
 			children = (
 				99D3E98C1F6D016B003C1CB3 /* Coin.swift */,
-				99D3E98E1F6D0180003C1CB3 /* UserPreferences.swift */,
+				99D3E98E1F6D0180003C1CB3 /* Preferences.swift */,
+				994CA9671F70414000FFE717 /* FiatCurrency.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -200,7 +246,6 @@
 		99D3E9991F6D05BA003C1CB3 /* Persistence */ = {
 			isa = PBXGroup;
 			children = (
-				998136BF1F6EDCD2003381BA /* ImageCache.swift */,
 				99D3E9921F6D01DC003C1CB3 /* Persistence.swift */,
 				99A0C6631F6E5D5500390B95 /* ValueStore.swift */,
 			);
@@ -322,7 +367,7 @@
 			files = (
 				99A0C6641F6E5D5500390B95 /* ValueStore.swift in Sources */,
 				99D3E9971F6D05A6003C1CB3 /* WebServices.swift in Sources */,
-				99D3E98F1F6D0180003C1CB3 /* UserPreferences.swift in Sources */,
+				99D3E98F1F6D0180003C1CB3 /* Preferences.swift in Sources */,
 				998136C51F6F1150003381BA /* NibLoadable.swift in Sources */,
 				998136C21F6F1129003381BA /* CoinMenuItemView.swift in Sources */,
 				99D3E9851F6D0014003C1CB3 /* Result.swift in Sources */,
@@ -330,8 +375,12 @@
 				99D3E9871F6D00E6003C1CB3 /* Error.swift in Sources */,
 				99D3E9631F6CF8F1003C1CB3 /* AppDelegate.swift in Sources */,
 				99A0C6621F6DCDF500390B95 /* PreferencesViewController.swift in Sources */,
+				994CA9781F70793500FFE717 /* CoinService.swift in Sources */,
+				994CA97A1F70793E00FFE717 /* PreferencesService.swift in Sources */,
 				99D3E98D1F6D016B003C1CB3 /* Coin.swift in Sources */,
 				99D3E9911F6D01CA003C1CB3 /* Networking.swift in Sources */,
+				994CA9681F70414000FFE717 /* FiatCurrency.swift in Sources */,
+				994CA9761F70792C00FFE717 /* ImageService.swift in Sources */,
 				995F49621F6DC6AA000B8711 /* MenuController.swift in Sources */,
 				998136C01F6EDCD2003381BA /* ImageCache.swift in Sources */,
 				99D3E9931F6D01DC003C1CB3 /* Persistence.swift in Sources */,
@@ -342,6 +391,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				994CA96E1F7078EA00FFE717 /* ServiceTests.swift in Sources */,
+				994CA9721F7078FF00FFE717 /* NetworkingTests.swift in Sources */,
+				994CA9701F7078F900FFE717 /* PersistenceTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
