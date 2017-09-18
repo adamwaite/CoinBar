@@ -19,7 +19,11 @@ final class PreferencesViewController: NSViewController {
     
     // MARK: UI
     
-    @IBOutlet private(set) weak var coinsTableView: NSTableView!
+    @IBOutlet private(set) weak var coinsTableView: NSTableView! {
+        didSet {
+            coinsTableView.registerForDraggedTypes([NSPasteboard.PasteboardType("Coin")])
+        }
+    }
     
     // MARK: - Lifecycle
     
@@ -65,7 +69,7 @@ final class PreferencesViewController: NSViewController {
         alert.messageText = "Add Coin"
 
         let textField = NSTextField(frame: NSRect(x: 0, y: 0, width: 300, height: 24))
-        textField.placeholderString = "e.g. BTC"
+        textField.placeholderString = "e.g. \"BTC\" or \"BTC,ETH,LTC\""
         alert.accessoryView = textField
         
         alert.beginSheetModal(for: window) { response in
@@ -73,12 +77,13 @@ final class PreferencesViewController: NSViewController {
             switch response {
             
             case .alertFirstButtonReturn:
-                let symbol = textField.stringValue
-                if let coin = self.service.getCoin(search: symbol) {
-                    self.service.addFavourite(coin: coin)
-                    self.reloadData()
-                }
-            
+                textField.stringValue
+                    .replacingOccurrences(of: " ", with: "")
+                    .components(separatedBy: ",")
+                    .flatMap(self.service.getCoin)
+                    .forEach(self.service.addFavourite)
+                self.reloadData()
+
             default:
                 return
             }
@@ -136,5 +141,45 @@ extension PreferencesViewController: NSTableViewDelegate, NSTableViewDataSource 
         }
         
         return cell
+    }
+    
+    // Drag and Drop
+    
+    func tableView(_ tableView: NSTableView, writeRowsWith rowIndexes: IndexSet, to pboard: NSPasteboard) -> Bool {
+        let data = NSKeyedArchiver.archivedData(withRootObject: [rowIndexes])
+        pboard.declareTypes([NSPasteboard.PasteboardType("Coin")], owner:self)
+        pboard.setData(data, forType: NSPasteboard.PasteboardType("Coin"))
+        return true
+    }
+    
+    func tableView(_ tableView: NSTableView, validateDrop info: NSDraggingInfo, proposedRow row: Int, proposedDropOperation dropOperation: NSTableView.DropOperation) -> NSDragOperation {
+        tableView.setDropRow(row, dropOperation: .above)
+        return NSDragOperation.move
+    }
+    
+    func tableView(_ tableView: NSTableView, acceptDrop info: NSDraggingInfo, row: Int, dropOperation: NSTableView.DropOperation) -> Bool {
+        let pasteboard = info.draggingPasteboard()
+
+        guard let rowData = pasteboard.data(forType: NSPasteboard.PasteboardType("Coin")),
+            let data = NSKeyedUnarchiver.unarchiveObject(with: rowData) as? Array<IndexSet>,
+            let indexSet = data.first,
+            let movingFromIndex = indexSet.first else {
+            return false
+        }
+        
+        let movingCoin = coins[movingFromIndex]
+        let movingToIndex = row
+
+        coins.remove(at: movingFromIndex)
+        
+        if movingToIndex > coins.endIndex {
+            coins.append(movingCoin)
+        } else {
+            coins.insert(movingCoin, at: movingToIndex)
+        }
+        
+        service.orderFavourites(coins: coins)
+        
+        return true
     }
 }

@@ -29,6 +29,6 @@ extension NSApplication {
     }
     
     var imageCache: ImageCacheProtocol {
-        return _delegate.imageCache!
+        return _delegate.imageCache
     }
 }
