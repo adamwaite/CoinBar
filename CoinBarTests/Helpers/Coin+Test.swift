@@ -1,5 +1,5 @@
 //
-//  Coin+TestHelpers.swift
+//  Coin+Test.swift
 //  CoinBarTests
 //
 //  Created by Adam Waite on 19/09/2017.
