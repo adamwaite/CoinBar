@@ -11,26 +11,6 @@ import XCTest
 
 final class PersistenceTests: XCTestCase {
     
-    // MARK: - Stubs
-    
-    private class StubValueStore: ValueStore {
-
-        var dictionary = [String: Any]()
-        
-        func set(_ value: Any?, forKey key: String) {
-            dictionary[key] = value
-        }
-        
-        func value<T>(forKey key: String) -> T? {
-            return dictionary[key] as? T
-        }
-        
-        func setCoins(_ coins: [Coin]) {
-            let data = try! JSONEncoder().encode(coins)
-            set(data, forKey: "coins")
-        }
-    }
-    
     // MARK: - Environment
     
     private var stubValueStore: StubValueStore!
@@ -70,13 +50,29 @@ final class PersistenceTests: XCTestCase {
             coins.append(Coin.ethereum)
             return coins
         }
+
+        let persistedValue: Data? = stubValueStore.value(forKey: "coins")
+        XCTAssertNotNil(persistedValue)
+
         let coins = subject.readCoins()
         XCTAssertEqual(coins, [Coin.bitcoin, Coin.ethereum])
     }
     
     // MARK: - readPreferences
 
+    func test_readPreferences_valueStoreEmpty_returnsDefaults() {
+
+    }
     
+    func test_readPreferences_valueStoreEmpty_savesDefaults() {
+
+    }
+    
+//    func test_readCoins_valueStorePopulated_returnsDecodedCoins() {
+//        stubValueStore.setCoins([Coin.bitcoin])
+//        let coins = subject.readCoins()
+//        XCTAssertEqual(coins, [Coin.bitcoin])
+//    }
     
     // MARK: - writePreferences
 

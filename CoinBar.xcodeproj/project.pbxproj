@@ -16,6 +16,9 @@
 		994CA97A1F70793E00FFE717 /* PreferencesService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 994CA9791F70793E00FFE717 /* PreferencesService.swift */; };
 		995F49621F6DC6AA000B8711 /* MenuController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 995F49611F6DC6AA000B8711 /* MenuController.swift */; };
 		996455241F7088760039DCFB /* Coin+TestHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 996455231F7088760039DCFB /* Coin+TestHelpers.swift */; };
+		996455261F7103570039DCFB /* CoinTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 996455251F7103570039DCFB /* CoinTests.swift */; };
+		996455281F7103700039DCFB /* PreferencesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 996455271F7103700039DCFB /* PreferencesTests.swift */; };
+		9964552A1F7103E10039DCFB /* StubValueStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 996455291F7103E10039DCFB /* StubValueStore.swift */; };
 		998136C01F6EDCD2003381BA /* ImageCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 998136BF1F6EDCD2003381BA /* ImageCache.swift */; };
 		998136C21F6F1129003381BA /* CoinMenuItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 998136C11F6F1129003381BA /* CoinMenuItemView.swift */; };
 		998136C51F6F1150003381BA /* NibLoadable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 998136C41F6F1150003381BA /* NibLoadable.swift */; };
@@ -55,6 +58,9 @@
 		994CA9791F70793E00FFE717 /* PreferencesService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreferencesService.swift; sourceTree = "<group>"; };
 		995F49611F6DC6AA000B8711 /* MenuController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuController.swift; sourceTree = "<group>"; };
 		996455231F7088760039DCFB /* Coin+TestHelpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Coin+TestHelpers.swift"; sourceTree = "<group>"; };
+		996455251F7103570039DCFB /* CoinTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoinTests.swift; sourceTree = "<group>"; };
+		996455271F7103700039DCFB /* PreferencesTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreferencesTests.swift; sourceTree = "<group>"; };
+		996455291F7103E10039DCFB /* StubValueStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StubValueStore.swift; sourceTree = "<group>"; };
 		998136BF1F6EDCD2003381BA /* ImageCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCache.swift; sourceTree = "<group>"; };
 		998136C11F6F1129003381BA /* CoinMenuItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoinMenuItemView.swift; sourceTree = "<group>"; };
 		998136C41F6F1150003381BA /* NibLoadable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NibLoadable.swift; sourceTree = "<group>"; };
@@ -111,6 +117,8 @@
 		994CA9731F70790400FFE717 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				996455251F7103570039DCFB /* CoinTests.swift */,
+				996455271F7103700039DCFB /* PreferencesTests.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -137,6 +145,7 @@
 			isa = PBXGroup;
 			children = (
 				996455231F7088760039DCFB /* Coin+TestHelpers.swift */,
+				996455291F7103E10039DCFB /* StubValueStore.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -206,8 +215,8 @@
 				998518E01F6DC8240072EADB /* CoinBarTests.swift */,
 				99D3E9771F6CF8F1003C1CB3 /* Info.plist */,
 				996455221F7088620039DCFB /* Helpers */,
-				994CA96C1F7078D900FFE717 /* Service */,
 				994CA9731F70790400FFE717 /* Model */,
+				994CA96C1F7078D900FFE717 /* Service */,
 			);
 			path = CoinBarTests;
 			sourceTree = "<group>";
@@ -402,10 +411,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				996455281F7103700039DCFB /* PreferencesTests.swift in Sources */,
+				9964552A1F7103E10039DCFB /* StubValueStore.swift in Sources */,
 				996455241F7088760039DCFB /* Coin+TestHelpers.swift in Sources */,
 				994CA96E1F7078EA00FFE717 /* ServiceTests.swift in Sources */,
 				994CA9721F7078FF00FFE717 /* NetworkingTests.swift in Sources */,
 				994CA9701F7078F900FFE717 /* PersistenceTests.swift in Sources */,
+				996455261F7103570039DCFB /* CoinTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
