@@ -24,13 +24,13 @@ final class PreferencesTests: XCTestCase {
     func test_equatable_equal_isTrue() {
         let a = Preferences(favouriteCoins: ["bitcoin"], currency: "GBP")
         let b = Preferences(favouriteCoins: ["bitcoin"], currency: "GBP")
-        XCTAssertEqual(a, b)
+        XCTAssertTrue(a == b)
     }
     
     func test_equatable_notEqual_isFalse() {
         let a = Preferences(favouriteCoins: ["bitcoin"], currency: "GBP")
         let b = Preferences(favouriteCoins: ["bitcoin"], currency: "USD")
-        XCTAssertNotEqual(a, b)
+        XCTAssertFalse(a == b)
     }
     
     // MARK: - <Codable>

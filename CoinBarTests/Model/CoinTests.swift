@@ -16,29 +16,43 @@ final class CoinTests: XCTestCase {
     func test_equatable_idEqual_isTrue() {
         let a = Coin.bitcoin
         let b = Coin.bitcoin
-        XCTAssertEqual(a, b)
+        XCTAssertTrue(a == b)
     }
     
     func test_equatable_idNotEqual_isFalse() {
         let a = Coin.bitcoin
         let b = Coin.ethereum
-        XCTAssertNotEqual(a, b)
+        XCTAssertFalse(a == b)
     }
     
     // MARK: - <Codable>
     
-    func test_codable_decodesCorrectly() {
+    func test_codable_encodesAndDecodesCorrectly() {
         let coinData = JSONFixtures.coin()
+        
         let decoder = JSONDecoder()
-        let subject = try! decoder.decode(Coin.self, from: coinData)
-        XCTAssertEqual(subject.id, "bitcoin")
-        XCTAssertEqual(subject.name, "Bitcoin")
-        XCTAssertEqual(subject.symbol, "BTC")
-        XCTAssertEqual(subject.priceUSD, "3996.5")
-        XCTAssertEqual(subject.priceBTC, "1.0")
-        XCTAssertEqual(subject.percentChange1h, "-0.06")
-        XCTAssertEqual(subject.percentChange24h, "0.45")
-        XCTAssertEqual(subject.percentChange7d, "-4.74")
+        let decoded = try! decoder.decode(Coin.self, from: coinData)
+        XCTAssertEqual(decoded.id, "bitcoin")
+        XCTAssertEqual(decoded.name, "Bitcoin")
+        XCTAssertEqual(decoded.symbol, "BTC")
+        XCTAssertEqual(decoded.priceUSD, "4000.55")
+        XCTAssertEqual(decoded.priceBTC, "1.0")
+        XCTAssertEqual(decoded.percentChange1h, "0.05")
+        XCTAssertEqual(decoded.percentChange24h, "0.83")
+        XCTAssertEqual(decoded.percentChange7d, "2.82")
+        XCTAssertEqual(decoded.pricePreferredCurrency, "2945.42494025")
+        
+        let encoder = JSONEncoder()
+        let encoded = try! encoder.encode(decoded)
+        let redecoded = try! decoder.decode(Coin.self, from: encoded)
+        XCTAssertEqual(redecoded.id, "bitcoin")
+        XCTAssertEqual(redecoded.name, "Bitcoin")
+        XCTAssertEqual(redecoded.symbol, "BTC")
+        XCTAssertEqual(redecoded.priceUSD, "4000.55")
+        XCTAssertEqual(redecoded.priceBTC, "1.0")
+        XCTAssertEqual(redecoded.percentChange1h, "0.05")
+        XCTAssertEqual(redecoded.percentChange24h, "0.83")
+        XCTAssertEqual(redecoded.percentChange7d, "2.82")
+        XCTAssertEqual(redecoded.pricePreferredCurrency, "2945.42494025")
     }
-    
 }

@@ -9,10 +9,8 @@
 import Foundation
 
 struct Preferences: Codable {
-    
     var favouriteCoins: [String]
     var currency: String
-    
 }
 
 // MARK: - <Equatable>

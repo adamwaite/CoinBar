@@ -19,6 +19,7 @@ extension Coin {
             rank: "1",
             priceUSD: "3000.00",
             priceBTC: "1.0",
+            pricePreferredCurrency: nil,
             percentChange1h: "1",
             percentChange24h: "2",
             percentChange7d: "5"
@@ -33,6 +34,7 @@ extension Coin {
             rank: "2",
             priceUSD: "300.00",
             priceBTC: "0.1",
+            pricePreferredCurrency: nil,
             percentChange1h: "2",
             percentChange24h: "4",
             percentChange7d: "10"
