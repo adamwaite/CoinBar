@@ -114,8 +114,8 @@
 			isa = PBXGroup;
 			children = (
 				994CA96D1F7078EA00FFE717 /* PreferencesServiceTests.swift */,
-				994CA96F1F7078F900FFE717 /* PersistenceTests.swift */,
 				994CA9711F7078FF00FFE717 /* NetworkingTests.swift */,
+				994CA96F1F7078F900FFE717 /* PersistenceTests.swift */,
 			);
 			path = Service;
 			sourceTree = "<group>";

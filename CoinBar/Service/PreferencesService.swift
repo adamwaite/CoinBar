@@ -16,7 +16,7 @@ protocol PreferencesServiceProtocol {
     func addFavouriteCoin(_ coin: Coin)
     func removeFavouriteCoin(_ coin: Coin)
     
-    func setCurrency(currency: Preferences.Currency)
+    func setCurrency(_ currency: Preferences.Currency)
 
 }
 
@@ -64,7 +64,7 @@ final class PreferencesService: PreferencesServiceProtocol {
     
     // MARK: - Currency
     
-    func setCurrency(currency: Preferences.Currency) {
+    func setCurrency(_ currency: Preferences.Currency) {
         persistence.writePreferences {
             var preferences: Preferences = $0
             preferences.currency = currency.rawValue
