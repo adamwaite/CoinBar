@@ -32,7 +32,7 @@ final class PreferencesService: CoinServiceProtocol {
     func addFavouriteCoin(_ coin: Coin) {
         persistence.writePreferences {
             var preferences: Preferences = $0
-            preferences.favourites.append(coin)
+            preferences.favouriteCoins.append(coin.id)
             return preferences
         }
     }
@@ -40,8 +40,8 @@ final class PreferencesService: CoinServiceProtocol {
     func removeFavourite(_ coin: Coin) {
         persistence.writePreferences {
             var preferences: Preferences = $0
-            if let index = preferences.favourites.map({ $0.id }).index(of: coin.id) {
-                preferences.favourites.remove(at: index)
+            if let index = preferences.favouriteCoins.index(of: coin.id) {
+                preferences.favouriteCoins.remove(at: index)
             }
             return preferences
         }
@@ -50,7 +50,7 @@ final class PreferencesService: CoinServiceProtocol {
     func orderFavouriteCoins(_ coins: [Coin]) {
         persistence.writePreferences {
             var preferences: Preferences = $0
-            preferences.favourites = coins
+            preferences.favouriteCoins = coins.map { $0.id }
             return preferences
         }
     }

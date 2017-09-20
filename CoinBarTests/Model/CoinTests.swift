@@ -16,13 +16,13 @@ final class CoinTests: XCTestCase {
     func test_equatable_idEqual_isTrue() {
         let a = Coin.bitcoin
         let b = Coin.bitcoin
-        XCTAssertTrue(a == b)
+        XCTAssertEqual(a, b)
     }
     
     func test_equatable_idNotEqual_isFalse() {
         let a = Coin.bitcoin
         let b = Coin.ethereum
-        XCTAssertFalse(a == b)
+        XCTAssertNotEqual(a, b)
     }
     
     // MARK: - <Codable>
@@ -40,5 +40,5 @@ final class CoinTests: XCTestCase {
         XCTAssertEqual(subject.percentChange24h, "0.45")
         XCTAssertEqual(subject.percentChange7d, "-4.74")
     }
-
+    
 }

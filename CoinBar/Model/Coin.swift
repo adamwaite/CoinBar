@@ -34,7 +34,11 @@ struct Coin: Codable {
         case percentChange7d = "percent_change_7d"
     }
     
-    // MARK: - Computed Properties
+}
+
+// MARK: - Computed
+
+extension Coin {
     
     var url: URL? {
         return URL(string: "https://coinmarketcap.com/currencies/\(id)/")
@@ -43,12 +47,9 @@ struct Coin: Codable {
     var imageURL: URL? {
         return URL(string: "https://files.coinmarketcap.com/static/img/coins/32x32/\(id).png")
     }
-    
-    var rankValue: Int {
-        return Int(rank)!
-    }
-    
 }
+
+// MARK: - <Equatable>
 
 extension Coin: Equatable {
     
