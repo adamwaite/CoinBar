@@ -61,20 +61,41 @@ final class PersistenceTests: XCTestCase {
     // MARK: - readPreferences
 
     func test_readPreferences_valueStoreEmpty_returnsDefaults() {
-        
+        let preferences = subject.readPreferences()
+        XCTAssertEqual(preferences, Preferences.defaultPreferences())
     }
     
     func test_readPreferences_valueStoreEmpty_savesDefaults() {
-
+        XCTAssertNil(stubValueStore.value(forKey: "preferences"))
+        _ = subject.readPreferences()
+        XCTAssertNotNil(stubValueStore.value(forKey: "preferences"))
     }
     
-//    func test_readCoins_valueStorePopulated_returnsDecodedCoins() {
-//        stubValueStore.setCoins([Coin.bitcoin])
-//        let coins = subject.readCoins()
-//        XCTAssertEqual(coins, [Coin.bitcoin])
-//    }
+    func test_readPreferences_valueStorePopulated_returnsDecodedCoins() {
+        let preferences = Preferences(favouriteCoins: ["neo"], currency: Preferences.Currency.brazilianReal.rawValue)
+        stubValueStore.setPreferences(preferences)
+        let readPreferences = subject.readPreferences()
+        XCTAssertEqual(preferences, readPreferences)
+    }
     
     // MARK: - writePreferences
 
+    func test_writePreferences_encodesAndSaves() {
+        let preferences = Preferences(favouriteCoins: ["monero"], currency: Preferences.Currency.greatBritishPound.rawValue)
+        stubValueStore.setPreferences(preferences)
+
+        subject.writePreferences {
+            var preferences = $0
+            preferences.currency = Preferences.Currency.unitedStatesDollar.rawValue
+            return preferences
+        }
+        
+        let persistedValue: Data? = stubValueStore.value(forKey: "preferences")
+        XCTAssertNotNil(persistedValue)
+        
+        let readPreferences = subject.readPreferences()
+        let expected = Preferences(favouriteCoins: ["monero"], currency: Preferences.Currency.unitedStatesDollar.rawValue)
+        XCTAssertEqual(readPreferences, expected)
+    }
     
 }

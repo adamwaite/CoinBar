@@ -12,6 +12,6 @@ protocol ImageServiceProtocol {
     
 }
 
-final class ImageService: CoinServiceProtocol {
+final class ImageService: ImageServiceProtocol {
     
 }

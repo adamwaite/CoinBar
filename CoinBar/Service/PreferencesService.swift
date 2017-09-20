@@ -9,11 +9,18 @@
 import Foundation
 
 protocol PreferencesServiceProtocol {
+    
     func getPreferences() -> Preferences
+    
+    func setFavouriteCoins(_ coins: [Coin])
     func addFavouriteCoin(_ coin: Coin)
+    func removeFavouriteCoin(_ coin: Coin)
+    
+    func setCurrency(currency: Preferences.Currency)
+
 }
 
-final class PreferencesService: CoinServiceProtocol {
+final class PreferencesService: PreferencesServiceProtocol {
     
     private let persistence: PersistenceProtocol
     
@@ -29,6 +36,14 @@ final class PreferencesService: CoinServiceProtocol {
     
     // MARK: - Coins
     
+    func setFavouriteCoins(_ coins: [Coin]) {
+        persistence.writePreferences {
+            var preferences: Preferences = $0
+            preferences.favouriteCoins = coins.map { $0.id }
+            return preferences
+        }
+    }
+    
     func addFavouriteCoin(_ coin: Coin) {
         persistence.writePreferences {
             var preferences: Preferences = $0
@@ -37,7 +52,7 @@ final class PreferencesService: CoinServiceProtocol {
         }
     }
     
-    func removeFavourite(_ coin: Coin) {
+    func removeFavouriteCoin(_ coin: Coin) {
         persistence.writePreferences {
             var preferences: Preferences = $0
             if let index = preferences.favouriteCoins.index(of: coin.id) {
@@ -47,10 +62,12 @@ final class PreferencesService: CoinServiceProtocol {
         }
     }
     
-    func orderFavouriteCoins(_ coins: [Coin]) {
+    // MARK: - Currency
+    
+    func setCurrency(currency: Preferences.Currency) {
         persistence.writePreferences {
             var preferences: Preferences = $0
-            preferences.favouriteCoins = coins.map { $0.id }
+            preferences.currency = currency.rawValue
             return preferences
         }
     }

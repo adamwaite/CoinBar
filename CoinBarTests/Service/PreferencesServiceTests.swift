@@ -6,8 +6,9 @@
 //  Copyright © 2017 adamjwaite.co.uk. All rights reserved.
 //
 
-import Foundation
+import XCTest
+@testable import CoinBar
 
-final class ServiceTests {
-    
+final class PreferencesServiceTests: XCTestCase {
+
 }

@@ -25,4 +25,9 @@ final class StubValueStore: ValueStore {
         let data = try! JSONEncoder().encode(coins)
         set(data, forKey: "coins")
     }
+    
+    func setPreferences(_ preferences: Preferences) {
+        let data = try! JSONEncoder().encode(preferences)
+        set(data, forKey: "preferences")
+    }
 }
