@@ -16,13 +16,13 @@ final class CoinTests: XCTestCase {
     func test_equatable_idEqual_isTrue() {
         let a = Coin.bitcoin
         let b = Coin.bitcoin
-        XCTAssert(a == b)
+        XCTAssertTrue(a == b)
     }
     
     func test_equatable_idNotEqual_isFalse() {
         let a = Coin.bitcoin
         let b = Coin.ethereum
-        XCTAssert(a == b)
+        XCTAssertFalse(a == b)
     }
     
     // MARK: - <Codable>
@@ -30,7 +30,7 @@ final class CoinTests: XCTestCase {
     func test_codable_decodesCorrectly() {
         let coinData = JSONFixtures.coin()
         let decoder = JSONDecoder()
-        let subject = decoder.decode(Coin.self, blah)
+        let subject = try! decoder.decode(Coin.self, from: coinData)
         XCTAssertEqual(subject.id, "bitcoin")
         XCTAssertEqual(subject.name, "Bitcoin")
         XCTAssertEqual(subject.symbol, "BTC")

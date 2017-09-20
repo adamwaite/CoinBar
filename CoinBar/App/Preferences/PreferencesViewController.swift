@@ -28,7 +28,7 @@ final class PreferencesViewController: NSViewController {
     @IBOutlet weak var currencySelect: NSPopUpButton! {
         didSet {
             currencySelect.removeAllItems()
-            currencySelect.addItems(withTitles: FiatCurrency.all.map { $0.rawValue })
+            currencySelect.addItems(withTitles: Preferences.Currency.all.map { $0.rawValue })
         }
     }
     
@@ -53,7 +53,7 @@ final class PreferencesViewController: NSViewController {
         
 //        let preferences = service.getPreferences()
 //        let fiatCurrencies = currencySelect.itemTitles
-//        if let index = fiatCurrencies.index(of: preferences.fiatCurrency) {
+//        if let index = fiatCurrencies.index(of: preferences.Preferences.Currency) {
 //            currencySelect.selectItem(at: index)
 //        }
     }

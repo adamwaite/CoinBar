@@ -11,7 +11,7 @@ import Foundation
 struct JSONFixtures {
     
     private static func data(file: String) -> Data {
-        let bundle = Bundle(for: CoinBarTests.self)
+        let bundle = Bundle(for: TestBundleClass.self)
         let path = bundle.path(forResource: file, ofType: "json")
         let url = URL(fileURLWithPath: path!)
         let fileData = try? Data(contentsOf: url)
@@ -25,4 +25,8 @@ struct JSONFixtures {
     static func coins() -> Data {
         return data(file: "coins")
     }
+}
+
+private class TestBundleClass {
+    
 }

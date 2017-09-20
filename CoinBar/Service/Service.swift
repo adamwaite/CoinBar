@@ -128,7 +128,7 @@ fatalError()
 //        let prefs = getPreferences()
 //        var newFavourites = prefs.favourites
 //        newFavourites.append(coin.id)
-//        let newPrefs = Preferences(favourites: newFavourites, fiatCurrency: prefs.fiatCurrency)
+//        let newPrefs = Preferences(favourites: newFavourites, Preferences.Currency: prefs.Preferences.Currency)
 //        persistence.writePreferences(preferences: newPrefs)
 //        observers.values.forEach { $0.coinsUpdated() }
     }
@@ -139,7 +139,7 @@ fatalError()
 //        if let index = newFavourites.index(of: coin.id) {
 //            newFavourites.remove(at: index)
 //        }
-//        let newPrefs = Preferences(favourites: newFavourites, fiatCurrency: prefs.fiatCurrency)
+//        let newPrefs = Preferences(favourites: newFavourites, Preferences.Currency: prefs.Preferences.Currency)
 //        persistence.writePreferences(preferences: newPrefs)
 //        observers.values.forEach { $0.coinsUpdated() }
     }
@@ -147,7 +147,7 @@ fatalError()
     func orderFavourites(coins: [Coin]) {
 //        let prefs = getPreferences()
 //        let newFavourites = coins.map { $0.id }
-//        let newPrefs = Preferences(favourites: newFavourites, fiatCurrency: prefs.fiatCurrency)
+//        let newPrefs = Preferences(favourites: newFavourites, Preferences.Currency: prefs.Preferences.Currency)
 //        persistence.writePreferences(preferences: newPrefs)
 //        observers.values.forEach { $0.coinsUpdated() }
     }

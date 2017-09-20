@@ -11,7 +11,7 @@ import Foundation
 struct Preferences: Codable {
     
     var favourites: [Coin]
-    var fiatCurrency: FiatCurrency
+    var currency: Currency
     
 }
 
@@ -21,7 +21,7 @@ extension Preferences {
         fatalError()
         
         //        let defaultFavourites = ["bitcoin", "ethereum", "litecoin"]
-//        let defaultFiatCurrency = FiatCurrency.unitedStatesDollar.rawValue
-//        return Preferences(favourites: defaultFavourites, fiatCurrency: defaultFiatCurrency)
+//        let defaultPreferences.Currency = Preferences.Currency.unitedStatesDollar.rawValue
+//        return Preferences(favourites: defaultFavourites, Preferences.Currency: defaultPreferences.Currency)
     }
 }

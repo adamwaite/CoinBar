@@ -61,7 +61,7 @@ final class PersistenceTests: XCTestCase {
     // MARK: - readPreferences
 
     func test_readPreferences_valueStoreEmpty_returnsDefaults() {
-
+        
     }
     
     func test_readPreferences_valueStoreEmpty_savesDefaults() {
