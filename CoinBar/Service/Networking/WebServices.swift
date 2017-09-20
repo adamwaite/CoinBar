@@ -17,16 +17,21 @@ protocol WebService {
 enum CoinWebService: WebService {
     
     case all
-    case specific(id: String)
-    
+    case coin(id: String)
+    case coinImage(id: String)
+
     var base: String  {
-        return "https://api.coinmarketcap.com/v1/"
+        switch self {
+        case .coinImage: return "https://files.coinmarketcap.com/"
+        default: return "https://api.coinmarketcap.com/v1/"
+        }
     }
     
     var endpoint: String {
         switch self {
         case .all: return "ticker"
-        case .specific(let id): return "ticker/\(id)"
+        case .coin(let id): return "ticker/\(id)"
+        case .coinImage(let id): return "static/img/coins/32x32/\(id).png"
         }
     }
         

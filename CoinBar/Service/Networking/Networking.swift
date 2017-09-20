@@ -9,6 +9,7 @@
 import Foundation
 
 protocol NetworkingProtocol {
+    func getData(at service: WebService, completion: @escaping (Result<Data>) -> ())
     func getResources<T: Decodable>(at service: WebService, completion: @escaping (Result<T>) -> ())
 }
 
@@ -22,9 +23,11 @@ final class Networking: NetworkingProtocol {
     
     // MARK: <NetworkingProtocol>
     
-    func getResources<T: Decodable>(at webService: WebService, completion: @escaping (Result<T>) -> ()) {
-        guard let request = makeRequest(webService: webService) else {
-            let result: Result<T> = .error("Invalid request")
+    
+    func getData(at service: WebService, completion: @escaping (Result<Data>) -> ()) {
+        
+        guard let request = makeRequest(webService: service) else {
+            let result: Result<Data> = .error("Invalid request")
             completion(result)
             return
         }
@@ -32,7 +35,26 @@ final class Networking: NetworkingProtocol {
         let task = session.dataTask(with: request) { data, response, error in
             
             guard let data = data, error == nil else {
-                let result: Result<T> = .error("Error downloading resource")
+                let result: Result<Data> = .error("Error downloading")
+                completion(result)
+                return
+            }
+            
+            let result: Result<Data> = .success(data)
+            completion(result)
+            
+        }
+        
+        task.resume()
+    
+    }
+    
+    func getResources<T: Decodable>(at webService: WebService, completion: @escaping (Result<T>) -> ()) {
+
+        getData(at: webService) { result in
+            
+            guard let data = result.value else {
+                let result: Result<T> = .error(result.error!)
                 completion(result)
                 return
             }
@@ -51,8 +73,6 @@ final class Networking: NetworkingProtocol {
             }
         }
         
-        task.resume()
-
     }
     
 //    func getAllCoins(completion: @escaping (Result<[Coin]>) -> ()) {

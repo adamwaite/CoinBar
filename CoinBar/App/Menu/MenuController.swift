@@ -13,7 +13,7 @@ final class MenuController: NSObject {
     // MARK: - Properties
     
     private var service: ServiceProtocol!
-    private var imageCache: ImageCacheProtocol!
+//    private var imageCache: ImageCacheProtocol!
    
     fileprivate var coins: [Coin] = []
     
@@ -27,7 +27,7 @@ final class MenuController: NSObject {
         let storyboard = NSStoryboard(name: NSStoryboard.Name("Main"), bundle: nil)
         let preferencesWindowController = storyboard.instantiateController(withIdentifier: NSStoryboard.SceneIdentifier("Preferences")) as! NSWindowController
         let preferencesViewController = preferencesWindowController.window!.contentViewController as! PreferencesViewController
-        preferencesViewController.configure(service: self.service, imageCache: self.imageCache)
+        preferencesViewController.configure(service: self.service)
         return preferencesWindowController
     }()
     
@@ -37,17 +37,17 @@ final class MenuController: NSObject {
         super.awakeFromNib()
         
         let service = NSApplication.shared.service
-        let imageCache = NSApplication.shared.imageCache
-        configure(service: service, imageCache: imageCache)
+//        let imageCache = NSApplication.shared.imageCache
+        configure(service: service)
         
         statusItem.menu = statusMenu
         statusItem.button?.image = NSImage(named: NSImage.Name("status-bar-icon"))
     
     }
     
-    func configure(service: ServiceProtocol, imageCache: ImageCacheProtocol) {
+    func configure(service: ServiceProtocol) {
         self.service = service
-        self.imageCache = imageCache
+//        self.imageCache = imageCache
         
         service.registerObserver(self)
         service.refreshCoins()
@@ -95,7 +95,7 @@ final class MenuController: NSObject {
             return nil
         }
         
-        coinMenuItemView.configure(with: coin, imageCache: imageCache)
+        coinMenuItemView.configure(with: coin)
         let clickRecognizer = NSClickGestureRecognizer(target: self, action: #selector(MenuController.viewCoin(_:)))
         coinMenuItemView.addGestureRecognizer(clickRecognizer)
         return coinMenuItemView

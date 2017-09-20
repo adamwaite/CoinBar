@@ -13,7 +13,7 @@ final class PreferencesViewController: NSViewController {
     // MARK: - Properties
     
     private var service: ServiceProtocol!
-    private var imageCache: ImageCacheProtocol!
+//    private var imageCache: ImageCacheProtocol!
 
     fileprivate var coins: [Coin] = []
     
@@ -40,9 +40,9 @@ final class PreferencesViewController: NSViewController {
         service.refreshCoins()
     }
     
-    func configure(service: ServiceProtocol, imageCache: ImageCacheProtocol) {
+    func configure(service: ServiceProtocol) {
         self.service = service
-        self.imageCache = imageCache
+//        self.imageCache = imageCache
     }
     
     // MARK: - Reload
@@ -146,12 +146,12 @@ extension PreferencesViewController: NSTableViewDelegate, NSTableViewDataSource 
         cell.textField?.stringValue = coin.symbol
         cell.imageView?.image = nil
         
-        imageCache.getCoinImage(for: coin) { result in
-            guard let image = result.value else { return }
-            DispatchQueue.main.async {
-                cell.imageView?.image = image
-            }
-        }
+//        imageCache.getCoinImage(for: coin) { result in
+//            guard let image = result.value else { return }
+//            DispatchQueue.main.async {
+//                cell.imageView?.image = image
+//            }
+//        }
         
         return cell
     }

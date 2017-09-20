@@ -28,11 +28,7 @@ extension Coin {
     
     var url: URL? {
         return URL(string: "https://coinmarketcap.com/currencies/\(id)/")
-    }
-    
-    var imageURL: URL? {
-        return URL(string: "https://files.coinmarketcap.com/static/img/coins/32x32/\(id).png")
-    }
+    }    
 }
 
 // MARK: - <Equatable>

@@ -11,35 +11,6 @@ import XCTest
 
 final class NetworkingTests: XCTestCase {
     
-    // MARK: - Stubs
-    
-    private final class StubURLSession: URLSession {
-        var data: Data?
-        var response: URLResponse?
-        var error: Error?
-        private(set) var request: URLRequest?
-        
-        override func dataTask(with request: URLRequest, completionHandler: @escaping (Data?, URLResponse?, Error?) -> Void) -> URLSessionDataTask {
-            self.request = request
-            let task = StubURLSessionDataTask()
-            completionHandler(data, response, error)
-            return task
-        }
-    }
-    
-    private final class StubURLSessionDataTask: URLSessionDataTask {
-        private(set) var resumed: Bool = false
-        private(set) var cancelled: Bool = false
-        
-        override func resume() {
-            resumed = true
-        }
-        
-        override func cancel() {
-            cancelled = true
-        }
-    }
-    
     // MARK: - Environment
     
     private var stubSession: StubURLSession!
@@ -57,15 +28,42 @@ final class NetworkingTests: XCTestCase {
         super.tearDown()
     }
     
-    private func noOp(result: Result<[Coin]>){
+    private func noOpData(result: Result<Data>){
         return
+    }
+    
+    private func noOpResources(result: Result<[Coin]>){
+        return
+    }
+
+    // MARK: - getData
+
+    func test_getData_sendsCorrectRequest() {
+        let webService = CoinWebService.all
+        subject.getData(at: webService, completion: noOpData)
+        XCTAssertEqual(stubSession.request?.url?.absoluteString, "https://api.coinmarketcap.com/v1/ticker")
+    }
+    
+    func test_getData_successfulResponse_parsesResource() {
+        stubSession.data = JSONFixtures.coins()
+        subject.getData(at: CoinWebService.all) { [weak self] result in
+            guard let data = result.value else { return XCTFail() }
+            XCTAssertEqual(data, self?.stubSession.data)
+        }
+    }
+    
+    func test_getData_errorResponse_passesError() {
+        stubSession.error = "Failed!"
+        subject.getResources(at: CoinWebService.all) { (result: Result<[Coin]>) in
+            XCTAssertNotNil(result.error)
+        }
     }
     
     // MARK: - getResources
     
     func test_getResources_sendsCorrectRequest() {
         let webService = CoinWebService.all
-        subject.getResources(at: webService, completion: noOp)
+        subject.getResources(at: webService, completion: noOpResources)
         XCTAssertEqual(stubSession.request?.url?.absoluteString, "https://api.coinmarketcap.com/v1/ticker")
     }
 

@@ -26,7 +26,7 @@ final class CoinMenuItemView: NSView, NibLoadable {
         super.draw(dirtyRect)
     }
     
-    func configure(with coin: Coin, imageCache: ImageCacheProtocol) {
+    func configure(with coin: Coin) {
         
         // Symbol
         
@@ -34,12 +34,12 @@ final class CoinMenuItemView: NSView, NibLoadable {
         
         // Image
         
-        imageCache.getCoinImage(for: coin) { result in
-            guard let image = result.value else { return }
-            DispatchQueue.main.async {
-                self.imageView.image = image
-            }
-        }
+//        imageCache.getCoinImage(for: coin) { result in
+//            guard let image = result.value else { return }
+//            DispatchQueue.main.async {
+//                self.imageView.image = image
+//            }
+//        }
         
         // Value label
         
