@@ -36,10 +36,10 @@ final class Persistence: PersistenceProtocol {
     
     // MARK: - Coins
     
-    func readCoins() -> [Coin] {
+    func readCoins() -> [Coin] {        
         guard let encoded: Data = valueStore.value(forKey: "coins"),
             let coins = try? decoder.decode([Coin].self, from: encoded) else {
-                return []
+            return []
         }
         
         return coins
