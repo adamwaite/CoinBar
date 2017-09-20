@@ -12,7 +12,7 @@ final class MenuController: NSObject {
     
     // MARK: - Properties
     
-    private var service: ServiceProtocol!
+//    private var service: ServiceProtocol!
 //    private var imageCache: ImageCacheProtocol!
    
     fileprivate var coins: [Coin] = []
@@ -27,7 +27,7 @@ final class MenuController: NSObject {
         let storyboard = NSStoryboard(name: NSStoryboard.Name("Main"), bundle: nil)
         let preferencesWindowController = storyboard.instantiateController(withIdentifier: NSStoryboard.SceneIdentifier("Preferences")) as! NSWindowController
         let preferencesViewController = preferencesWindowController.window!.contentViewController as! PreferencesViewController
-        preferencesViewController.configure(service: self.service)
+//        preferencesViewController.configure(service: self.service)
         return preferencesWindowController
     }()
     
@@ -36,25 +36,25 @@ final class MenuController: NSObject {
     override func awakeFromNib() {
         super.awakeFromNib()
         
-        let service = NSApplication.shared.service
+//        let service = NSApplication.shared.service
 //        let imageCache = NSApplication.shared.imageCache
-        configure(service: service)
+//        configure(service: service)
         
         statusItem.menu = statusMenu
         statusItem.button?.image = NSImage(named: NSImage.Name("status-bar-icon"))
     
     }
     
-    func configure(service: ServiceProtocol) {
-        self.service = service
-//        self.imageCache = imageCache
-        
-        service.registerObserver(self)
-        service.refreshCoins()
-
-        coins = service.getFavouriteCoins()
-        reloadData()
-    }
+//    func configure(service: ServiceProtocol) {
+//        self.service = service
+////        self.imageCache = imageCache
+//
+//        service.registerObserver(self)
+//        service.refreshCoins()
+//
+//        coins = service.getFavouriteCoins()
+//        reloadData()
+//    }
     
     // MARK: - UI
     
@@ -138,18 +138,19 @@ final class MenuController: NSObject {
     }
 }
 
-// MARK: - <ServiceObserver>
+//// MARK: - <ServiceObserver>
+//
+//extension MenuController: ServiceObserver {
+//
+//    var serviceObserverIdentifier: String {
+//        return "Menu"
+//    }
+//
+//    func coinsUpdated() {
+//        DispatchQueue.main.async {
+//            self.coins = self.service.getFavouriteCoins()
+//            self.reloadData()
+//        }
+//    }
+//}
 
-extension MenuController: ServiceObserver {
-    
-    var serviceObserverIdentifier: String {
-        return "Menu"
-    }
-    
-    func coinsUpdated() {
-        DispatchQueue.main.async {
-            self.coins = self.service.getFavouriteCoins()
-            self.reloadData()
-        }
-    }
-}

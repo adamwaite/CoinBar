@@ -12,7 +12,7 @@ final class PreferencesViewController: NSViewController {
     
     // MARK: - Properties
     
-    private var service: ServiceProtocol!
+//    private var service: ServiceProtocol!
 //    private var imageCache: ImageCacheProtocol!
 
     fileprivate var coins: [Coin] = []
@@ -36,19 +36,19 @@ final class PreferencesViewController: NSViewController {
     
     override func viewDidAppear() {
         super.viewDidAppear()
-        service.registerObserver(self)
-        service.refreshCoins()
+//        service.registerObserver(self)
+//        service.refreshCoins()
     }
     
-    func configure(service: ServiceProtocol) {
-        self.service = service
-//        self.imageCache = imageCache
-    }
+//    func configure(service: ServiceProtocol) {
+//        self.service = service
+////        self.imageCache = imageCache
+//    }
     
     // MARK: - Reload
     
     private func reloadData() {
-        coins = service.getFavouriteCoins()
+//        coins = service.getFavouriteCoins()
         coinsTableView.reloadData()
         
 //        let preferences = service.getPreferences()
@@ -87,19 +87,19 @@ final class PreferencesViewController: NSViewController {
         
         alert.beginSheetModal(for: window) { response in
 
-            switch response {
-            
-            case .alertFirstButtonReturn:
-                textField.stringValue
-                    .replacingOccurrences(of: " ", with: "")
-                    .components(separatedBy: ",")
-                    .flatMap(self.service.getCoin)
-                    .forEach(self.service.addFavourite)
-                self.reloadData()
-
-            default:
-                return
-            }
+//            switch response {
+//
+//            case .alertFirstButtonReturn:
+//                textField.stringValue
+//                    .replacingOccurrences(of: " ", with: "")
+//                    .components(separatedBy: ",")
+//                    .flatMap(self.service.getCoin)
+//                    .forEach(self.service.addFavourite)
+//                self.reloadData()
+//
+//            default:
+//                return
+//            }
         }
     }
     
@@ -107,25 +107,25 @@ final class PreferencesViewController: NSViewController {
         let selected = coinsTableView.selectedRow
         guard selected >= 0 else { return }
         let coin = coins[selected]
-        service.removeFavourite(coin: coin)
+//        service.removeFavourite(coin: coin)
         reloadData()
     }
 }
 
 // MARK: - <ServiceObserver>
 
-extension PreferencesViewController: ServiceObserver {
-    
-    var serviceObserverIdentifier: String {
-        return "Preferences"
-    }
-    
-    func coinsUpdated() {
-        DispatchQueue.main.async {
-            self.reloadData()
-        }
-    }
-}
+//extension PreferencesViewController: ServiceObserver {
+//
+//    var serviceObserverIdentifier: String {
+//        return "Preferences"
+//    }
+//
+//    func coinsUpdated() {
+//        DispatchQueue.main.async {
+//            self.reloadData()
+//        }
+//    }
+//}
 
 // MARK: - <NSTableViewDelegate> / <NSTableViewDataSource>
 
@@ -191,7 +191,7 @@ extension PreferencesViewController: NSTableViewDelegate, NSTableViewDataSource 
             coins.insert(movingCoin, at: movingToIndex)
         }
         
-        service.orderFavourites(coins: coins)
+//        service.orderFavourites(coins: coins)
         
         return true
     }

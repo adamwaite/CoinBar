@@ -11,7 +11,7 @@ import Cocoa
 @NSApplicationMain
 class AppDelegate: NSObject, NSApplicationDelegate {
     
-    fileprivate let service = Service()
+//    fileprivate let service = Service()
 //    fileprivate let imageCache = ImageCache()
 
     func applicationDidFinishLaunching(_ notification: Notification) {
@@ -30,9 +30,9 @@ extension NSApplication {
         return self.delegate as! AppDelegate
     }
     
-    var service: ServiceProtocol {
-        return _delegate.service
-    }
+//    var service: ServiceProtocol {
+//        return _delegate.service
+//    }
     
 //    var imageCache: ImageCacheProtocol {
 //        return _delegate.imageCache
