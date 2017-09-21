@@ -41,7 +41,7 @@ final class PreferencesViewController: NSViewController {
     
     @IBOutlet private(set) var seperator2: NSView! {
         didSet {
-            seperator1.setBackgroundColor(NSColor.quaternaryLabelColor)
+            seperator2.setBackgroundColor(NSColor.quaternaryLabelColor)
         }
     }
 
