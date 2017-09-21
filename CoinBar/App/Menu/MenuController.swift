@@ -52,7 +52,16 @@ final class MenuController: NSObject {
     private func reloadData() {
         coins = service.coinsService.getFavouriteCoins()
         DispatchQueue.main.async {
+            self.flashMenuBar()
             self.reloadMenu()
+        }
+    }
+    
+    private func flashMenuBar() {
+        statusItem.button?.image = NSImage(named: NSImage.Name("status-bar-icon-active"))
+        
+        DispatchQueue.main.asyncAfter(1) {
+            self.statusItem.button?.image = NSImage(named: NSImage.Name("status-bar-icon"))
         }
     }
     

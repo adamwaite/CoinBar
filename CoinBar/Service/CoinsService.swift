@@ -21,18 +21,32 @@ final class CoinsService: CoinsServiceProtocol {
     
     private let networking: NetworkingProtocol
     private let persistence: PersistenceProtocol
-    
+    private var updateTimer: Timer?
+
     // MARK: - Init
     
-    init(networking: NetworkingProtocol, persistence: PersistenceProtocol) {
+    init(
+        networking: NetworkingProtocol,
+        persistence: PersistenceProtocol,
+        updateInterval: TimeInterval = 300) {
+        
         self.networking = networking
         self.persistence = persistence
+        
+        defer {
+            updateTimer = Timer.scheduledTimer(
+                timeInterval: updateInterval,
+                target: self,
+                selector: #selector(CoinsService.refreshCoins),
+                userInfo: nil,
+                repeats: true)
+        }
     }
     
     // MARK: - Coins
     
-    func refreshCoins() {
-    
+    @objc func refreshCoins() {
+        
         let currencyCode = persistence.readPreferences().currency
         let service = CoinWebService.all(currencyCode: currencyCode)
         
