@@ -12,9 +12,9 @@ final class MenuController: NSObject {
     
     // MARK: - Properties
     
-//    private var service: ServiceProtocol!
-//    private var imageCache: ImageCacheProtocol!
-   
+    private var service: Service!
+    private var serviceObserver: ServiceObserver!
+
     fileprivate var coins: [Coin] = []
     
     // MARK: UI
@@ -36,30 +36,27 @@ final class MenuController: NSObject {
     override func awakeFromNib() {
         super.awakeFromNib()
         
-//        let service = NSApplication.shared.service
-//        let imageCache = NSApplication.shared.imageCache
-//        configure(service: service)
-        
         statusItem.menu = statusMenu
         statusItem.button?.image = NSImage(named: NSImage.Name("status-bar-icon"))
-    
+        
+        serviceObserver = ServiceObserver(coinsUpdated: reloadData, preferencesUpdated: reloadData)
     }
     
-//    func configure(service: ServiceProtocol) {
-//        self.service = service
-////        self.imageCache = imageCache
-//
-//        service.registerObserver(self)
-//        service.refreshCoins()
-//
-//        coins = service.getFavouriteCoins()
-//        reloadData()
-//    }
+    func configure(service: Service) {
+        self.service = service
+        service.coinsService.refreshCoins()
+    }
     
     // MARK: - UI
     
-    fileprivate func reloadData() {
-        
+    private func reloadData() {
+        coins = service.coinsService.getFavouriteCoins()
+        DispatchQueue.main.async {
+            self.reloadMenu()
+        }
+    }
+    
+    private func reloadMenu() {
         statusMenu.removeAllItems()
         
         let coinItems = makeCoinItems()
@@ -73,17 +70,14 @@ final class MenuController: NSObject {
         
         let quitItem = makeQuitItem()
         statusMenu.addItem(quitItem)
-        
     }
 
     private func makeCoinItems() -> [NSMenuItem] {
         return coins.enumerated().map {
-            let index = $0.offset
-            let coin = $0.element
-            let menuItem = NSMenuItem(title: coin.symbol, action: #selector(MenuController.viewCoin(_:)), keyEquivalent: "")
-            menuItem.tag = index
+            let menuItem = NSMenuItem(title: $0.element.symbol, action: #selector(MenuController.viewCoin(_:)), keyEquivalent: "")
+            menuItem.tag = $0.offset
             menuItem.target = self
-            if let coinMenuItemView = makeCoinMenuItemView(coin: coin) {
+            if let coinMenuItemView = makeCoinMenuItemView(coin: $0.element) {
                 menuItem.view = coinMenuItemView
             }
             return menuItem
@@ -95,7 +89,7 @@ final class MenuController: NSObject {
             return nil
         }
         
-        coinMenuItemView.configure(with: coin)
+        coinMenuItemView.configure(with: coin, imagesService: service.imagesService)
         let clickRecognizer = NSClickGestureRecognizer(target: self, action: #selector(MenuController.viewCoin(_:)))
         coinMenuItemView.addGestureRecognizer(clickRecognizer)
         return coinMenuItemView
@@ -137,20 +131,3 @@ final class MenuController: NSObject {
         NSApplication.shared.terminate(self)
     }
 }
-
-//// MARK: - <ServiceObserver>
-//
-//extension MenuController: ServiceObserver {
-//
-//    var serviceObserverIdentifier: String {
-//        return "Menu"
-//    }
-//
-//    func coinsUpdated() {
-//        DispatchQueue.main.async {
-//            self.coins = self.service.getFavouriteCoins()
-//            self.reloadData()
-//        }
-//    }
-//}
-

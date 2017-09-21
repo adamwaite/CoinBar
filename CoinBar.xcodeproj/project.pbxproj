@@ -11,20 +11,25 @@
 		994CA96E1F7078EA00FFE717 /* PreferencesServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 994CA96D1F7078EA00FFE717 /* PreferencesServiceTests.swift */; };
 		994CA9701F7078F900FFE717 /* PersistenceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 994CA96F1F7078F900FFE717 /* PersistenceTests.swift */; };
 		994CA9721F7078FF00FFE717 /* NetworkingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 994CA9711F7078FF00FFE717 /* NetworkingTests.swift */; };
-		994CA9781F70793500FFE717 /* CoinService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 994CA9771F70793500FFE717 /* CoinService.swift */; };
+		994CA9781F70793500FFE717 /* CoinsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 994CA9771F70793500FFE717 /* CoinsService.swift */; };
 		994CA97A1F70793E00FFE717 /* PreferencesService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 994CA9791F70793E00FFE717 /* PreferencesService.swift */; };
 		995F49621F6DC6AA000B8711 /* MenuController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 995F49611F6DC6AA000B8711 /* MenuController.swift */; };
 		996455241F7088760039DCFB /* Coin+Test.swift in Sources */ = {isa = PBXBuildFile; fileRef = 996455231F7088760039DCFB /* Coin+Test.swift */; };
 		996455261F7103570039DCFB /* CoinTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 996455251F7103570039DCFB /* CoinTests.swift */; };
 		996455281F7103700039DCFB /* PreferencesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 996455271F7103700039DCFB /* PreferencesTests.swift */; };
 		9964552A1F7103E10039DCFB /* StubValueStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 996455291F7103E10039DCFB /* StubValueStore.swift */; };
+		99684A1B1F73A39500985612 /* Service.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99684A1A1F73A39500985612 /* Service.swift */; };
+		99684A1D1F73A66100985612 /* ServiceObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99684A1C1F73A66100985612 /* ServiceObserver.swift */; };
+		99684A1F1F74300E00985612 /* ServiceObserverTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99684A1E1F74300E00985612 /* ServiceObserverTests.swift */; };
+		99684A211F744C4A00985612 /* StubPersistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99684A201F744C4A00985612 /* StubPersistence.swift */; };
+		99684A251F74542B00985612 /* coin_missing_optionals.json in Resources */ = {isa = PBXBuildFile; fileRef = 99684A241F7453BD00985612 /* coin_missing_optionals.json */; };
 		998136C01F6EDCD2003381BA /* ImagesService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 998136BF1F6EDCD2003381BA /* ImagesService.swift */; };
 		998136C21F6F1129003381BA /* CoinMenuItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 998136C11F6F1129003381BA /* CoinMenuItemView.swift */; };
 		998136C51F6F1150003381BA /* NibLoadable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 998136C41F6F1150003381BA /* NibLoadable.swift */; };
 		998136C71F6F13F3003381BA /* CoinMenuItemView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 998136C61F6F13F3003381BA /* CoinMenuItemView.xib */; };
 		99A0C6621F6DCDF500390B95 /* PreferencesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99A0C6611F6DCDF500390B95 /* PreferencesViewController.swift */; };
 		99A0C6641F6E5D5500390B95 /* ValueStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99A0C6631F6E5D5500390B95 /* ValueStore.swift */; };
-		99D001751F7318EF0094B1F6 /* CoinServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99D001741F7318EF0094B1F6 /* CoinServiceTests.swift */; };
+		99D001751F7318EF0094B1F6 /* CoinsServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99D001741F7318EF0094B1F6 /* CoinsServiceTests.swift */; };
 		99D001771F7319230094B1F6 /* ImageServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99D001761F7319230094B1F6 /* ImageServiceTests.swift */; };
 		99D001791F731B550094B1F6 /* StubURLSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99D001781F731B550094B1F6 /* StubURLSession.swift */; };
 		99D0017C1F731FC50094B1F6 /* StubNetworking.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99D0017B1F731FC50094B1F6 /* StubNetworking.swift */; };
@@ -59,13 +64,18 @@
 		994CA96D1F7078EA00FFE717 /* PreferencesServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreferencesServiceTests.swift; sourceTree = "<group>"; };
 		994CA96F1F7078F900FFE717 /* PersistenceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistenceTests.swift; sourceTree = "<group>"; };
 		994CA9711F7078FF00FFE717 /* NetworkingTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkingTests.swift; sourceTree = "<group>"; };
-		994CA9771F70793500FFE717 /* CoinService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoinService.swift; sourceTree = "<group>"; };
+		994CA9771F70793500FFE717 /* CoinsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoinsService.swift; sourceTree = "<group>"; };
 		994CA9791F70793E00FFE717 /* PreferencesService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreferencesService.swift; sourceTree = "<group>"; };
 		995F49611F6DC6AA000B8711 /* MenuController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuController.swift; sourceTree = "<group>"; };
 		996455231F7088760039DCFB /* Coin+Test.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Coin+Test.swift"; sourceTree = "<group>"; };
 		996455251F7103570039DCFB /* CoinTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoinTests.swift; sourceTree = "<group>"; };
 		996455271F7103700039DCFB /* PreferencesTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreferencesTests.swift; sourceTree = "<group>"; };
 		996455291F7103E10039DCFB /* StubValueStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StubValueStore.swift; sourceTree = "<group>"; };
+		99684A1A1F73A39500985612 /* Service.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Service.swift; sourceTree = "<group>"; };
+		99684A1C1F73A66100985612 /* ServiceObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceObserver.swift; sourceTree = "<group>"; };
+		99684A1E1F74300E00985612 /* ServiceObserverTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceObserverTests.swift; sourceTree = "<group>"; };
+		99684A201F744C4A00985612 /* StubPersistence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StubPersistence.swift; sourceTree = "<group>"; };
+		99684A241F7453BD00985612 /* coin_missing_optionals.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = coin_missing_optionals.json; sourceTree = "<group>"; };
 		998136BF1F6EDCD2003381BA /* ImagesService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagesService.swift; sourceTree = "<group>"; };
 		998136C11F6F1129003381BA /* CoinMenuItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoinMenuItemView.swift; sourceTree = "<group>"; };
 		998136C41F6F1150003381BA /* NibLoadable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NibLoadable.swift; sourceTree = "<group>"; };
@@ -73,7 +83,7 @@
 		998518E01F6DC8240072EADB /* CoinBarTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoinBarTests.swift; sourceTree = "<group>"; };
 		99A0C6611F6DCDF500390B95 /* PreferencesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreferencesViewController.swift; sourceTree = "<group>"; };
 		99A0C6631F6E5D5500390B95 /* ValueStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValueStore.swift; sourceTree = "<group>"; };
-		99D001741F7318EF0094B1F6 /* CoinServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoinServiceTests.swift; sourceTree = "<group>"; };
+		99D001741F7318EF0094B1F6 /* CoinsServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoinsServiceTests.swift; sourceTree = "<group>"; };
 		99D001761F7319230094B1F6 /* ImageServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageServiceTests.swift; sourceTree = "<group>"; };
 		99D001781F731B550094B1F6 /* StubURLSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StubURLSession.swift; sourceTree = "<group>"; };
 		99D0017A1F731FA70094B1F6 /* bitcoin.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bitcoin.png; sourceTree = "<group>"; };
@@ -119,11 +129,12 @@
 		994CA96C1F7078D900FFE717 /* Service */ = {
 			isa = PBXGroup;
 			children = (
-				99D001741F7318EF0094B1F6 /* CoinServiceTests.swift */,
+				99D001741F7318EF0094B1F6 /* CoinsServiceTests.swift */,
 				99D001761F7319230094B1F6 /* ImageServiceTests.swift */,
 				994CA96D1F7078EA00FFE717 /* PreferencesServiceTests.swift */,
 				994CA9711F7078FF00FFE717 /* NetworkingTests.swift */,
 				994CA96F1F7078F900FFE717 /* PersistenceTests.swift */,
+				99684A1E1F74300E00985612 /* ServiceObserverTests.swift */,
 			);
 			path = Service;
 			sourceTree = "<group>";
@@ -163,6 +174,7 @@
 				996455291F7103E10039DCFB /* StubValueStore.swift */,
 				99D001781F731B550094B1F6 /* StubURLSession.swift */,
 				99D0017B1F731FC50094B1F6 /* StubNetworking.swift */,
+				99684A201F744C4A00985612 /* StubPersistence.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -241,7 +253,9 @@
 		99D3E9881F6D0131003C1CB3 /* Service */ = {
 			isa = PBXGroup;
 			children = (
-				994CA9771F70793500FFE717 /* CoinService.swift */,
+				99684A1A1F73A39500985612 /* Service.swift */,
+				99684A1C1F73A66100985612 /* ServiceObserver.swift */,
+				994CA9771F70793500FFE717 /* CoinsService.swift */,
 				998136BF1F6EDCD2003381BA /* ImagesService.swift */,
 				994CA9791F70793E00FFE717 /* PreferencesService.swift */,
 				99D3E9981F6D05B0003C1CB3 /* Networking */,
@@ -300,6 +314,7 @@
 			isa = PBXGroup;
 			children = (
 				FFAE0B7E1F71866F00CE26E2 /* coin.json */,
+				99684A241F7453BD00985612 /* coin_missing_optionals.json */,
 				FFAE0B7A1F71863600CE26E2 /* coins.json */,
 				99D0017A1F731FA70094B1F6 /* bitcoin.png */,
 			);
@@ -420,6 +435,7 @@
 				99D0017D1F7322750094B1F6 /* bitcoin.png in Resources */,
 				FFAE0B7F1F71866F00CE26E2 /* coin.json in Resources */,
 				FFAE0B7B1F71863600CE26E2 /* coins.json in Resources */,
+				99684A251F74542B00985612 /* coin_missing_optionals.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -435,13 +451,15 @@
 				99D3E98F1F6D0180003C1CB3 /* Preferences.swift in Sources */,
 				998136C51F6F1150003381BA /* NibLoadable.swift in Sources */,
 				998136C21F6F1129003381BA /* CoinMenuItemView.swift in Sources */,
+				99684A1B1F73A39500985612 /* Service.swift in Sources */,
 				99D3E9851F6D0014003C1CB3 /* Result.swift in Sources */,
 				99D3E9871F6D00E6003C1CB3 /* Error.swift in Sources */,
 				99D3E9631F6CF8F1003C1CB3 /* AppDelegate.swift in Sources */,
 				99A0C6621F6DCDF500390B95 /* PreferencesViewController.swift in Sources */,
-				994CA9781F70793500FFE717 /* CoinService.swift in Sources */,
+				994CA9781F70793500FFE717 /* CoinsService.swift in Sources */,
 				994CA97A1F70793E00FFE717 /* PreferencesService.swift in Sources */,
 				99D3E98D1F6D016B003C1CB3 /* Coin.swift in Sources */,
+				99684A1D1F73A66100985612 /* ServiceObserver.swift in Sources */,
 				99D3E9911F6D01CA003C1CB3 /* Networking.swift in Sources */,
 				994CA9681F70414000FFE717 /* PreferencesCurrency.swift in Sources */,
 				995F49621F6DC6AA000B8711 /* MenuController.swift in Sources */,
@@ -458,13 +476,15 @@
 				9964552A1F7103E10039DCFB /* StubValueStore.swift in Sources */,
 				996455241F7088760039DCFB /* Coin+Test.swift in Sources */,
 				99D001771F7319230094B1F6 /* ImageServiceTests.swift in Sources */,
-				99D001751F7318EF0094B1F6 /* CoinServiceTests.swift in Sources */,
+				99D001751F7318EF0094B1F6 /* CoinsServiceTests.swift in Sources */,
 				99D0017C1F731FC50094B1F6 /* StubNetworking.swift in Sources */,
 				FFAE0B781F7185EA00CE26E2 /* JSONFixtures.swift in Sources */,
 				994CA96E1F7078EA00FFE717 /* PreferencesServiceTests.swift in Sources */,
 				994CA9721F7078FF00FFE717 /* NetworkingTests.swift in Sources */,
+				99684A211F744C4A00985612 /* StubPersistence.swift in Sources */,
 				994CA9701F7078F900FFE717 /* PersistenceTests.swift in Sources */,
 				996455261F7103570039DCFB /* CoinTests.swift in Sources */,
+				99684A1F1F74300E00985612 /* ServiceObserverTests.swift in Sources */,
 				99D001791F731B550094B1F6 /* StubURLSession.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

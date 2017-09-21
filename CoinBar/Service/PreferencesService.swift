@@ -42,6 +42,8 @@ final class PreferencesService: PreferencesServiceProtocol {
             preferences.favouriteCoins = coins.map { $0.id }
             return preferences
         }
+        
+        notify()
     }
     
     func addFavouriteCoin(_ coin: Coin) {
@@ -50,6 +52,8 @@ final class PreferencesService: PreferencesServiceProtocol {
             preferences.favouriteCoins.append(coin.id)
             return preferences
         }
+        
+        notify()
     }
     
     func removeFavouriteCoin(_ coin: Coin) {
@@ -60,6 +64,8 @@ final class PreferencesService: PreferencesServiceProtocol {
             }
             return preferences
         }
+        
+        notify()
     }
     
     // MARK: - Currency
@@ -70,6 +76,14 @@ final class PreferencesService: PreferencesServiceProtocol {
             preferences.currency = currency.rawValue
             return preferences
         }
+        
+        notify()
+    }
+    
+    // MARK: - Notifications
+    
+    private func notify() {
+        NotificationCenter.default.post(name: ServiceObserver.preferencesUpdateNotificationName, object: nil)
     }
     
 }

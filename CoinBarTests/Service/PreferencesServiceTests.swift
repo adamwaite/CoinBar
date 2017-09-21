@@ -43,6 +43,12 @@ final class PreferencesServiceTests: XCTestCase {
         XCTAssertEqual(preferences.favouriteCoins, ["bitcoin", "ethereum"])
     }
     
+    func test_setFavouriteCoins_notifies() {
+        assertNotifies {
+            subject.setFavouriteCoins([Coin.bitcoin])
+        }
+    }
+    
     // MARK: - addFavouriteCoin
     
     func test_addFavouriteCoin_appendsAndPersistsFavouriteCoin() {
@@ -50,6 +56,13 @@ final class PreferencesServiceTests: XCTestCase {
         subject.addFavouriteCoin(Coin.ethereum)
         let preferences = subject.getPreferences()
         XCTAssertEqual(preferences.favouriteCoins, ["bitcoin", "ethereum"])
+    }
+    
+    func test_addFavouriteCoin_notifies() {
+        subject.setFavouriteCoins([Coin.bitcoin])
+        assertNotifies {
+            subject.addFavouriteCoin(Coin.ethereum)
+        }
     }
     
     // MARK: - removeFavouriteCoin
@@ -61,12 +74,45 @@ final class PreferencesServiceTests: XCTestCase {
         XCTAssertEqual(preferences.favouriteCoins, [])
     }
     
+    func test_removeFavouriteCoin_notifies() {
+        subject.setFavouriteCoins([Coin.bitcoin])
+        assertNotifies {
+            subject.removeFavouriteCoin(Coin.bitcoin)
+        }
+    }
+    
     // MARK: - removeFavouriteCoin
     
     func test_setCurrency_persistsCurrency() {
         subject.setCurrency(.brazilianReal)
         let preferences = subject.getPreferences()
         XCTAssertEqual(preferences.currency, "BRL")
+    }
+    
+    func test_setCurrency_notifies() {
+        assertNotifies {
+            subject.setCurrency(.brazilianReal)
+        }
+    }
+    
+    // MARK: - Helpers
+    
+    private func assertNotifies(closure: () -> ()) {
+        
+        var notificationSent = false
+        
+        let token = NotificationCenter.default.addObserver(
+            forName: ServiceObserver.preferencesUpdateNotificationName,
+            object: nil,
+            queue: OperationQueue.main) { note in
+                notificationSent = true
+        }
+        
+        closure()
+        
+        XCTAssertTrue(notificationSent)
+        NotificationCenter.default.removeObserver(token)
+    
     }
     
 }

@@ -12,7 +12,11 @@
             <objects>
                 <menu id="2PT-OU-SuK"/>
                 <customObject id="Ady-hI-5gd" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
-                <customObject id="Voe-Tx-rLC" customClass="AppDelegate" customModule="CoinBar" customModuleProvider="target"/>
+                <customObject id="Voe-Tx-rLC" customClass="AppDelegate" customModule="CoinBar" customModuleProvider="target">
+                    <connections>
+                        <outlet property="menuController" destination="bgo-Nw-AU7" id="Skl-h6-f3a"/>
+                    </connections>
+                </customObject>
                 <customObject id="bgo-Nw-AU7" customClass="MenuController" customModule="CoinBar" customModuleProvider="target">
                     <connections>
                         <outlet property="statusMenu" destination="2PT-OU-SuK" id="jQc-TY-OT6"/>

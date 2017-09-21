@@ -26,14 +26,10 @@ final class Persistence: PersistenceProtocol {
 
     // MARK: - Init
     
-    init(valueStore: ValueStore) {
+    init(valueStore: ValueStore = UserDefaults.standard) {
         self.valueStore = valueStore
     }
-    
-    convenience init() {
-        self.init(valueStore: UserDefaults.standard)
-    }
-    
+        
     // MARK: - Coins
     
     func readCoins() -> [Coin] {        

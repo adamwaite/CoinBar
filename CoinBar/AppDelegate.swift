@@ -11,14 +11,25 @@ import Cocoa
 @NSApplicationMain
 class AppDelegate: NSObject, NSApplicationDelegate {
     
-//    fileprivate let service = Service()
-//    fileprivate let imageCache = ImageCache()
+    fileprivate var coinsService: CoinsService!
+    fileprivate var imagesService: ImagesService!
+    fileprivate var preferencesService: PreferencesService!
 
+    @IBOutlet private(set) var menuController: MenuController!
+    
     func applicationDidFinishLaunching(_ notification: Notification) {
         
-        if let domain = Bundle.main.bundleIdentifier {
-            UserDefaults.standard.removePersistentDomain(forName: domain)
-        }
+        #if DEBUG
+        UserDefaults.standard.removePersistentDomain(forName: Bundle.main.bundleIdentifier!)
+        #endif
+        
+        let persistence = Persistence()
+        let networking = Networking()
+        coinsService = CoinsService(networking: networking, persistence: persistence)
+        imagesService = ImagesService(networking: networking)
+        preferencesService = PreferencesService(persistence: persistence)
+        let service = Service(coinsService: coinsService, imagesService: imagesService, preferencesService: preferencesService)
+        menuController.configure(service: service)
     }
 }
 
@@ -29,12 +40,4 @@ extension NSApplication {
     var _delegate: AppDelegate {
         return self.delegate as! AppDelegate
     }
-    
-//    var service: ServiceProtocol {
-//        return _delegate.service
-//    }
-    
-//    var imageCache: ImageCacheProtocol {
-//        return _delegate.imageCache
-//    }
 }

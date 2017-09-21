@@ -1,0 +1,16 @@
+{
+    "id": "president-sanders",
+    "name": "President Sanders",
+    "symbol": "BURN",
+    "rank": "1119",
+    "price_usd": "0.0000462951",
+    "price_btc": "0.00000001",
+    "24h_volume_usd": null,
+    "market_cap_usd": null,
+    "available_supply": null,
+    "total_supply": "57968072167.0",
+    "percent_change_1h": null,
+    "percent_change_24h": null,
+    "percent_change_7d": null,
+    "last_updated": "1504829680"
+}

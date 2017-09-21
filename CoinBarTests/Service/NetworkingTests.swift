@@ -45,7 +45,7 @@ final class NetworkingTests: XCTestCase {
     }
     
     func test_getData_successfulResponse_parsesResource() {
-        stubSession.data = JSONFixtures.coins()
+        stubSession.data = JSONFixtures.coinsData()
         subject.getData(at: CoinWebService.all) { [weak self] result in
             guard let data = result.value else { return XCTFail() }
             XCTAssertEqual(data, self?.stubSession.data)
@@ -68,7 +68,7 @@ final class NetworkingTests: XCTestCase {
     }
 
     func test_getResources_successfulResponse_parsesResource() {
-        stubSession.data = JSONFixtures.coins()
+        stubSession.data = JSONFixtures.coinsData()
         subject.getResources(at: CoinWebService.all) { (result: Result<[Coin]>) in
             guard let coins = result.value else { return XCTFail() }
             XCTAssertEqual(coins.count, 5)

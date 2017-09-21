@@ -29,7 +29,7 @@ final class ImagesService: ImagesServiceProtocol {
             return
         }
         
-        let service = CoinWebService.coinImage(id: "ethereum")
+        let service = CoinWebService.coinImage(id: coin.id)
         
         networking.getData(at: service) { [weak self] result in
             guard let data = result.value,

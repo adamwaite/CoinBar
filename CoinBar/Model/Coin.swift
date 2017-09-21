@@ -73,9 +73,9 @@ extension Coin {
         rank = try container.decode(String.self, forKey: .rank)
         priceUSD = try container.decode(String.self, forKey: .priceUSD)
         priceBTC = try container.decode(String.self, forKey: .priceBTC)
-        percentChange1h = try container.decode(String.self, forKey: .percentChange1h)
-        percentChange24h = try container.decode(String.self, forKey: .percentChange24h)
-        percentChange7d = try container.decode(String.self, forKey: .percentChange7d)
+        percentChange1h = try container.decodeIfPresent(String.self, forKey: .percentChange1h)
+        percentChange24h = try container.decodeIfPresent(String.self, forKey: .percentChange24h)
+        percentChange7d = try container.decodeIfPresent(String.self, forKey: .percentChange7d)
 
         let preferredCurrencyKey: String? = container.allKeys
             .map { $0.stringValue }
@@ -85,7 +85,7 @@ extension Coin {
             .first
         
         if let preferredCurrencyKey = preferredCurrencyKey {
-            pricePreferredCurrency = try container.decode(String.self, forKey: .makeKey(name: preferredCurrencyKey))
+            pricePreferredCurrency = try container.decodeIfPresent(String.self, forKey: .makeKey(name: preferredCurrencyKey))
         } else {
             pricePreferredCurrency = nil
         }
@@ -93,28 +93,15 @@ extension Coin {
     
     func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
-        
         try container.encode(id, forKey: .id)
         try container.encode(name, forKey: .name)
         try container.encode(symbol, forKey: .symbol)
         try container.encode(rank, forKey: .rank)
         try container.encode(priceUSD, forKey: .priceUSD)
         try container.encode(priceBTC, forKey: .priceBTC)
-        
-        if let pricePreferredCurrency = pricePreferredCurrency {
-            try container.encode(pricePreferredCurrency, forKey: .makeKey(name: "price_encoded"))
-        }
-        
-        if let percentChange1h = percentChange1h {
-            try container.encode(percentChange1h, forKey: .percentChange1h)
-        }
-        
-        if let percentChange24h = percentChange24h {
-            try container.encode(percentChange24h, forKey: .percentChange24h)
-        }
-        
-        if let percentChange7d = percentChange7d {
-            try container.encode(percentChange7d, forKey: .percentChange7d)
-        }
+        try container.encodeIfPresent(pricePreferredCurrency, forKey: .makeKey(name: "price_encoded"))
+        try container.encodeIfPresent(percentChange1h, forKey: .percentChange1h)
+        try container.encodeIfPresent(percentChange24h, forKey: .percentChange24h)
+        try container.encodeIfPresent(percentChange7d, forKey: .percentChange7d)
     }
 }
