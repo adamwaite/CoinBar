@@ -33,6 +33,19 @@ final class PreferencesViewController: NSViewController {
         }
     }
     
+    @IBOutlet private(set) var seperator1: NSView! {
+        didSet {
+            seperator1.setBackgroundColor(NSColor.quaternaryLabelColor)
+        }
+    }
+    
+    @IBOutlet private(set) var seperator2: NSView! {
+        didSet {
+            seperator1.setBackgroundColor(NSColor.quaternaryLabelColor)
+        }
+    }
+
+    
     // MARK: - Lifecycle
     
     override func viewWillAppear() {
