@@ -26,7 +26,7 @@ final class CoinMenuItemView: NSView, NibLoadable {
         super.draw(dirtyRect)
     }
     
-    func configure(with coin: Coin, imagesService: ImagesServiceProtocol) {
+    func configure(with coin: Coin, currency: Preferences.Currency, imagesService: ImagesServiceProtocol) {
                 
         // Symbol
         
@@ -43,8 +43,22 @@ final class CoinMenuItemView: NSView, NibLoadable {
         
         // Value label
         
-        priceLabel.stringValue = coin.priceUSD
+        switch currency {
         
+        case .bitcoin:
+            priceLabel.stringValue = currency.formattedValue(coin.priceBTC) ?? ""
+        
+        case .unitedStatesDollar:
+            priceLabel.stringValue = currency.formattedValue(coin.priceUSD) ?? ""
+        
+        default:
+            if let pricePreferredCurrency = coin.pricePreferredCurrency {
+                priceLabel.stringValue = currency.formattedValue(pricePreferredCurrency) ?? ""
+            } else {
+                priceLabel.stringValue = ""
+            }
+        }
+
         // Percent change label
         
         if let percentChange = coin.percentChange1h {

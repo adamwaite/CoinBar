@@ -32,8 +32,11 @@ final class CoinsService: CoinsServiceProtocol {
     // MARK: - Coins
     
     func refreshCoins() {
+    
+        let currencyCode = persistence.readPreferences().currency
+        let service = CoinWebService.all(currencyCode: currencyCode)
         
-        networking.getResources(at: CoinWebService.all) { [weak self] (result: Result<[Coin]>) in
+        networking.getResources(at: service) { [weak self] (result: Result<[Coin]>) in
             
             guard let coins = result.value else {
                 return

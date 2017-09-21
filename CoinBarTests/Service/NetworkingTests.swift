@@ -39,14 +39,15 @@ final class NetworkingTests: XCTestCase {
     // MARK: - getData
 
     func test_getData_sendsCorrectRequest() {
-        let webService = CoinWebService.all
+        let webService = CoinWebService.all(currencyCode: "GBP")
         subject.getData(at: webService, completion: noOpData)
-        XCTAssertEqual(stubSession.request?.url?.absoluteString, "https://api.coinmarketcap.com/v1/ticker")
+        XCTAssertEqual(stubSession.request?.url?.absoluteString, "https://api.coinmarketcap.com/v1/ticker?convert=GBP")
     }
     
     func test_getData_successfulResponse_parsesResource() {
         stubSession.data = JSONFixtures.coinsData()
-        subject.getData(at: CoinWebService.all) { [weak self] result in
+        let webService = CoinWebService.all(currencyCode: "GBP")
+        subject.getData(at: webService) { [weak self] result in
             guard let data = result.value else { return XCTFail() }
             XCTAssertEqual(data, self?.stubSession.data)
         }
@@ -54,7 +55,8 @@ final class NetworkingTests: XCTestCase {
     
     func test_getData_errorResponse_passesError() {
         stubSession.error = "Failed!"
-        subject.getResources(at: CoinWebService.all) { (result: Result<[Coin]>) in
+        let webService = CoinWebService.all(currencyCode: "GBP")
+        subject.getResources(at: webService) { (result: Result<[Coin]>) in
             XCTAssertNotNil(result.error)
         }
     }
@@ -62,14 +64,15 @@ final class NetworkingTests: XCTestCase {
     // MARK: - getResources
     
     func test_getResources_sendsCorrectRequest() {
-        let webService = CoinWebService.all
+        let webService = CoinWebService.all(currencyCode: "GBP")
         subject.getResources(at: webService, completion: noOpResources)
-        XCTAssertEqual(stubSession.request?.url?.absoluteString, "https://api.coinmarketcap.com/v1/ticker")
+        XCTAssertEqual(stubSession.request?.url?.absoluteString, "https://api.coinmarketcap.com/v1/ticker?convert=GBP")
     }
 
     func test_getResources_successfulResponse_parsesResource() {
         stubSession.data = JSONFixtures.coinsData()
-        subject.getResources(at: CoinWebService.all) { (result: Result<[Coin]>) in
+        let webService = CoinWebService.all(currencyCode: "GBP")
+        subject.getResources(at: webService) { (result: Result<[Coin]>) in
             guard let coins = result.value else { return XCTFail() }
             XCTAssertEqual(coins.count, 5)
             XCTAssertEqual(coins.first?.name, "Bitcoin")
@@ -78,7 +81,8 @@ final class NetworkingTests: XCTestCase {
     
     func test_getResources_errorResponse_passesError() {
         stubSession.error = "Failed!"
-        subject.getResources(at: CoinWebService.all) { (result: Result<[Coin]>) in
+        let webService = CoinWebService.all(currencyCode: "GBP")
+        subject.getResources(at: webService) { (result: Result<[Coin]>) in
             XCTAssertNotNil(result.error)
         }
     }

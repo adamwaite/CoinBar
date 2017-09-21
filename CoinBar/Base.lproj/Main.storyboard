@@ -74,7 +74,7 @@
                                     <rect key="frame" x="1" y="1" width="358" height="198"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
-                                        <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="sequential" alternatingRowBackgroundColors="YES" columnSelection="YES" multipleSelection="NO" autosaveColumns="NO" rowSizeStyle="automatic" viewBased="YES" id="dCg-Fu-oEj">
+                                        <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="sequential" alternatingRowBackgroundColors="YES" columnSelection="YES" autosaveColumns="NO" rowSizeStyle="automatic" viewBased="YES" id="dCg-Fu-oEj">
                                             <rect key="frame" x="0.0" y="0.0" width="358" height="198"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <size key="intercellSpacing" width="3" height="16"/>
@@ -176,6 +176,9 @@
                                                 </items>
                                             </menu>
                                         </popUpButtonCell>
+                                        <connections>
+                                            <action selector="changeCurrency:" target="jBT-Zd-f6y" id="soa-4X-JxF"/>
+                                        </connections>
                                     </popUpButton>
                                 </subviews>
                                 <visibilityPriorities>

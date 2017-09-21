@@ -75,41 +75,6 @@ final class Networking: NetworkingProtocol {
         
     }
     
-//    func getAllCoins(completion: @escaping (Result<[Coin]>) -> ()) {
-//        guard let request = makeRequest(webService: CoinWebService.all) else {
-//            let result: Result<[Coin]> = .error("Invalid URL")
-//            completion(result)
-//            return
-//        }
-//
-//        let session = URLSession.shared
-//
-//        let task = session.dataTask(with: request) { data, response, error in
-//
-//            guard let data = data, error == nil else {
-//                let result: Result<[Coin]> = .error("Error downloading coins")
-//                completion(result)
-//                return
-//            }
-//
-//            do {
-//                let decoder = JSONDecoder()
-//                let coins = try decoder.decode([Coin].self, from: data)
-//                let result: Result<[Coin]> = .success(coins)
-//                completion(result)
-//            }
-//
-//            catch let error {
-//                print(error)
-//                let result: Result<[Coin]> = .error("Error parsing coins")
-//                completion(result)
-//                return
-//            }
-//        }
-//
-//        task.resume()
-//    }
-//
     // MARK: - Utility
     
     private func makeRequest(webService: WebService) -> URLRequest? {

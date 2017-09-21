@@ -20,7 +20,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     func applicationDidFinishLaunching(_ notification: Notification) {
         
         #if DEBUG
-        UserDefaults.standard.removePersistentDomain(forName: Bundle.main.bundleIdentifier!)
+        // UserDefaults.standard.removePersistentDomain(forName: Bundle.main.bundleIdentifier!)
         #endif
         
         let persistence = Persistence()

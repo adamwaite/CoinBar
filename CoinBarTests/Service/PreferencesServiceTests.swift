@@ -65,6 +65,13 @@ final class PreferencesServiceTests: XCTestCase {
         }
     }
     
+    func test_addFavouriteCoin_duplicate_ignores() {
+        subject.setFavouriteCoins([Coin.bitcoin])
+        subject.addFavouriteCoin(Coin.bitcoin)
+        let preferences = subject.getPreferences()
+        XCTAssertEqual(preferences.favouriteCoins.count, 1)
+    }
+    
     // MARK: - removeFavouriteCoin
 
     func test_removeFavouriteCoin_removesAndPersistsFavouriteCoin() {

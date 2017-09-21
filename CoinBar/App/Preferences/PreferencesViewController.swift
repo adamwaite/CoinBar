@@ -35,6 +35,11 @@ final class PreferencesViewController: NSViewController {
     
     // MARK: - Lifecycle
     
+    override func viewWillAppear() {
+        super.viewWillAppear()
+        reloadData()
+    }
+    
     override func viewDidAppear() {
         super.viewDidAppear()
         serviceObserver = ServiceObserver(coinsUpdated: reloadData, preferencesUpdated: reloadData)
@@ -65,15 +70,15 @@ final class PreferencesViewController: NSViewController {
     @IBAction func addOrRemoveCurrency(_ sender: NSSegmentedControl) {
         
         if sender.selectedSegment == 0 {
-            addCurrency()
+            addCoins()
         }
         
         if sender.selectedSegment == 1 {
-            removeCurrency()
+            removeCoins()
         }
     }
     
-    private func addCurrency() {
+    private func addCoins() {
         guard let window = view.window else { return }
         
         let alert = NSAlert()
@@ -105,11 +110,21 @@ final class PreferencesViewController: NSViewController {
         }
     }
     
-    private func removeCurrency() {
-        let selected = coinsTableView.selectedRow
-        guard selected >= 0 else { return }
-        let coin = coins[selected]
-        service.preferencesService.removeFavouriteCoin(coin)
+    private func removeCoins() {
+        let selected = coinsTableView.selectedRowIndexes
+        let coinsToRemove = selected.map { coins[$0] }
+        coinsToRemove.forEach {
+            service.preferencesService.removeFavouriteCoin($0)
+        }
+    }
+    
+    @IBAction func changeCurrency(_ sender: NSPopUpButton) {
+        if let value = sender.titleOfSelectedItem,
+            let currency = Preferences.Currency(rawValue: value) {
+            
+            service.preferencesService.setCurrency(currency)
+            service.coinsService.refreshCoins()
+        }
     }
 }
 

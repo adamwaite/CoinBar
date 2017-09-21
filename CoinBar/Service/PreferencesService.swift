@@ -49,6 +49,9 @@ final class PreferencesService: PreferencesServiceProtocol {
     func addFavouriteCoin(_ coin: Coin) {
         persistence.writePreferences {
             var preferences: Preferences = $0
+            guard !preferences.favouriteCoins.contains(coin.id) else {
+                return preferences
+            }
             preferences.favouriteCoins.append(coin.id)
             return preferences
         }

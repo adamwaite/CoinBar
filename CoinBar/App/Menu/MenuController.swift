@@ -73,23 +73,26 @@ final class MenuController: NSObject {
     }
 
     private func makeCoinItems() -> [NSMenuItem] {
+        let currencyCode = service.preferencesService.getPreferences().currency
+        let preferredCurrency = Preferences.Currency(rawValue: currencyCode) ?? .bitcoin
+        
         return coins.enumerated().map {
             let menuItem = NSMenuItem(title: $0.element.symbol, action: #selector(MenuController.viewCoin(_:)), keyEquivalent: "")
             menuItem.tag = $0.offset
             menuItem.target = self
-            if let coinMenuItemView = makeCoinMenuItemView(coin: $0.element) {
+            if let coinMenuItemView = makeCoinMenuItemView(coin: $0.element, currency: preferredCurrency) {
                 menuItem.view = coinMenuItemView
             }
             return menuItem
         }
     }
     
-    private func makeCoinMenuItemView(coin: Coin) -> CoinMenuItemView? {
+    private func makeCoinMenuItemView(coin: Coin, currency: Preferences.Currency) -> CoinMenuItemView? {
         guard let coinMenuItemView = CoinMenuItemView.createFromNib() else {
             return nil
         }
         
-        coinMenuItemView.configure(with: coin, imagesService: service.imagesService)
+        coinMenuItemView.configure(with: coin, currency: currency, imagesService: service.imagesService)
         let clickRecognizer = NSClickGestureRecognizer(target: self, action: #selector(MenuController.viewCoin(_:)))
         coinMenuItemView.addGestureRecognizer(clickRecognizer)
         return coinMenuItemView

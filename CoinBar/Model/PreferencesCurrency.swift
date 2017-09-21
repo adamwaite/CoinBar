@@ -12,6 +12,7 @@ extension Preferences {
 
     enum Currency: String, Codable {
         
+        case bitcoin = "BTC"
         case australianDollar = "AUD"
         case brazilianReal = "BRL"
         case canadianDollar = "CAD"
@@ -47,6 +48,7 @@ extension Preferences {
         
         static var all: [Currency] {
             return [
+                .bitcoin,
                 .australianDollar,
                 .brazilianReal,
                 .canadianDollar,
@@ -81,5 +83,28 @@ extension Preferences {
                 .southAfricanRand
             ]
         }
+    
+        func formattedValue(_ string: String) -> String? {
+            guard let value = Double(string) else {
+                return nil
+            }
+            
+            let formatter = NumberFormatter()
+            
+            if self != .bitcoin {
+                formatter.minimumIntegerDigits = 1
+                formatter.numberStyle = .currency
+                formatter.currencyCode = rawValue
+            }
+            
+            else {
+                formatter.numberStyle = .decimal
+                formatter.minimumFractionDigits = 4
+                formatter.maximumFractionDigits = 4
+            }
+            
+            return formatter.string(from: value as NSNumber) ?? "\(value)"
+        }
+        
     }
 }
