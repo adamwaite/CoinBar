@@ -12,11 +12,12 @@ final class PreferencesViewController: NSViewController {
     
     // MARK: - Properties
     
-//    private var service: ServiceProtocol!
-//    private var imageCache: ImageCacheProtocol!
+    private var service: Service!
+    private var serviceObserver: ServiceObserver!
 
     fileprivate var coins: [Coin] = []
-    
+    fileprivate var preferences: Preferences!
+
     // MARK: UI
     
     @IBOutlet private(set) weak var coinsTableView: NSTableView! {
@@ -36,26 +37,27 @@ final class PreferencesViewController: NSViewController {
     
     override func viewDidAppear() {
         super.viewDidAppear()
-//        service.registerObserver(self)
-//        service.refreshCoins()
+        serviceObserver = ServiceObserver(coinsUpdated: reloadData, preferencesUpdated: reloadData)
+        service.coinsService.refreshCoins()
     }
     
-//    func configure(service: ServiceProtocol) {
-//        self.service = service
-////        self.imageCache = imageCache
-//    }
+    func configure(service: Service) {
+        self.service = service
+    }
     
     // MARK: - Reload
     
     private func reloadData() {
-//        coins = service.getFavouriteCoins()
-        coinsTableView.reloadData()
-        
-//        let preferences = service.getPreferences()
-//        let fiatCurrencies = currencySelect.itemTitles
-//        if let index = fiatCurrencies.index(of: preferences.Preferences.Currency) {
-//            currencySelect.selectItem(at: index)
-//        }
+        coins = service.coinsService.getFavouriteCoins()
+        preferences = service.preferencesService.getPreferences()
+            
+        DispatchQueue.main.async {
+            self.coinsTableView.reloadData()
+            
+            if let index = self.currencySelect.itemTitles.index(of: self.preferences.currency) {
+                self.currencySelect.selectItem(at: index)
+            }
+        }
     }
     
     // MARK: - Actions
@@ -82,24 +84,24 @@ final class PreferencesViewController: NSViewController {
         alert.messageText = "Add Coin"
 
         let textField = NSTextField(frame: NSRect(x: 0, y: 0, width: 300, height: 24))
-        textField.placeholderString = "e.g. \"BTC\" or \"BTC,ETH,LTC\""
+        textField.placeholderString = "e.g. 'BTC' or 'BTC, ETH, LTC'"
         alert.accessoryView = textField
         
         alert.beginSheetModal(for: window) { response in
 
-//            switch response {
-//
-//            case .alertFirstButtonReturn:
-//                textField.stringValue
-//                    .replacingOccurrences(of: " ", with: "")
-//                    .components(separatedBy: ",")
-//                    .flatMap(self.service.getCoin)
-//                    .forEach(self.service.addFavourite)
-//                self.reloadData()
-//
-//            default:
-//                return
-//            }
+            switch response {
+
+            case .alertFirstButtonReturn:
+                textField.stringValue
+                    .replacingOccurrences(of: " ", with: "")
+                    .components(separatedBy: ",")
+                    .flatMap(self.service.coinsService.getCoin)
+                    .forEach(self.service.preferencesService.addFavouriteCoin)
+                
+            default:
+                return
+                
+            }
         }
     }
     
@@ -107,25 +109,9 @@ final class PreferencesViewController: NSViewController {
         let selected = coinsTableView.selectedRow
         guard selected >= 0 else { return }
         let coin = coins[selected]
-//        service.removeFavourite(coin: coin)
-        reloadData()
+        service.preferencesService.removeFavouriteCoin(coin)
     }
 }
-
-// MARK: - <ServiceObserver>
-
-//extension PreferencesViewController: ServiceObserver {
-//
-//    var serviceObserverIdentifier: String {
-//        return "Preferences"
-//    }
-//
-//    func coinsUpdated() {
-//        DispatchQueue.main.async {
-//            self.reloadData()
-//        }
-//    }
-//}
 
 // MARK: - <NSTableViewDelegate> / <NSTableViewDataSource>
 
@@ -146,12 +132,12 @@ extension PreferencesViewController: NSTableViewDelegate, NSTableViewDataSource 
         cell.textField?.stringValue = coin.symbol
         cell.imageView?.image = nil
         
-//        imageCache.getCoinImage(for: coin) { result in
-//            guard let image = result.value else { return }
-//            DispatchQueue.main.async {
-//                cell.imageView?.image = image
-//            }
-//        }
+        service.imagesService.getImage(for: coin) { result in
+            guard let image = result.value else { return }
+            DispatchQueue.main.async {
+                cell.imageView?.image = image
+            }
+        }
         
         return cell
     }
@@ -191,7 +177,7 @@ extension PreferencesViewController: NSTableViewDelegate, NSTableViewDataSource 
             coins.insert(movingCoin, at: movingToIndex)
         }
         
-//        service.orderFavourites(coins: coins)
+        service.preferencesService.setFavouriteCoins(coins)
         
         return true
     }

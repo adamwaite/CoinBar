@@ -14,7 +14,7 @@ protocol CoinsServiceProtocol {
     
     func getAllCoins() -> [Coin]
     func getFavouriteCoins() -> [Coin]
-
+    func getCoin(symbol: String) -> Coin?
 }
 
 final class CoinsService: CoinsServiceProtocol {
@@ -57,6 +57,11 @@ final class CoinsService: CoinsServiceProtocol {
         return favourites.flatMap { fav in
             coins.lazy.first { $0.id == fav }
         }
+    }
+    
+    func getCoin(symbol: String) -> Coin? {
+        let coins = getAllCoins()
+        return coins.lazy.first { $0.symbol.lowercased() == symbol.lowercased() }
     }
     
     // MARK: - Notifications

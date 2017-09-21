@@ -71,5 +71,24 @@ final class CoinsServiceTests: XCTestCase {
         let coins = subject.getFavouriteCoins()
         XCTAssertEqual(coins.map { $0.id }, ["litecoin", "bitcoin"])
     }
+    
+    // MARK: - getCoin
 
+    func test_getCoin_coinExists_returnsCoin() {
+        stubPersistence.coins = JSONFixtures.coins()
+        let coin = subject.getCoin(symbol: "LTC")
+        XCTAssertEqual(coin?.id, "litecoin")
+    }
+    
+    func test_getCoin_coinExists_lowercase_returnsCoin() {
+        stubPersistence.coins = JSONFixtures.coins()
+        let coin = subject.getCoin(symbol: "ltc")
+        XCTAssertEqual(coin?.id, "litecoin")
+    }
+
+    func test_getCoin_noCoin_returnsNil() {
+        stubPersistence.coins = JSONFixtures.coins()
+        let coin = subject.getCoin(symbol: "lel")
+        XCTAssertNil(coin)
+    }
 }

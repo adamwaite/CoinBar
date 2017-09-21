@@ -27,7 +27,7 @@ final class MenuController: NSObject {
         let storyboard = NSStoryboard(name: NSStoryboard.Name("Main"), bundle: nil)
         let preferencesWindowController = storyboard.instantiateController(withIdentifier: NSStoryboard.SceneIdentifier("Preferences")) as! NSWindowController
         let preferencesViewController = preferencesWindowController.window!.contentViewController as! PreferencesViewController
-//        preferencesViewController.configure(service: self.service)
+        preferencesViewController.configure(service: self.service)
         return preferencesWindowController
     }()
     
