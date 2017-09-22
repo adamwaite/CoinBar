@@ -50,7 +50,6 @@
 		99F4EA461F7584C900319783 /* RefreshMenuItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99F4EA451F7584C900319783 /* RefreshMenuItemView.swift */; };
 		99F4EA481F7584E100319783 /* RefreshMenuItemView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 99F4EA471F7584E100319783 /* RefreshMenuItemView.xib */; };
 		99F4EA4A1F758B3700319783 /* MenuItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99F4EA491F758B3700319783 /* MenuItemView.swift */; };
-		99F4EA4C1F75986900319783 /* Date+CoinBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99F4EA4B1F75986900319783 /* Date+CoinBar.swift */; };
 		FFAE0B781F7185EA00CE26E2 /* JSONFixtures.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFAE0B771F7185EA00CE26E2 /* JSONFixtures.swift */; };
 		FFAE0B7B1F71863600CE26E2 /* coins.json in Resources */ = {isa = PBXBuildFile; fileRef = FFAE0B7A1F71863600CE26E2 /* coins.json */; };
 		FFAE0B7F1F71866F00CE26E2 /* coin.json in Resources */ = {isa = PBXBuildFile; fileRef = FFAE0B7E1F71866F00CE26E2 /* coin.json */; };
@@ -116,7 +115,6 @@
 		99F4EA451F7584C900319783 /* RefreshMenuItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RefreshMenuItemView.swift; sourceTree = "<group>"; };
 		99F4EA471F7584E100319783 /* RefreshMenuItemView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RefreshMenuItemView.xib; sourceTree = "<group>"; };
 		99F4EA491F758B3700319783 /* MenuItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuItemView.swift; sourceTree = "<group>"; };
-		99F4EA4B1F75986900319783 /* Date+CoinBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+CoinBar.swift"; sourceTree = "<group>"; };
 		FFAE0B771F7185EA00CE26E2 /* JSONFixtures.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JSONFixtures.swift; sourceTree = "<group>"; };
 		FFAE0B7A1F71863600CE26E2 /* coins.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = coins.json; sourceTree = "<group>"; };
 		FFAE0B7E1F71866F00CE26E2 /* coin.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = coin.json; sourceTree = "<group>"; };
@@ -197,7 +195,6 @@
 		998136C31F6F1140003381BA /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
-				99F4EA4B1F75986900319783 /* Date+CoinBar.swift */,
 				99DF63401F747E21000A0FEE /* DispatchQueue+CoinBar.swift */,
 				998136C41F6F1150003381BA /* NibLoadable.swift */,
 				99DF633E1F7476DE000A0FEE /* NSView+CoinBar.swift */,
@@ -480,7 +477,6 @@
 				99D3E9871F6D00E6003C1CB3 /* Error.swift in Sources */,
 				99D3E9631F6CF8F1003C1CB3 /* AppDelegate.swift in Sources */,
 				99DF63411F747E21000A0FEE /* DispatchQueue+CoinBar.swift in Sources */,
-				99F4EA4C1F75986900319783 /* Date+CoinBar.swift in Sources */,
 				99A0C6621F6DCDF500390B95 /* PreferencesViewController.swift in Sources */,
 				994CA9781F70793500FFE717 /* CoinsService.swift in Sources */,
 				994CA97A1F70793E00FFE717 /* PreferencesService.swift in Sources */,

@@ -8,7 +8,7 @@
 
 import Cocoa
 
-final class MenuController: NSObject, NSMenuDelegate, RefreshMenuItemViewDelegate {
+final class MenuController: NSObject, NSMenuDelegate {
     
     // MARK: - Properties
     
@@ -126,7 +126,7 @@ final class MenuController: NSObject, NSMenuDelegate, RefreshMenuItemViewDelegat
         let preferredCurrency = Preferences.Currency(rawValue: currencyCode) ?? .bitcoin
         
         return coins.enumerated().map {
-            let item = NSMenuItem(title: $0.element.symbol, action: #selector(MenuController.viewCoin(_:)), keyEquivalent: "")
+            let item = NSMenuItem(title: $0.element.symbol, action: #selector(viewCoin(_:)), keyEquivalent: "")
             item.tag = $0.offset
             item.target = self
             if let coinMenuItemView = makeCoinMenuItemView(coin: $0.element, currency: preferredCurrency) {
@@ -142,8 +142,7 @@ final class MenuController: NSObject, NSMenuDelegate, RefreshMenuItemViewDelegat
         }
         
         coinMenuItemView.configure(with: coin, currency: currency, imagesService: service.imagesService)
-        let clickRecognizer = NSClickGestureRecognizer(target: self, action: #selector(MenuController.viewCoin(_:)))
-        coinMenuItemView.addGestureRecognizer(clickRecognizer)
+        coinMenuItemView.onClick = viewCoin
         return coinMenuItemView
     }
     
@@ -152,7 +151,7 @@ final class MenuController: NSObject, NSMenuDelegate, RefreshMenuItemViewDelegat
     }
     
     private func makeRefreshItem() -> NSMenuItem {
-        let item = NSMenuItem(title: "Refresh", action: #selector(MenuController.refresh(_:)), keyEquivalent: "")
+        let item = NSMenuItem(title: "Refresh", action: #selector(refreshMenuItemViewClicked(_:)), keyEquivalent: "")
         item.target = self
         return item
     }
@@ -163,18 +162,18 @@ final class MenuController: NSObject, NSMenuDelegate, RefreshMenuItemViewDelegat
         }
         
         refreshMenuItemView.configure(lastRefreshed: service.coinsService.lastUpdated)
-        refreshMenuItemView.delegate = self
+        refreshMenuItemView.onClick = refreshMenuItemViewClicked
         return refreshMenuItemView
     }
     
     private func makePreferencesItem() -> NSMenuItem {
-        let item = NSMenuItem(title: "Preferences", action: #selector(MenuController.presentPreferences(_:)), keyEquivalent: "")
+        let item = NSMenuItem(title: "Preferences", action: #selector(presentPreferences(_:)), keyEquivalent: "")
         item.target = self
         return item
     }
     
     private func makeQuitItem() -> NSMenuItem {
-        let item = NSMenuItem(title: "Quit CoinBar", action: #selector(MenuController.quit(_:)), keyEquivalent: "")
+        let item = NSMenuItem(title: "Quit CoinBar", action: #selector(quit(_:)), keyEquivalent: "")
         item.target = self
         return item
     }
@@ -190,14 +189,10 @@ final class MenuController: NSObject, NSMenuDelegate, RefreshMenuItemViewDelegat
         }
     }
     
-    @objc private func refresh(_ sender: NSMenuItem) {
-        guard let refreshView = sender.view as? RefreshMenuItemView else {
-            return
-        }
-        
-        refreshView.isUserInteractionEnabled = false
-        refreshView.refreshLabel.stringValue = "Refreshing..."
-        refreshView.lastRefreshDateLabel.stringValue = "..."
+    @objc private func refreshMenuItemViewClicked(_ sender: NSClickGestureRecognizer) {
+        service.coinsService.refreshCoins()
+        refreshView?.refreshLabel.stringValue = "Refreshing..."
+        refreshView?.lastRefreshDateLabel.stringValue = ""
     }
     
     @objc private func presentPreferences(_ sender: NSMenuItem) {
@@ -207,15 +202,6 @@ final class MenuController: NSObject, NSMenuDelegate, RefreshMenuItemViewDelegat
     
     @objc private func quit(_ sender: NSMenuItem) {
         NSApplication.shared.terminate(self)
-    }
-    
-    // MARK: <RefreshMenuItemViewDelegate>
-    
-    func refreshMenuItemViewClicked(_ view: RefreshMenuItemView) {
-        service.coinsService.refreshCoins()
-        view.isUserInteractionEnabled = false
-        view.refreshLabel.stringValue = "Refreshing..."
-        view.lastRefreshDateLabel.stringValue = ""
     }
     
     // MARK: - <NSMenuDelegate>
