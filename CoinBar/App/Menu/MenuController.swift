@@ -8,7 +8,7 @@
 
 import Cocoa
 
-final class MenuController: NSObject {
+final class MenuController: NSObject, NSMenuDelegate, RefreshMenuItemViewDelegate {
     
     // MARK: - Properties
     
@@ -16,13 +16,16 @@ final class MenuController: NSObject {
     private var serviceObserver: ServiceObserver!
 
     fileprivate var coins: [Coin] = []
-    
+    fileprivate var isMenuOpen: Bool = false
+
     // MARK: UI
     
     private let statusItem = NSStatusBar.system.statusItem(withLength: NSStatusItem.squareLength)
 
     @IBOutlet private(set) weak var statusMenu: NSMenu!
 
+    private var refreshView: RefreshMenuItemView?
+    
     private lazy var preferencesWindowController: NSWindowController = {
         let storyboard = NSStoryboard(name: NSStoryboard.Name("Main"), bundle: nil)
         let preferencesWindowController = storyboard.instantiateController(withIdentifier: NSStoryboard.SceneIdentifier("Preferences")) as! NSWindowController
@@ -50,16 +53,29 @@ final class MenuController: NSObject {
     // MARK: - UI
     
     private func reloadData() {
+        let previousCoins = coins
         coins = service.coinsService.getFavouriteCoins()
+        
+        let updated = coins == previousCoins
+        
         DispatchQueue.main.async {
+            
             self.flashMenuBar()
-            self.reloadMenu()
+            
+            if !updated {
+                self.reloadMenu()
+            }
+            
+            else {
+                self.refreshMenu()
+            }
+            
         }
     }
     
     private func flashMenuBar() {
+        guard !isMenuOpen else { return }
         statusItem.button?.image = NSImage(named: NSImage.Name("status-bar-icon-active"))
-        
         DispatchQueue.main.asyncAfter(1) {
             self.statusItem.button?.image = NSImage(named: NSImage.Name("status-bar-icon"))
         }
@@ -74,11 +90,35 @@ final class MenuController: NSObject {
         let seperator = makeSeperatorItem()
         statusMenu.addItem(seperator)
         
+        let refreshItem = makeRefreshItem()
+        refreshView = makeRefreshMenuItemView()
+        refreshItem.view = refreshView
+        statusMenu.addItem(refreshItem)
+        
+        let secondSeperator = makeSeperatorItem()
+        statusMenu.addItem(secondSeperator)
+        
         let preferencesItem = makePreferencesItem()
         statusMenu.addItem(preferencesItem)
         
         let quitItem = makeQuitItem()
         statusMenu.addItem(quitItem)
+    }
+    
+    private func refreshMenu() {
+        let currencyCode = service.preferencesService.getPreferences().currency
+        let preferredCurrency = Preferences.Currency(rawValue: currencyCode) ?? .bitcoin
+
+        refreshView?.configure(lastRefreshed: service.coinsService.lastUpdated)
+        
+        coins.enumerated().forEach { idx, coin in
+            guard let item = statusMenu.item(at: idx),
+                let coinItemView = item.view as? CoinMenuItemView else {
+                    return
+            }
+            
+            coinItemView.configure(with: coin, currency: preferredCurrency, imagesService: service.imagesService)
+        }
     }
 
     private func makeCoinItems() -> [NSMenuItem] {
@@ -86,13 +126,13 @@ final class MenuController: NSObject {
         let preferredCurrency = Preferences.Currency(rawValue: currencyCode) ?? .bitcoin
         
         return coins.enumerated().map {
-            let menuItem = NSMenuItem(title: $0.element.symbol, action: #selector(MenuController.viewCoin(_:)), keyEquivalent: "")
-            menuItem.tag = $0.offset
-            menuItem.target = self
+            let item = NSMenuItem(title: $0.element.symbol, action: #selector(MenuController.viewCoin(_:)), keyEquivalent: "")
+            item.tag = $0.offset
+            item.target = self
             if let coinMenuItemView = makeCoinMenuItemView(coin: $0.element, currency: preferredCurrency) {
-                menuItem.view = coinMenuItemView
+                item.view = coinMenuItemView
             }
-            return menuItem
+            return item
         }
     }
     
@@ -109,6 +149,22 @@ final class MenuController: NSObject {
     
     private func makeSeperatorItem() -> NSMenuItem {
         return NSMenuItem.separator()
+    }
+    
+    private func makeRefreshItem() -> NSMenuItem {
+        let item = NSMenuItem(title: "Refresh", action: #selector(MenuController.refresh(_:)), keyEquivalent: "")
+        item.target = self
+        return item
+    }
+    
+    private func makeRefreshMenuItemView() -> RefreshMenuItemView? {
+        guard let refreshMenuItemView = RefreshMenuItemView.createFromNib() else {
+            return nil
+        }
+        
+        refreshMenuItemView.configure(lastRefreshed: service.coinsService.lastUpdated)
+        refreshMenuItemView.delegate = self
+        return refreshMenuItemView
     }
     
     private func makePreferencesItem() -> NSMenuItem {
@@ -134,6 +190,16 @@ final class MenuController: NSObject {
         }
     }
     
+    @objc private func refresh(_ sender: NSMenuItem) {
+        guard let refreshView = sender.view as? RefreshMenuItemView else {
+            return
+        }
+        
+        refreshView.isUserInteractionEnabled = false
+        refreshView.refreshLabel.stringValue = "Refreshing..."
+        refreshView.lastRefreshDateLabel.stringValue = "..."
+    }
+    
     @objc private func presentPreferences(_ sender: NSMenuItem) {
         NSApp.activate(ignoringOtherApps: true)
         preferencesWindowController.showWindow(self)
@@ -142,4 +208,24 @@ final class MenuController: NSObject {
     @objc private func quit(_ sender: NSMenuItem) {
         NSApplication.shared.terminate(self)
     }
+    
+    // MARK: <RefreshMenuItemViewDelegate>
+    
+    func refreshMenuItemViewClicked(_ view: RefreshMenuItemView) {
+        service.coinsService.refreshCoins()
+        view.isUserInteractionEnabled = false
+        view.refreshLabel.stringValue = "Refreshing..."
+        view.lastRefreshDateLabel.stringValue = ""
+    }
+    
+    // MARK: - <NSMenuDelegate>
+    
+    func menuWillOpen(_ menu: NSMenu) {
+        isMenuOpen = true
+    }
+    
+    func menuDidClose(_ menu: NSMenu) {
+        isMenuOpen = false
+    }
+    
 }

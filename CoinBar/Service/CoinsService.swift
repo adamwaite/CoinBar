@@ -10,11 +10,14 @@ import Foundation
 
 protocol CoinsServiceProtocol {
     
+    var lastUpdated: Date? { get }
+    
     func refreshCoins()
     
     func getAllCoins() -> [Coin]
     func getFavouriteCoins() -> [Coin]
     func getCoin(symbol: String) -> Coin?
+    
 }
 
 final class CoinsService: CoinsServiceProtocol {
@@ -22,6 +25,7 @@ final class CoinsService: CoinsServiceProtocol {
     private let networking: NetworkingProtocol
     private let persistence: PersistenceProtocol
     private var updateTimer: Timer?
+    private(set) var lastUpdated: Date?
 
     // MARK: - Init
     
@@ -60,6 +64,7 @@ final class CoinsService: CoinsServiceProtocol {
                 return coins
             }
             
+            self?.lastUpdated = Date()
             self?.notify()
         }
     }

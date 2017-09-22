@@ -38,6 +38,14 @@ final class CoinsServiceTests: XCTestCase {
         XCTAssertEqual(stubPersistence.readCoins().count, 5)
     }
     
+    func test_refreshCoins_success_updatesLastUpdatedTime() {
+        XCTAssertNil(subject.lastUpdated)
+        stubNetworking.resources = JSONFixtures.coins()
+        subject.refreshCoins()
+        XCTAssertNotNil(subject.lastUpdated)
+        XCTAssertEqual(subject.lastUpdated!.timeIntervalSinceReferenceDate,  Date().timeIntervalSinceReferenceDate, accuracy: 0.1)
+    }
+    
     func test_refreshCoins_success_notifies() {
         stubNetworking.resources = JSONFixtures.coins()
 

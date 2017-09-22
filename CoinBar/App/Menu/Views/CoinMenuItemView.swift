@@ -8,23 +8,12 @@
 
 import Cocoa
 
-final class CoinMenuItemView: NSView, NibLoadable {
+final class CoinMenuItemView: MenuItemView, NibLoadable {
     
     @IBOutlet private(set) var imageView: NSImageView!
     @IBOutlet private(set) var symbolLabel: NSTextField!
     @IBOutlet private(set) var priceLabel: NSTextField!
     @IBOutlet private(set) var percentChangeLabel: NSTextField!
-    
-    override func draw(_ dirtyRect: NSRect) {
-        if let isHighlighted = enclosingMenuItem?.isHighlighted, isHighlighted {
-            /// stackoverflow.com/questions/26851306/trouble-matching-the-vibrant-background-of-a-yosemite-nsmenuitem-containing-a-cu
-            NSColor.selectedMenuItemColor.set()
-            NSBezierPath.fill(dirtyRect)
-            return
-        }
-
-        super.draw(dirtyRect)
-    }
     
     func configure(with coin: Coin, currency: Preferences.Currency, imagesService: ImagesServiceProtocol) {
                 

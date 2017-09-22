@@ -10,7 +10,11 @@
         <!--Application-->
         <scene sceneID="JPo-4y-FX3">
             <objects>
-                <menu id="2PT-OU-SuK"/>
+                <menu id="2PT-OU-SuK">
+                    <connections>
+                        <outlet property="delegate" destination="bgo-Nw-AU7" id="D1E-Fl-737"/>
+                    </connections>
+                </menu>
                 <customObject id="Ady-hI-5gd" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
                 <customObject id="Voe-Tx-rLC" customClass="AppDelegate" customModule="CoinBar" customModuleProvider="target">
                     <connections>
@@ -229,7 +233,7 @@
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="PVR-v4-U9v">
                                 <rect key="frame" x="18" y="68" width="414" height="14"/>
                                 <textFieldCell key="cell" sendsActionOnEndEditing="YES" title="If you have any questions or suggestions please feel free to send me an email." id="Lii-As-ZuH">
-                                    <font key="font" metaFont="system" size="11"/>
+                                    <font key="font" metaFont="smallSystem"/>
                                     <color key="textColor" name="secondaryLabelColor" catalog="System" colorSpace="catalog"/>
                                     <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
@@ -237,7 +241,7 @@
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="vdh-FE-opA">
                                 <rect key="frame" x="18" y="46" width="331" height="14"/>
                                 <textFieldCell key="cell" sendsActionOnEndEditing="YES" title="Support with BTC:  3FrCaSA4X4LtTfxjWVYXne3pFxvkxMy8K4" id="T4s-Wn-K49">
-                                    <font key="font" metaFont="system" size="11"/>
+                                    <font key="font" metaFont="smallSystem"/>
                                     <color key="textColor" name="secondaryLabelColor" catalog="System" colorSpace="catalog"/>
                                     <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
@@ -245,7 +249,7 @@
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="tfS-t9-HEa">
                                 <rect key="frame" x="18" y="24" width="391" height="14"/>
                                 <textFieldCell key="cell" sendsActionOnEndEditing="YES" title="Support with ETH:  0x57B16C7474ae006b8534D66d8719C6e4AE752472" id="bgB-z7-8Cj">
-                                    <font key="font" metaFont="system" size="11"/>
+                                    <font key="font" metaFont="smallSystem"/>
                                     <color key="textColor" name="secondaryLabelColor" catalog="System" colorSpace="catalog"/>
                                     <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
