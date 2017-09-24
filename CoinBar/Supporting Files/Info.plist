@@ -30,5 +30,19 @@
 	<string>NSApplication</string>
 	<key>LSUIElement</key>
 	<true/>
+    <key>Fabric</key>
+    <dict>
+        <key>APIKey</key>
+        <string>18732ce8616ce7338c1cea79769808ac4e88fab2</string>
+        <key>Kits</key>
+        <array>
+            <dict>
+                <key>KitInfo</key>
+                <dict/>
+                <key>KitName</key>
+                <string>Answers</string>
+            </dict>
+        </array>
+    </dict>
 </dict>
 </plist>
