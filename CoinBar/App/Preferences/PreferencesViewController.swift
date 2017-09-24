@@ -49,17 +49,9 @@ final class PreferencesViewController: NSViewController {
     
     @IBOutlet private(set) var supportEmailLabel: NSTextField!
 
-    @IBOutlet private(set) var bitcoinDonationLabel: NSTextField! {
-        didSet {
-            
-        }
-    }
+    @IBOutlet private(set) var bitcoinDonationLabel: NSTextField!
     
-    @IBOutlet private(set) var etherDonationLabel: NSTextField! {
-        didSet {
-            
-        }
-    }
+    @IBOutlet private(set) var etherDonationLabel: NSTextField!
 
     
     // MARK: - Lifecycle
@@ -68,6 +60,7 @@ final class PreferencesViewController: NSViewController {
         super.viewDidLoad()
         configureVersionLabel()
         configureEmailLabel()
+        configureDonationLabels()
     }
     
     override func viewWillAppear() {
@@ -93,11 +86,11 @@ final class PreferencesViewController: NSViewController {
     
     // MARK: - UI
     
-    func configureVersionLabel() {
+    private func configureVersionLabel() {
         versionNumberLabel.stringValue = "CoinBar \(NSApplication.shared.versionNumber)"
     }
     
-    func configureEmailLabel() {
+    private func configureEmailLabel() {
         let emailText = "Feel free to send me an email with any questions or suggestions."
         let bold = "send me an email"
         let boldRange = (emailText as NSString).range(of: bold)
@@ -110,8 +103,14 @@ final class PreferencesViewController: NSViewController {
         supportEmailLabel.addGestureRecognizer(clickRecognizer)
     }
 
-    func configureDonationLabels() {
-        
+    private func configureDonationLabels() {
+        bitcoinDonationLabel.stringValue = "Support the app with BTC: \(DonationAddresses.bitcoin.rawValue)"
+        let btcClickRecognizer = NSClickGestureRecognizer(target: self, action: #selector(support(_:)))
+        bitcoinDonationLabel.addGestureRecognizer(btcClickRecognizer)
+
+        etherDonationLabel.stringValue = "Support the app with ETH: \(DonationAddresses.ether.rawValue)"
+        let ethClickRecognizer = NSClickGestureRecognizer(target: self, action: #selector(support(_:)))
+        etherDonationLabel.addGestureRecognizer(ethClickRecognizer)
     }
     
     // MARK: - Reload
@@ -203,7 +202,31 @@ final class PreferencesViewController: NSViewController {
         emailService.perform(withItems: [])
     }
     
-    @IBAction func donate(_ sender: NSClickGestureRecognizer) {
+    @objc private func support(_ sender: NSClickGestureRecognizer) {
+        guard let label = sender.view as? NSTextField else {
+            return
+        }
+        
+        let pasteBoard = NSPasteboard.general
+        pasteBoard.clearContents()
+
+        let isBTC = label.stringValue.contains(DonationAddresses.bitcoin.rawValue)
+        
+        if isBTC {
+            pasteBoard.writeObjects([DonationAddresses.bitcoin.rawValue as NSString])
+            bitcoinDonationLabel.stringValue = "Copied, thanks."
+            DispatchQueue.main.asyncAfter(3) {
+                self.bitcoinDonationLabel.stringValue = "Support the app with BTC: \(DonationAddresses.bitcoin.rawValue)"
+            }
+        }
+        
+        else {
+            pasteBoard.writeObjects([DonationAddresses.ether.rawValue as NSString])
+            etherDonationLabel.stringValue = "Copied, thanks."
+            DispatchQueue.main.asyncAfter(3) {
+                self.etherDonationLabel.stringValue = "Support the app with ETH: \(DonationAddresses.ether.rawValue)"
+            }
+        }
         
     }
 }

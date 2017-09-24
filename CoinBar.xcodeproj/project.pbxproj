@@ -51,6 +51,7 @@
 		99F4EA481F7584E100319783 /* RefreshMenuItemView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 99F4EA471F7584E100319783 /* RefreshMenuItemView.xib */; };
 		99F4EA4A1F758B3700319783 /* MenuItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99F4EA491F758B3700319783 /* MenuItemView.swift */; };
 		99F4EA4E1F77BD7700319783 /* NSApplication+CoinBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99F4EA4D1F77BD7700319783 /* NSApplication+CoinBar.swift */; };
+		99F4EA501F77C44000319783 /* DonationAddresses.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99F4EA4F1F77C44000319783 /* DonationAddresses.swift */; };
 		FFAE0B781F7185EA00CE26E2 /* JSONFixtures.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFAE0B771F7185EA00CE26E2 /* JSONFixtures.swift */; };
 		FFAE0B7B1F71863600CE26E2 /* coins.json in Resources */ = {isa = PBXBuildFile; fileRef = FFAE0B7A1F71863600CE26E2 /* coins.json */; };
 		FFAE0B7F1F71866F00CE26E2 /* coin.json in Resources */ = {isa = PBXBuildFile; fileRef = FFAE0B7E1F71866F00CE26E2 /* coin.json */; };
@@ -117,6 +118,7 @@
 		99F4EA471F7584E100319783 /* RefreshMenuItemView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RefreshMenuItemView.xib; sourceTree = "<group>"; };
 		99F4EA491F758B3700319783 /* MenuItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuItemView.swift; sourceTree = "<group>"; };
 		99F4EA4D1F77BD7700319783 /* NSApplication+CoinBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSApplication+CoinBar.swift"; sourceTree = "<group>"; };
+		99F4EA4F1F77C44000319783 /* DonationAddresses.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DonationAddresses.swift; sourceTree = "<group>"; };
 		FFAE0B771F7185EA00CE26E2 /* JSONFixtures.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JSONFixtures.swift; sourceTree = "<group>"; };
 		FFAE0B7A1F71863600CE26E2 /* coins.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = coins.json; sourceTree = "<group>"; };
 		FFAE0B7E1F71866F00CE26E2 /* coin.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = coin.json; sourceTree = "<group>"; };
@@ -300,6 +302,7 @@
 				99D3E98C1F6D016B003C1CB3 /* Coin.swift */,
 				99D3E98E1F6D0180003C1CB3 /* Preferences.swift */,
 				994CA9671F70414000FFE717 /* PreferencesCurrency.swift */,
+				99F4EA4F1F77C44000319783 /* DonationAddresses.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -468,6 +471,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				99F4EA501F77C44000319783 /* DonationAddresses.swift in Sources */,
 				99A0C6641F6E5D5500390B95 /* ValueStore.swift in Sources */,
 				99D3E9971F6D05A6003C1CB3 /* WebServices.swift in Sources */,
 				99D3E98F1F6D0180003C1CB3 /* Preferences.swift in Sources */,
