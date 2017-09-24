@@ -294,10 +294,14 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="bitcoinDonationLabel" destination="vdh-FE-opA" id="dXO-W9-coK"/>
                         <outlet property="coinsTableView" destination="dCg-Fu-oEj" id="bhw-hF-djs"/>
                         <outlet property="currencySelect" destination="wX1-fc-DYr" id="ZRZ-95-RV9"/>
+                        <outlet property="etherDonationLabel" destination="tfS-t9-HEa" id="Kja-Hj-gvS"/>
                         <outlet property="seperator1" destination="T5c-lK-8rX" id="oh8-iF-4N4"/>
                         <outlet property="seperator2" destination="f71-al-Ypk" id="gVE-WA-mCq"/>
+                        <outlet property="supportEmailLabel" destination="PVR-v4-U9v" id="Cl7-Vs-zan"/>
+                        <outlet property="versionNumberLabel" destination="L5p-0S-xIS" id="pP2-Jh-lTU"/>
                     </connections>
                 </viewController>
                 <customObject id="rFU-Qh-wQR" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>

@@ -44,9 +44,31 @@ final class PreferencesViewController: NSViewController {
             seperator2.setBackgroundColor(NSColor.quaternaryLabelColor)
         }
     }
+    
+    @IBOutlet private(set) var versionNumberLabel: NSTextField!
+    
+    @IBOutlet private(set) var supportEmailLabel: NSTextField!
+
+    @IBOutlet private(set) var bitcoinDonationLabel: NSTextField! {
+        didSet {
+            
+        }
+    }
+    
+    @IBOutlet private(set) var etherDonationLabel: NSTextField! {
+        didSet {
+            
+        }
+    }
 
     
     // MARK: - Lifecycle
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        configureVersionLabel()
+        configureEmailLabel()
+    }
     
     override func viewWillAppear() {
         super.viewWillAppear()
@@ -55,12 +77,41 @@ final class PreferencesViewController: NSViewController {
     
     override func viewDidAppear() {
         super.viewDidAppear()
+        
         serviceObserver = ServiceObserver(coinsUpdated: reloadData, preferencesUpdated: reloadData)
         service.coinsService.refreshCoins()
     }
     
+    override func viewDidDisappear() {
+        super.viewDidDisappear()
+        serviceObserver = nil
+    }
+    
     func configure(service: Service) {
         self.service = service
+    }
+    
+    // MARK: - UI
+    
+    func configureVersionLabel() {
+        versionNumberLabel.stringValue = "CoinBar \(NSApplication.shared.versionNumber)"
+    }
+    
+    func configureEmailLabel() {
+        let emailText = "Feel free to send me an email with any questions or suggestions."
+        let bold = "send me an email"
+        let boldRange = (emailText as NSString).range(of: bold)
+        let boldAttributes = [NSAttributedStringKey.font: NSFont.boldSystemFont(ofSize: supportEmailLabel.font!.pointSize)]
+        let attributedString = NSMutableAttributedString(string: emailText, attributes: [:])
+        attributedString.setAttributes(boldAttributes, range: boldRange)
+        supportEmailLabel.attributedStringValue = attributedString
+        
+        let clickRecognizer = NSClickGestureRecognizer(target: self, action: #selector(contact(_:)))
+        supportEmailLabel.addGestureRecognizer(clickRecognizer)
+    }
+
+    func configureDonationLabels() {
+        
     }
     
     // MARK: - Reload
@@ -138,6 +189,22 @@ final class PreferencesViewController: NSViewController {
             service.preferencesService.setCurrency(currency)
             service.coinsService.refreshCoins()
         }
+    }
+    
+    @objc private func contact(_ sender: NSClickGestureRecognizer) {
+        guard let emailService = NSSharingService(named: .composeEmail),
+            emailService.canPerform(withItems: [""]) else {
+                supportEmailLabel.stringValue = "Send an email to adam@adamjwaite.co.uk"
+                return
+        }
+        
+        emailService.recipients = ["adam@adamjwaite.co.uk"]
+        emailService.subject    = "CoinBar Support"
+        emailService.perform(withItems: [])
+    }
+    
+    @IBAction func donate(_ sender: NSClickGestureRecognizer) {
+        
     }
 }
 
