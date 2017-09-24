@@ -146,14 +146,15 @@ final class PreferencesViewController: NSViewController {
         
         let alert = NSAlert()
         
-        alert.addButton(withTitle: "Add")
-        alert.addButton(withTitle: "Cancel")
-        
         alert.messageText = "Add Coin"
-
+        
         let textField = NSTextField(frame: NSRect(x: 0, y: 0, width: 300, height: 24))
         textField.placeholderString = "e.g. 'BTC' or 'BTC, ETH, LTC'"
         alert.accessoryView = textField
+        alert.window.initialFirstResponder = textField
+        
+        alert.addButton(withTitle: "Add")
+        alert.addButton(withTitle: "Cancel")
         
         alert.beginSheetModal(for: window) { response in
 
