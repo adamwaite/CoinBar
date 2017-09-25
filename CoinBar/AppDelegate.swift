@@ -1,14 +1,4 @@
-//
-//  AppDelegate.swift
-//  CoinBar
-//
-//  Created by Adam Waite on 16/09/2017.
-//  Copyright © 2017 adamjwaite.co.uk. All rights reserved.
-//
-
 import Cocoa
-import Fabric
-import Crashlytics
 
 @NSApplicationMain
 final class AppDelegate: NSObject, NSApplicationDelegate {
@@ -20,8 +10,6 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
     @IBOutlet private(set) var menuController: MenuController!
     
     func applicationDidFinishLaunching(_ notification: Notification) {
-        
-        Fabric.with([Answers.self, Crashlytics.self])
         
         let persistence = Persistence()
         

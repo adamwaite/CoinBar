@@ -1,14 +1,6 @@
-//
-//  DonationAddresses.swift
-//  CoinBar
-//
-//  Created by Adam Waite on 24/09/2017.
-//  Copyright © 2017 adamjwaite.co.uk. All rights reserved.
-//
-
 import Foundation
 
 enum DonationAddresses: String {
-    case bitcoin = "3FrCaSA4X4LtTfxjWVYXne3pFxvkxMy8K4"
-    case ether = "0x57B16C7474ae006b8534D66d8719C6e4AE752472"
+    case bitcoin = "1AmAU2Ezo5p7yFs13pb1YcwzPzTyDKPvm3"
+    case ether = "0xd5aD2aD0Ff9a80B2b8bA5ae0DE2522626c05735C"
 }
