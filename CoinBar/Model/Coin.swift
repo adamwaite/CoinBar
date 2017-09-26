@@ -6,8 +6,8 @@ struct Coin: Codable {
     let name: String
     let symbol: String
     let rank: String
-    let priceUSD: String
-    let priceBTC: String
+    let priceUSD: String?
+    let priceBTC: String?
     let pricePreferredCurrency: String?
     let percentChange1h: String?
     let percentChange24h: String?
@@ -63,8 +63,8 @@ extension Coin {
         name = try container.decode(String.self, forKey: .name)
         symbol = try container.decode(String.self, forKey: .symbol)
         rank = try container.decode(String.self, forKey: .rank)
-        priceUSD = try container.decode(String.self, forKey: .priceUSD)
-        priceBTC = try container.decode(String.self, forKey: .priceBTC)
+        priceBTC = try container.decodeIfPresent(String.self, forKey: .priceBTC)
+        priceUSD = try container.decodeIfPresent(String.self, forKey: .priceUSD)
         percentChange1h = try container.decodeIfPresent(String.self, forKey: .percentChange1h)
         percentChange24h = try container.decodeIfPresent(String.self, forKey: .percentChange24h)
         percentChange7d = try container.decodeIfPresent(String.self, forKey: .percentChange7d)
@@ -89,8 +89,8 @@ extension Coin {
         try container.encode(name, forKey: .name)
         try container.encode(symbol, forKey: .symbol)
         try container.encode(rank, forKey: .rank)
-        try container.encode(priceUSD, forKey: .priceUSD)
-        try container.encode(priceBTC, forKey: .priceBTC)
+        try container.encodeIfPresent(priceBTC, forKey: .priceBTC)
+        try container.encodeIfPresent(priceUSD, forKey: .priceUSD)
         try container.encodeIfPresent(pricePreferredCurrency, forKey: .makeKey(name: "price_encoded"))
         try container.encodeIfPresent(percentChange1h, forKey: .percentChange1h)
         try container.encodeIfPresent(percentChange24h, forKey: .percentChange24h)

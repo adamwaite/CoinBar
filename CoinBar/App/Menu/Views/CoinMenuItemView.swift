@@ -27,10 +27,18 @@ final class CoinMenuItemView: MenuItemView, NibLoadable {
         switch currency {
         
         case .bitcoin:
-            priceLabel.stringValue = currency.formattedValue(coin.priceBTC) ?? ""
-        
+            if let priceBTC = coin.priceBTC {
+                priceLabel.stringValue = currency.formattedValue(priceBTC) ?? ""
+            } else {
+                priceLabel.stringValue = ""
+            }
+            
         case .unitedStatesDollar:
-            priceLabel.stringValue = currency.formattedValue(coin.priceUSD) ?? ""
+            if let priceUSD = coin.priceUSD {
+                priceLabel.stringValue = currency.formattedValue(priceUSD) ?? ""
+            } else {
+                priceLabel.stringValue = ""
+            }
         
         default:
             if let pricePreferredCurrency = coin.pricePreferredCurrency {
