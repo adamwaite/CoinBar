@@ -59,6 +59,7 @@ final class Networking: NetworkingProtocol {
             }
                 
             catch {
+                print(error)
                 let result: Result<T> = .error("Error parsing resources")
                 completion(result)
                 return
