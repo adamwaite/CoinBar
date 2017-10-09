@@ -80,7 +80,7 @@ final class PreferencesServiceTests: XCTestCase {
         }
     }
     
-    // MARK: - removeFavouriteCoin
+    // MARK: - setCurrency
     
     func test_setCurrency_persistsCurrency() {
         subject.setCurrency(.brazilianReal)
@@ -91,6 +91,20 @@ final class PreferencesServiceTests: XCTestCase {
     func test_setCurrency_notifies() {
         assertNotifies {
             subject.setCurrency(.brazilianReal)
+        }
+    }
+    
+    // MARK: - setChangeInterval
+    
+    func test_setChangeInterval_persistsCurrency() {
+        subject.setChangeInterval(.oneWeek)
+        let preferences = subject.getPreferences()
+        XCTAssertEqual(preferences.changeInterval, "7 Days")
+    }
+    
+    func test_setChangeInterval_notifies() {
+        assertNotifies {
+            subject.setChangeInterval(.oneWeek)
         }
     }
     

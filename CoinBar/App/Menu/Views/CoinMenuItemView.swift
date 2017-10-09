@@ -7,7 +7,7 @@ final class CoinMenuItemView: MenuItemView, NibLoadable {
     @IBOutlet private(set) var priceLabel: NSTextField!
     @IBOutlet private(set) var percentChangeLabel: NSTextField!
     
-    func configure(with coin: Coin, currency: Preferences.Currency, imagesService: ImagesServiceProtocol) {
+    func configure(with coin: Coin, currency: Preferences.Currency, changeInterval: Preferences.ChangeInterval, imagesService: ImagesServiceProtocol) {
                 
         // Symbol
         
@@ -50,7 +50,15 @@ final class CoinMenuItemView: MenuItemView, NibLoadable {
 
         // Percent change label
         
-        if let percentChange = coin.percentChange1h {
+        let preferencePercentChange: String? = {
+            switch changeInterval {
+            case .oneHour: return coin.percentChange1h
+            case .oneDay: return coin.percentChange24h
+            case .oneWeek: return coin.percentChange7d
+            }
+        }()
+        
+        if let percentChange = preferencePercentChange {
             
             switch Double(percentChange) {
                 

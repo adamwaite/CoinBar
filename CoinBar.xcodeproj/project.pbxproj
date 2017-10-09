@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		9939F5251F8C1B1700853157 /* PreferencesChangeInterval.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9939F5241F8C1B1700853157 /* PreferencesChangeInterval.swift */; };
 		994CA9681F70414000FFE717 /* PreferencesCurrency.swift in Sources */ = {isa = PBXBuildFile; fileRef = 994CA9671F70414000FFE717 /* PreferencesCurrency.swift */; };
 		994CA96E1F7078EA00FFE717 /* PreferencesServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 994CA96D1F7078EA00FFE717 /* PreferencesServiceTests.swift */; };
 		994CA9701F7078F900FFE717 /* PersistenceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 994CA96F1F7078F900FFE717 /* PersistenceTests.swift */; };
@@ -67,6 +68,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		9939F5241F8C1B1700853157 /* PreferencesChangeInterval.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreferencesChangeInterval.swift; sourceTree = "<group>"; };
 		994CA9671F70414000FFE717 /* PreferencesCurrency.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreferencesCurrency.swift; sourceTree = "<group>"; };
 		994CA96D1F7078EA00FFE717 /* PreferencesServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreferencesServiceTests.swift; sourceTree = "<group>"; };
 		994CA96F1F7078F900FFE717 /* PersistenceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistenceTests.swift; sourceTree = "<group>"; };
@@ -300,6 +302,7 @@
 				99D3E98C1F6D016B003C1CB3 /* Coin.swift */,
 				99D3E98E1F6D0180003C1CB3 /* Preferences.swift */,
 				994CA9671F70414000FFE717 /* PreferencesCurrency.swift */,
+				9939F5241F8C1B1700853157 /* PreferencesChangeInterval.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -475,6 +478,7 @@
 				99F4EA4E1F77BD7700319783 /* NSApplication+CoinBar.swift in Sources */,
 				99F4EA461F7584C900319783 /* RefreshMenuItemView.swift in Sources */,
 				99DF633F1F7476DE000A0FEE /* NSView+CoinBar.swift in Sources */,
+				9939F5251F8C1B1700853157 /* PreferencesChangeInterval.swift in Sources */,
 				998136C21F6F1129003381BA /* CoinMenuItemView.swift in Sources */,
 				99684A1B1F73A39500985612 /* Service.swift in Sources */,
 				99D3E9851F6D0014003C1CB3 /* Result.swift in Sources */,

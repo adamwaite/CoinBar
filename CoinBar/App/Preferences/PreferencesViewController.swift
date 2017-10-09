@@ -25,6 +25,13 @@ final class PreferencesViewController: NSViewController {
         }
     }
     
+    @IBOutlet weak var changeIntervalSelect: NSPopUpButton! {
+        didSet {
+            changeIntervalSelect.removeAllItems()
+            changeIntervalSelect.addItems(withTitles: Preferences.ChangeInterval.all.map { $0.rawValue })
+        }
+    }
+    
     @IBOutlet private(set) var seperator1: NSView! {
         didSet {
             seperator1.setBackgroundColor(NSColor.quaternaryLabelColor)
@@ -101,6 +108,10 @@ final class PreferencesViewController: NSViewController {
             if let index = self.currencySelect.itemTitles.index(of: self.preferences.currency) {
                 self.currencySelect.selectItem(at: index)
             }
+            
+            if let index = self.changeIntervalSelect.itemTitles.index(of: self.preferences.changeInterval) {
+                self.changeIntervalSelect.selectItem(at: index)
+            }
         }
     }
     
@@ -164,6 +175,15 @@ final class PreferencesViewController: NSViewController {
             
             service.preferencesService.setCurrency(currency)
             service.coinsService.refreshCoins()
+        }
+    }
+    
+    @IBAction func changeInterval(_ sender: NSPopUpButton) {
+        if let value = sender.titleOfSelectedItem,
+            let changeInterval = Preferences.ChangeInterval(rawValue: value) {
+            
+            service.preferencesService.setChangeInterval(changeInterval)
+            reloadData()
         }
     }
     
