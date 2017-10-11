@@ -98,8 +98,9 @@ final class MenuController: NSObject, NSMenuDelegate {
     }
     
     private func refreshMenu() {
-        let currencyCode = service.preferencesService.getPreferences().currency
-        let preferredCurrency = Preferences.Currency(rawValue: currencyCode) ?? .bitcoin
+        let prefs = service.preferencesService.getPreferences()
+        let preferredCurrency = Preferences.Currency(rawValue: prefs.currency) ?? .bitcoin
+        let preferredChangeInterval = Preferences.ChangeInterval(rawValue: prefs.changeInterval) ?? .oneDay
 
         refreshView?.configure(lastRefreshed: service.coinsService.lastUpdated)
         
@@ -109,31 +110,41 @@ final class MenuController: NSObject, NSMenuDelegate {
                     return
             }
             
-            coinItemView.configure(with: coin, currency: preferredCurrency, imagesService: service.imagesService)
+            coinItemView.configure(
+                with: coin,
+                currency: preferredCurrency,
+                changeInterval: preferredChangeInterval,
+                imagesService: service.imagesService)
         }
     }
 
     private func makeCoinItems() -> [NSMenuItem] {
-        let currencyCode = service.preferencesService.getPreferences().currency
-        let preferredCurrency = Preferences.Currency(rawValue: currencyCode) ?? .bitcoin
-        
+        let prefs = service.preferencesService.getPreferences()
+        let preferredCurrency = Preferences.Currency(rawValue: prefs.currency) ?? .bitcoin
+        let preferredChangeInterval = Preferences.ChangeInterval(rawValue: prefs.changeInterval) ?? .oneDay
+
         return coins.enumerated().map {
             let item = NSMenuItem(title: $0.element.symbol, action: #selector(viewCoin(_:)), keyEquivalent: "")
             item.tag = $0.offset
             item.target = self
-            if let coinMenuItemView = makeCoinMenuItemView(coin: $0.element, currency: preferredCurrency) {
+            if let coinMenuItemView = makeCoinMenuItemView(coin: $0.element, currency: preferredCurrency, changeInterval: preferredChangeInterval) {
                 item.view = coinMenuItemView
             }
             return item
         }
     }
     
-    private func makeCoinMenuItemView(coin: Coin, currency: Preferences.Currency) -> CoinMenuItemView? {
+    private func makeCoinMenuItemView(coin: Coin, currency: Preferences.Currency, changeInterval: Preferences.ChangeInterval) -> CoinMenuItemView? {
         guard let coinMenuItemView = CoinMenuItemView.createFromNib() else {
             return nil
         }
         
-        coinMenuItemView.configure(with: coin, currency: currency, imagesService: service.imagesService)
+        coinMenuItemView.configure(
+            with: coin,
+            currency: currency,
+            changeInterval: changeInterval,
+            imagesService: service.imagesService)
+
         coinMenuItemView.onClick = viewCoin
         return coinMenuItemView
     }

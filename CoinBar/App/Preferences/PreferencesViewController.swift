@@ -25,6 +25,13 @@ final class PreferencesViewController: NSViewController {
         }
     }
     
+    @IBOutlet weak var changeIntervalSelect: NSPopUpButton! {
+        didSet {
+            changeIntervalSelect.removeAllItems()
+            changeIntervalSelect.addItems(withTitles: Preferences.ChangeInterval.all.map { $0.rawValue })
+        }
+    }
+    
     @IBOutlet private(set) var seperator1: NSView! {
         didSet {
             seperator1.setBackgroundColor(NSColor.quaternaryLabelColor)
@@ -39,20 +46,14 @@ final class PreferencesViewController: NSViewController {
     
     @IBOutlet private(set) var versionNumberLabel: NSTextField!
     
-    @IBOutlet private(set) var supportEmailLabel: NSTextField!
-
-    @IBOutlet private(set) var bitcoinDonationLabel: NSTextField!
-    
-    @IBOutlet private(set) var etherDonationLabel: NSTextField!
-
+    @IBOutlet private(set) var contactLabel: NSTextField!
     
     // MARK: - Lifecycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
         configureVersionLabel()
-        configureEmailLabel()
-        configureDonationLabels()
+        configureContactLabel()
     }
     
     override func viewWillAppear() {
@@ -82,27 +83,17 @@ final class PreferencesViewController: NSViewController {
         versionNumberLabel.stringValue = "CoinBar \(NSApplication.shared.versionNumber)"
     }
     
-    private func configureEmailLabel() {
-        let emailText = "Feel free to send me an email with any questions or suggestions."
-        let bold = "send me an email"
-        let boldRange = (emailText as NSString).range(of: bold)
-        let boldAttributes = [NSAttributedStringKey.font: NSFont.boldSystemFont(ofSize: supportEmailLabel.font!.pointSize)]
-        let attributedString = NSMutableAttributedString(string: emailText, attributes: [:])
-        attributedString.setAttributes(boldAttributes, range: boldRange)
-        supportEmailLabel.attributedStringValue = attributedString
+    private func configureContactLabel() {
+        let text = "Feel free to email me with any questions or suggestions."
+        let bold = "email me"
+        let boldRange = (text as NSString).range(of: bold)
+        let boldAttributes = [NSAttributedStringKey.font: NSFont.boldSystemFont(ofSize: contactLabel.font!.pointSize)]
+        let attributed = NSMutableAttributedString(string: text, attributes: [:])
+        attributed.setAttributes(boldAttributes, range: boldRange)
+        contactLabel.attributedStringValue = attributed
         
         let clickRecognizer = NSClickGestureRecognizer(target: self, action: #selector(contact(_:)))
-        supportEmailLabel.addGestureRecognizer(clickRecognizer)
-    }
-
-    private func configureDonationLabels() {
-        bitcoinDonationLabel.stringValue = "Support the app with BTC: \(DonationAddresses.bitcoin.rawValue)"
-        let btcClickRecognizer = NSClickGestureRecognizer(target: self, action: #selector(support(_:)))
-        bitcoinDonationLabel.addGestureRecognizer(btcClickRecognizer)
-
-        etherDonationLabel.stringValue = "Support the app with ETH: \(DonationAddresses.ether.rawValue)"
-        let ethClickRecognizer = NSClickGestureRecognizer(target: self, action: #selector(support(_:)))
-        etherDonationLabel.addGestureRecognizer(ethClickRecognizer)
+        contactLabel.addGestureRecognizer(clickRecognizer)
     }
     
     // MARK: - Reload
@@ -116,6 +107,10 @@ final class PreferencesViewController: NSViewController {
             
             if let index = self.currencySelect.itemTitles.index(of: self.preferences.currency) {
                 self.currencySelect.selectItem(at: index)
+            }
+            
+            if let index = self.changeIntervalSelect.itemTitles.index(of: self.preferences.changeInterval) {
+                self.changeIntervalSelect.selectItem(at: index)
             }
         }
     }
@@ -183,44 +178,25 @@ final class PreferencesViewController: NSViewController {
         }
     }
     
+    @IBAction func changeInterval(_ sender: NSPopUpButton) {
+        if let value = sender.titleOfSelectedItem,
+            let changeInterval = Preferences.ChangeInterval(rawValue: value) {
+            
+            service.preferencesService.setChangeInterval(changeInterval)
+            reloadData()
+        }
+    }
+    
     @objc private func contact(_ sender: NSClickGestureRecognizer) {
         guard let emailService = NSSharingService(named: .composeEmail),
             emailService.canPerform(withItems: [""]) else {
-                supportEmailLabel.stringValue = "Send an email to adam@adamjwaite.co.uk"
+                contactLabel.stringValue = "Send an email to adam@adamjwaite.co.uk"
                 return
         }
         
         emailService.recipients = ["adam@adamjwaite.co.uk"]
-        emailService.subject    = "CoinBar Support"
+        emailService.subject    = "CoinBar"
         emailService.perform(withItems: [])
-    }
-    
-    @objc private func support(_ sender: NSClickGestureRecognizer) {
-        guard let label = sender.view as? NSTextField else {
-            return
-        }
-        
-        let pasteBoard = NSPasteboard.general
-        pasteBoard.clearContents()
-
-        let isBTC = label.stringValue.contains(DonationAddresses.bitcoin.rawValue)
-        
-        if isBTC {
-            pasteBoard.writeObjects([DonationAddresses.bitcoin.rawValue as NSString])
-            bitcoinDonationLabel.stringValue = "Copied, thanks."
-            DispatchQueue.main.asyncAfter(3) {
-                self.bitcoinDonationLabel.stringValue = "Support the app with BTC: \(DonationAddresses.bitcoin.rawValue)"
-            }
-        }
-        
-        else {
-            pasteBoard.writeObjects([DonationAddresses.ether.rawValue as NSString])
-            etherDonationLabel.stringValue = "Copied, thanks."
-            DispatchQueue.main.asyncAfter(3) {
-                self.etherDonationLabel.stringValue = "Support the app with ETH: \(DonationAddresses.ether.rawValue)"
-            }
-        }
-        
     }
 }
 

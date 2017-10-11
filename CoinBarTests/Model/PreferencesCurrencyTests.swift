@@ -23,7 +23,7 @@ final class PreferencesCurrencyTests: XCTestCase {
     }
     
     func test_formattedValue_valid_bitcoin() {
-        let formatted = Preferences.Currency.bitcoin.formattedValue("123.45")
-        XCTAssertEqual(formatted, "123.4500")
+        let formatted = Preferences.Currency.bitcoin.formattedValue("0.12345")
+        XCTAssertEqual(formatted, "0.12345000")
     }
 }

@@ -91,8 +91,8 @@ extension Preferences {
             
             else {
                 formatter.numberStyle = .decimal
-                formatter.minimumFractionDigits = 4
-                formatter.maximumFractionDigits = 4
+                formatter.minimumFractionDigits = 8
+                formatter.maximumFractionDigits = 8
             }
             
             return formatter.string(from: value as NSNumber) ?? "\(value)"
