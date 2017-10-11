@@ -4,51 +4,58 @@ final class CoinMenuItemView: MenuItemView, NibLoadable {
     
     @IBOutlet private(set) var imageView: NSImageView!
     @IBOutlet private(set) var symbolLabel: NSTextField!
-    @IBOutlet private(set) var priceLabel: NSTextField!
-    @IBOutlet private(set) var percentChangeLabel: NSTextField!
+    @IBOutlet private(set) var valueLabel: NSTextField!
     
     func configure(with coin: Coin, currency: Preferences.Currency, changeInterval: Preferences.ChangeInterval, imagesService: ImagesServiceProtocol) {
-                
-        // Symbol
-        
+        configureSymbol(coin: coin)
+        configureImage(coin: coin, imagesService: imagesService)
+        configureValue(coin: coin, currency: currency, changeInterval: changeInterval)
+    }
+    
+    private func configureSymbol(coin: Coin) {
         symbolLabel.stringValue = coin.symbol
-        
-        // Image
-        
+    }
+    
+    private func configureImage(coin: Coin, imagesService: ImagesServiceProtocol) {
         imagesService.getImage(for: coin) { result in
             guard let image = result.value else { return }
             DispatchQueue.main.async {
                 self.imageView.image = image
             }
         }
+    }
+    
+    private func configureValue(coin: Coin, currency: Preferences.Currency, changeInterval: Preferences.ChangeInterval) {
+        let attributedValue = NSMutableAttributedString()
         
-        // Value label
+        let attributedPrice = makeAttributedPrice(coin: coin, currency: currency)
+        attributedValue.append(attributedPrice)
         
-        switch currency {
+        attributedValue.append(NSAttributedString(string: " "))
         
-        case .bitcoin:
-            if let priceBTC = coin.priceBTC {
-                priceLabel.stringValue = currency.formattedValue(priceBTC) ?? ""
-            } else {
-                priceLabel.stringValue = ""
+        let attributedChange = makeAttributedChange(coin: coin, changeInterval: changeInterval)
+        attributedValue.append(attributedChange)
+        
+        valueLabel.attributedStringValue = attributedValue
+    }
+    
+    private func makeAttributedPrice(coin: Coin, currency: Preferences.Currency) -> NSMutableAttributedString {
+        let price: String? = {
+            switch currency {
+            case .bitcoin: return coin.priceBTC
+            case .unitedStatesDollar: return coin.priceUSD
+            default: return coin.pricePreferredCurrency
             }
+        }()
             
-        case .unitedStatesDollar:
-            if let priceUSD = coin.priceUSD {
-                priceLabel.stringValue = currency.formattedValue(priceUSD) ?? ""
-            } else {
-                priceLabel.stringValue = ""
-            }
-        
-        default:
-            if let pricePreferredCurrency = coin.pricePreferredCurrency {
-                priceLabel.stringValue = currency.formattedValue(pricePreferredCurrency) ?? ""
-            } else {
-                priceLabel.stringValue = ""
-            }
-        }
-
-        // Percent change label
+        return price
+            .flatMap(currency.formattedValue)
+            .flatMap(NSMutableAttributedString.init)
+            ?? NSMutableAttributedString()
+    }
+    
+    private func makeAttributedChange(coin: Coin, changeInterval: Preferences.ChangeInterval) -> NSMutableAttributedString {
+        let attributedChange = NSMutableAttributedString()
         
         let preferencePercentChange: String? = {
             switch changeInterval {
@@ -58,31 +65,34 @@ final class CoinMenuItemView: MenuItemView, NibLoadable {
             }
         }()
         
-        if let percentChange = preferencePercentChange {
-            
-            switch Double(percentChange) {
-                
-            case let positive? where positive > 0.0:
-                percentChangeLabel.stringValue = "\(percentChange)%"
-                percentChangeLabel.textColor = NSColor.green
-                
-            case let negative? where negative < 0.0:
-                percentChangeLabel.stringValue = "\(percentChange)%"
-                percentChangeLabel.textColor = NSColor.red
-                
-            case let zero? where zero == 0.0:
-                percentChangeLabel.stringValue = "\(percentChange)%"
-                
-            default:
-                percentChangeLabel.stringValue = "-"
-                percentChangeLabel.textColor = NSColor.red
-            }
-        }
-            
-        else {
-            percentChangeLabel.stringValue = "-"
+        guard let percentChange = preferencePercentChange else {
+            return attributedChange
         }
         
-    }
-}
+        switch Double(percentChange) {
+            
+        case let positive? where positive > 0.0:
+            let percentChange = "(\(percentChange)%)"
+            attributedChange.append(NSAttributedString(string: percentChange))
+            
+        case let negative? where negative < 0.0:
+            let percentChange = "(\(percentChange)%)"
+            attributedChange.append(NSAttributedString(string: percentChange))
 
+        case let zero? where zero == 0.0:
+            let percentChange = "(\(percentChange)%)"
+            attributedChange.append(NSAttributedString(string: percentChange))
+
+        default:
+            break
+        }
+        
+        attributedChange.setAttributes([
+            NSAttributedStringKey.font: NSFont.systemFont(ofSize: valueLabel.font!.pointSize - 2)
+        ], range: NSRange(location: 0, length: attributedChange.length))
+        
+        return attributedChange
+        
+    }
+    
+}
