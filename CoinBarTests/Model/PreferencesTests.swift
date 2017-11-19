@@ -6,8 +6,21 @@ final class PreferencesTests: XCTestCase {
     // MARK: - Default Prefererences
     
     func test_defaultPreferences_isCorrect() {
-        let subject = Preferences.defaultPreferences()
+        let locale = Locale(identifier: "en-US")
+        let subject = Preferences.defaultPreferences(locale: locale)
         XCTAssertEqual(subject.favouriteCoins, ["bitcoin" , "ethereum", "litecoin"])
+        XCTAssertEqual(subject.currency, "USD")
+    }
+    
+    func test_defaultPreferences_GBlocale_currencyIsSetToGBP() {
+        let locale = Locale(identifier: "gb-GB")
+        let subject = Preferences.defaultPreferences(locale: locale)
+        XCTAssertEqual(subject.currency, "GBP")
+    }
+    
+    func test_defaultPreferences_notSupportedLocale_currencyIsSetToUSD() {
+        let locale = Locale(identifier: "incorrect-Code")
+        let subject = Preferences.defaultPreferences(locale: locale)
         XCTAssertEqual(subject.currency, "USD")
     }
     
