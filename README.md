@@ -21,9 +21,3 @@ Head to the [releases](https://github.com/adamwaite/CoinBar/releases) page.
 ## Contact
 
 Tweet me at [@adamwaite](https://twitter.com/adamwaite) with any questions or suggestions.
-
-## Say Thanks
-
-BTC: `1AmAU2Ezo5p7yFs13pb1YcwzPzTyDKPvm3`
-
-ETH: `0xd5aD2aD0Ff9a80B2b8bA5ae0DE2522626c05735C`
