@@ -34,9 +34,14 @@ extension Preferences: Equatable {
 
 extension Preferences {
     
-    static func defaultPreferences() -> Preferences {
+    static func defaultPreferences(locale: Locale = Locale.current) -> Preferences {
         let defaultFavourites = ["bitcoin", "ethereum", "litecoin"]
-        let defaultCurrency = "USD"
+        var defaultCurrency: String {
+            guard let currencyCode = locale.currencyCode, let currency = Preferences.Currency(rawValue: currencyCode) else {
+                return Preferences.Currency.unitedStatesDollar.rawValue
+            }
+            return currency.rawValue
+        }
         let defaultChangeInterval = ChangeInterval.oneDay.rawValue
         
         return Preferences(
