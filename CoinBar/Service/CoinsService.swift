@@ -7,8 +7,10 @@ protocol CoinsServiceProtocol {
     func refreshCoins()
     
     func getAllCoins() -> [Coin]
-    func getFavouriteCoins() -> [Coin]
+    
     func getCoin(symbol: String) -> Coin?
+    
+    func getHoldings() -> [Holding]
     
 }
 
@@ -44,20 +46,33 @@ final class CoinsService: CoinsServiceProtocol {
     @objc func refreshCoins() {
         
         let currencyCode = persistence.readPreferences().currency
-        let service = CoinWebService.all(currencyCode: currencyCode)
+        let service = CoinWebService.all(currencyCode: currencyCode.rawValue)
         
         networking.getResources(at: service) { [weak self] (result: Result<[Coin]>) in
             
-            guard let coins = result.value else {
+            guard let strongSelf = self, let coins = result.value else {
                 return
             }
             
-            self?.persistence.writeCoins { _ in
+            // If it's the first time getting coins, add the top 10 to the holdings
+            if strongSelf.persistence.readCoins().isEmpty {
+                
+                strongSelf.persistence.writePreferences {
+                    var prefs = $0
+                    prefs.holdings = coins[0..<5].map { Holding(coin: $0, quantity: 0.0) }
+                    return prefs
+                }
+                
+            }
+            
+            strongSelf.persistence.writeCoins { _ in
                 return coins
             }
             
-            self?.lastUpdated = Date()
-            self?.notify()
+            strongSelf.lastUpdated = Date()
+            
+            strongSelf.notify()
+        
         }
     }
 
@@ -65,17 +80,13 @@ final class CoinsService: CoinsServiceProtocol {
         return persistence.readCoins()
     }
     
-    func getFavouriteCoins() -> [Coin] {
-        let coins = getAllCoins()
-        let favourites = persistence.readPreferences().favouriteCoins
-        return favourites.flatMap { fav in
-            coins.lazy.first { $0.id == fav }
-        }
-    }
-    
     func getCoin(symbol: String) -> Coin? {
         let coins = getAllCoins()
         return coins.lazy.first { $0.symbol.lowercased() == symbol.lowercased() }
+    }
+    
+    func getHoldings() -> [Holding] {
+        return persistence.readPreferences().holdings
     }
     
     // MARK: - Notifications
@@ -83,4 +94,19 @@ final class CoinsService: CoinsServiceProtocol {
     private func notify() {
         NotificationCenter.default.post(name: ServiceObserver.coinsUpdateNotificationName, object: nil)
     }
+    
 }
+
+// MARK: - DEBUG
+
+#if DEBUG
+
+extension CoinsService {
+    
+    fileprivate func clearCoins() {
+        persistence.writeCoins { _ in return [] }
+    }
+    
+}
+
+#endif

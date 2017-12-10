@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		9939F5251F8C1B1700853157 /* PreferencesChangeInterval.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9939F5241F8C1B1700853157 /* PreferencesChangeInterval.swift */; };
+		993B7D7A1FDC714E00FD2D06 /* Holding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 993B7D791FDC714E00FD2D06 /* Holding.swift */; };
+		993B7D7C1FDD4D5700FD2D06 /* Holding+Test.swift in Sources */ = {isa = PBXBuildFile; fileRef = 993B7D7B1FDD4D5700FD2D06 /* Holding+Test.swift */; };
 		994CA9681F70414000FFE717 /* PreferencesCurrency.swift in Sources */ = {isa = PBXBuildFile; fileRef = 994CA9671F70414000FFE717 /* PreferencesCurrency.swift */; };
 		994CA96E1F7078EA00FFE717 /* PreferencesServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 994CA96D1F7078EA00FFE717 /* PreferencesServiceTests.swift */; };
 		994CA9701F7078F900FFE717 /* PersistenceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 994CA96F1F7078F900FFE717 /* PersistenceTests.swift */; };
@@ -69,6 +71,8 @@
 
 /* Begin PBXFileReference section */
 		9939F5241F8C1B1700853157 /* PreferencesChangeInterval.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreferencesChangeInterval.swift; sourceTree = "<group>"; };
+		993B7D791FDC714E00FD2D06 /* Holding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Holding.swift; sourceTree = "<group>"; };
+		993B7D7B1FDD4D5700FD2D06 /* Holding+Test.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Holding+Test.swift"; sourceTree = "<group>"; };
 		994CA9671F70414000FFE717 /* PreferencesCurrency.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreferencesCurrency.swift; sourceTree = "<group>"; };
 		994CA96D1F7078EA00FFE717 /* PreferencesServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreferencesServiceTests.swift; sourceTree = "<group>"; };
 		994CA96F1F7078F900FFE717 /* PersistenceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistenceTests.swift; sourceTree = "<group>"; };
@@ -186,6 +190,7 @@
 		996455221F7088620039DCFB /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
+				993B7D7B1FDD4D5700FD2D06 /* Holding+Test.swift */,
 				996455231F7088760039DCFB /* Coin+Test.swift */,
 				FFAE0B771F7185EA00CE26E2 /* JSONFixtures.swift */,
 				996455291F7103E10039DCFB /* StubValueStore.swift */,
@@ -300,6 +305,7 @@
 			isa = PBXGroup;
 			children = (
 				99D3E98C1F6D016B003C1CB3 /* Coin.swift */,
+				993B7D791FDC714E00FD2D06 /* Holding.swift */,
 				99D3E98E1F6D0180003C1CB3 /* Preferences.swift */,
 				994CA9671F70414000FFE717 /* PreferencesCurrency.swift */,
 				9939F5241F8C1B1700853157 /* PreferencesChangeInterval.swift */,
@@ -473,6 +479,7 @@
 			files = (
 				99A0C6641F6E5D5500390B95 /* ValueStore.swift in Sources */,
 				99D3E9971F6D05A6003C1CB3 /* WebServices.swift in Sources */,
+				993B7D7A1FDC714E00FD2D06 /* Holding.swift in Sources */,
 				99D3E98F1F6D0180003C1CB3 /* Preferences.swift in Sources */,
 				998136C51F6F1150003381BA /* NibLoadable.swift in Sources */,
 				99F4EA4E1F77BD7700319783 /* NSApplication+CoinBar.swift in Sources */,
@@ -516,6 +523,7 @@
 				99684A211F744C4A00985612 /* StubPersistence.swift in Sources */,
 				994CA9701F7078F900FFE717 /* PersistenceTests.swift in Sources */,
 				996455261F7103570039DCFB /* CoinTests.swift in Sources */,
+				993B7D7C1FDD4D5700FD2D06 /* Holding+Test.swift in Sources */,
 				99684A1F1F74300E00985612 /* ServiceObserverTests.swift in Sources */,
 				99D001791F731B550094B1F6 /* StubURLSession.swift in Sources */,
 			);

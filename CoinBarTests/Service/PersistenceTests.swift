@@ -64,7 +64,7 @@ final class PersistenceTests: XCTestCase {
     }
     
     func test_readPreferences_valueStorePopulated_returnsDecodedCoins() {
-        let preferences = Preferences(favouriteCoins: ["neo"], currency: Preferences.Currency.brazilianReal.rawValue)
+        let preferences = Preferences(holdings: [Holding.bitcoin()], currency: .brazilianReal)
         stubValueStore.setPreferences(preferences)
         let readPreferences = subject.readPreferences()
         XCTAssertEqual(preferences, readPreferences)
@@ -73,12 +73,13 @@ final class PersistenceTests: XCTestCase {
     // MARK: - writePreferences
 
     func test_writePreferences_encodesAndSaves() {
-        let preferences = Preferences(favouriteCoins: ["monero"], currency: Preferences.Currency.greatBritishPound.rawValue)
+        let preferences = Preferences(holdings: [Holding.bitcoin()], currency: .brazilianReal)
         stubValueStore.setPreferences(preferences)
 
         subject.writePreferences {
             var preferences = $0
-            preferences.currency = Preferences.Currency.unitedStatesDollar.rawValue
+            preferences.holdings = [Holding.ether(0.3)]
+            preferences.currency = .unitedStatesDollar
             return preferences
         }
         
@@ -86,7 +87,7 @@ final class PersistenceTests: XCTestCase {
         XCTAssertNotNil(persistedValue)
         
         let readPreferences = subject.readPreferences()
-        let expected = Preferences(favouriteCoins: ["monero"], currency: Preferences.Currency.unitedStatesDollar.rawValue)
+        let expected = Preferences(holdings: [Holding.ether(0.3)], currency: .unitedStatesDollar)
         XCTAssertEqual(readPreferences, expected)
     }
     

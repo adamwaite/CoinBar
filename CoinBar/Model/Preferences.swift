@@ -2,17 +2,17 @@ import Foundation
 
 struct Preferences: Codable {
 
-    var favouriteCoins: [String]
+    var holdings: [Holding]
     
-    var currency: String
+    var currency: Currency
     
-    var changeInterval: String
+    var changeInterval: ChangeInterval
 
-    init(favouriteCoins: [String],
-         currency: String = Currency.unitedStatesDollar.rawValue,
-         changeInterval: String = ChangeInterval.oneDay.rawValue) {
+    init(holdings: [Holding],
+         currency: Currency = Currency.unitedStatesDollar,
+         changeInterval: ChangeInterval = ChangeInterval.oneDay) {
         
-        self.favouriteCoins = favouriteCoins
+        self.holdings = holdings
         self.currency = currency
         self.changeInterval = changeInterval
     }
@@ -24,7 +24,7 @@ struct Preferences: Codable {
 extension Preferences: Equatable {
     
     static func ==(lhs: Preferences, rhs: Preferences) -> Bool {
-        return lhs.favouriteCoins == rhs.favouriteCoins
+        return lhs.holdings == rhs.holdings
             && lhs.currency == rhs.currency
             && lhs.changeInterval == rhs.changeInterval
     }
@@ -35,18 +35,15 @@ extension Preferences: Equatable {
 extension Preferences {
     
     static func defaultPreferences(locale: Locale = Locale.current) -> Preferences {
-        let defaultFavourites = ["bitcoin", "ethereum", "litecoin"]
-        var defaultCurrency: String {
-            guard let currencyCode = locale.currencyCode, let currency = Preferences.Currency(rawValue: currencyCode) else {
-                return Preferences.Currency.unitedStatesDollar.rawValue
-            }
-            return currency.rawValue
-        }
-        let defaultChangeInterval = ChangeInterval.oneDay.rawValue
-        
         return Preferences(
-            favouriteCoins: defaultFavourites,
-            currency: defaultCurrency,
-            changeInterval: defaultChangeInterval)
+            holdings: [],
+            currency: defaultCurrency(locale: locale),
+            changeInterval: ChangeInterval.oneDay)
     }
+    
+    static private func defaultCurrency(locale: Locale) -> Currency {
+        guard let currencyCode = locale.currencyCode, let currency = Currency(rawValue: currencyCode) else { return .unitedStatesDollar }
+        return currency
+    }
+    
 }

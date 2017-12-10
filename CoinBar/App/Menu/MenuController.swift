@@ -5,11 +5,13 @@ final class MenuController: NSObject, NSMenuDelegate {
     // MARK: - Properties
     
     private var service: Service!
+    
     private var serviceObserver: ServiceObserver!
 
-    fileprivate var coins: [Coin] = []
-    fileprivate var isMenuOpen: Bool = false
+    fileprivate var holdings: [Holding] = []
 
+    fileprivate var isMenuOpen: Bool = false
+    
     // MARK: UI
     
     private let statusItem = NSStatusBar.system.statusItem(withLength: NSStatusItem.squareLength)
@@ -45,10 +47,11 @@ final class MenuController: NSObject, NSMenuDelegate {
     // MARK: - UI
     
     private func reloadData() {
-        let previousCoins = coins
-        coins = service.coinsService.getFavouriteCoins()
         
-        let updated = coins == previousCoins
+        let previousCoins = holdings
+        holdings = service.coinsService.getHoldings()
+        
+        let updated = holdings == previousCoins && !holdings.isEmpty
         
         DispatchQueue.main.async {
             
@@ -63,6 +66,7 @@ final class MenuController: NSObject, NSMenuDelegate {
             }
             
         }
+        
     }
     
     private func flashMenuBar() {
@@ -99,12 +103,12 @@ final class MenuController: NSObject, NSMenuDelegate {
     
     private func refreshMenu() {
         let prefs = service.preferencesService.getPreferences()
-        let preferredCurrency = Preferences.Currency(rawValue: prefs.currency) ?? .bitcoin
-        let preferredChangeInterval = Preferences.ChangeInterval(rawValue: prefs.changeInterval) ?? .oneDay
+        let preferredCurrency = prefs.currency
+        let preferredChangeInterval = prefs.changeInterval
 
         refreshView?.configure(lastRefreshed: service.coinsService.lastUpdated)
         
-        coins.enumerated().forEach { idx, coin in
+        holdings.map { $0.coin }.enumerated().forEach { idx, coin in
             guard let item = statusMenu.item(at: idx),
                 let coinItemView = item.view as? CoinMenuItemView else {
                     return
@@ -120,10 +124,10 @@ final class MenuController: NSObject, NSMenuDelegate {
 
     private func makeCoinItems() -> [NSMenuItem] {
         let prefs = service.preferencesService.getPreferences()
-        let preferredCurrency = Preferences.Currency(rawValue: prefs.currency) ?? .bitcoin
-        let preferredChangeInterval = Preferences.ChangeInterval(rawValue: prefs.changeInterval) ?? .oneDay
+        let preferredCurrency = prefs.currency
+        let preferredChangeInterval = prefs.changeInterval
 
-        return coins.enumerated().map {
+        return holdings.map { $0.coin }.enumerated().map {
             let item = NSMenuItem(title: $0.element.symbol, action: #selector(viewCoin(_:)), keyEquivalent: "")
             item.tag = $0.offset
             item.target = self
@@ -186,7 +190,7 @@ final class MenuController: NSObject, NSMenuDelegate {
     @objc private func viewCoin(_ sender: NSClickGestureRecognizer) {
         guard let index = sender.view?.enclosingMenuItem?.tag else { return }
         
-        let coin = coins[index]
+        let coin = holdings[index].coin
         if let url = coin.url {
             NSWorkspace.shared.open(url)
         }

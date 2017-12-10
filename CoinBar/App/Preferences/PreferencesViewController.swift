@@ -99,17 +99,18 @@ final class PreferencesViewController: NSViewController {
     // MARK: - Reload
     
     private func reloadData() {
-        coins = service.coinsService.getFavouriteCoins()
+        coins = service.coinsService.getHoldings().map { $0.coin }
         preferences = service.preferencesService.getPreferences()
             
         DispatchQueue.main.async {
+            
             self.coinsTableView.reloadData()
             
-            if let index = self.currencySelect.itemTitles.index(of: self.preferences.currency) {
+            if let index = self.currencySelect.itemTitles.index(of: self.preferences.currency.rawValue) {
                 self.currencySelect.selectItem(at: index)
             }
             
-            if let index = self.changeIntervalSelect.itemTitles.index(of: self.preferences.changeInterval) {
+            if let index = self.changeIntervalSelect.itemTitles.index(of: self.preferences.changeInterval.rawValue) {
                 self.changeIntervalSelect.selectItem(at: index)
             }
         }
