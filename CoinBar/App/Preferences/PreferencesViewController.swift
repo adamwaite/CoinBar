@@ -132,6 +132,7 @@ final class PreferencesViewController: NSViewController {
     }
     
     private func addCoins() {
+        
         guard let window = view.window else { return }
         
         let alert = NSAlert()
