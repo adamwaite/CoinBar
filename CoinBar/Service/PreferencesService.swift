@@ -4,11 +4,11 @@ protocol PreferencesServiceProtocol {
     
     func getPreferences() -> Preferences
     
-    func setFavouriteCoins(_ coins: [Coin])
+    func setHoldings(_ holdings: [Holding])
     
-    func addFavouriteCoin(_ coin: Coin)
+    func addHolding(_ holding: Holding)
     
-    func removeFavouriteCoin(_ coin: Coin)
+    func removeHolding(_ holding: Holding)
     
     func setCurrency(_ currency: Preferences.Currency)
 
@@ -32,39 +32,37 @@ final class PreferencesService: PreferencesServiceProtocol {
     
     // MARK: - Coins
     
-    func setFavouriteCoins(_ coins: [Coin]) {
-//        persistence.writePreferences {
-//            var preferences: Preferences = $0
-//            preferences.favouriteCoins = coins.map { $0.id }
-//            return preferences
-//        }
-//
-//        notify()
+    func setHoldings(_ holdings: [Holding]) {
+        persistence.writePreferences {
+            var preferences: Preferences = $0
+            preferences.holdings = holdings
+            return preferences
+        }
+
+        notify()
     }
     
-    func addFavouriteCoin(_ coin: Coin) {
-//        persistence.writePreferences {
-//            var preferences: Preferences = $0
-//            guard !preferences.favouriteCoins.contains(coin.id) else {
-//                return preferences
-//            }
-//            preferences.favouriteCoins.append(coin.id)
-//            return preferences
-//        }
-//
-//        notify()
+    func addHolding(_ holding: Holding) {
+        persistence.writePreferences {
+            var preferences: Preferences = $0
+            guard !preferences.holdings.map({ $0.coin }).contains(holding.coin) else { return preferences }
+            preferences.holdings.append(holding)
+            return preferences
+        }
+
+        notify()
     }
     
-    func removeFavouriteCoin(_ coin: Coin) {
-//        persistence.writePreferences {
-//            var preferences: Preferences = $0
-//            if let index = preferences.favouriteCoins.index(of: coin.id) {
-//                preferences.favouriteCoins.remove(at: index)
-//            }
-//            return preferences
-//        }
-//        
-//        notify()
+    func removeHolding(_ holding: Holding) {
+        persistence.writePreferences {
+            var preferences: Preferences = $0
+            if let index = preferences.holdings.index(of: holding) {
+                preferences.holdings.remove(at: index)
+            }
+            return preferences
+        }
+        
+        notify()
     }
     
     // MARK: - Currency

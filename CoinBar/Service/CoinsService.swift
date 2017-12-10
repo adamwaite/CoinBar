@@ -44,7 +44,7 @@ final class CoinsService: CoinsServiceProtocol {
     // MARK: - Coins
     
     @objc func refreshCoins() {
-        
+
         let currencyCode = persistence.readPreferences().currency
         let service = CoinWebService.all(currencyCode: currencyCode.rawValue)
         
