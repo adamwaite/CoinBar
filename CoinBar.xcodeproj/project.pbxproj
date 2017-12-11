@@ -12,6 +12,7 @@
 		993B7D7C1FDD4D5700FD2D06 /* Holding+Test.swift in Sources */ = {isa = PBXBuildFile; fileRef = 993B7D7B1FDD4D5700FD2D06 /* Holding+Test.swift */; };
 		993B7D7F1FDDAA0200FD2D06 /* HoldingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 993B7D7E1FDDAA0200FD2D06 /* HoldingViewController.swift */; };
 		993B7D811FDF35E200FD2D06 /* NSColor+CoinBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 993B7D801FDF35E200FD2D06 /* NSColor+CoinBar.swift */; };
+		993B7D831FDF3FBE00FD2D06 /* HoldingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 993B7D821FDF3FBE00FD2D06 /* HoldingTests.swift */; };
 		994CA9681F70414000FFE717 /* PreferencesCurrency.swift in Sources */ = {isa = PBXBuildFile; fileRef = 994CA9671F70414000FFE717 /* PreferencesCurrency.swift */; };
 		994CA96E1F7078EA00FFE717 /* PreferencesServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 994CA96D1F7078EA00FFE717 /* PreferencesServiceTests.swift */; };
 		994CA9701F7078F900FFE717 /* PersistenceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 994CA96F1F7078F900FFE717 /* PersistenceTests.swift */; };
@@ -77,6 +78,7 @@
 		993B7D7B1FDD4D5700FD2D06 /* Holding+Test.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Holding+Test.swift"; sourceTree = "<group>"; };
 		993B7D7E1FDDAA0200FD2D06 /* HoldingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HoldingViewController.swift; sourceTree = "<group>"; };
 		993B7D801FDF35E200FD2D06 /* NSColor+CoinBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSColor+CoinBar.swift"; sourceTree = "<group>"; };
+		993B7D821FDF3FBE00FD2D06 /* HoldingTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HoldingTests.swift; sourceTree = "<group>"; };
 		994CA9671F70414000FFE717 /* PreferencesCurrency.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreferencesCurrency.swift; sourceTree = "<group>"; };
 		994CA96D1F7078EA00FFE717 /* PreferencesServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreferencesServiceTests.swift; sourceTree = "<group>"; };
 		994CA96F1F7078F900FFE717 /* PersistenceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistenceTests.swift; sourceTree = "<group>"; };
@@ -175,6 +177,7 @@
 			isa = PBXGroup;
 			children = (
 				996455251F7103570039DCFB /* CoinTests.swift */,
+				993B7D821FDF3FBE00FD2D06 /* HoldingTests.swift */,
 				996455271F7103700039DCFB /* PreferencesTests.swift */,
 				99DF633C1F7469BA000A0FEE /* PreferencesCurrencyTests.swift */,
 			);
@@ -541,6 +544,7 @@
 				996455261F7103570039DCFB /* CoinTests.swift in Sources */,
 				993B7D7C1FDD4D5700FD2D06 /* Holding+Test.swift in Sources */,
 				99684A1F1F74300E00985612 /* ServiceObserverTests.swift in Sources */,
+				993B7D831FDF3FBE00FD2D06 /* HoldingTests.swift in Sources */,
 				99D001791F731B550094B1F6 /* StubURLSession.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

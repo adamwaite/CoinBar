@@ -1,11 +1,3 @@
-//
-//  Holding.swift
-//  CoinBar
-//
-//  Created by Adam Waite on 09/12/2017.
-//  Copyright © 2017 adamjwaite.co.uk. All rights reserved.
-//
-
 import Foundation
 
 struct Holding: Codable {
@@ -13,6 +5,21 @@ struct Holding: Codable {
     private(set) var coin: Coin
 
     private(set) var quantity: Double
+    
+    var totalBTC: Double? {
+        guard let priceBTC = coin.priceBTC, let priceBTCNumeric = Double(priceBTC) else { return nil }
+        return priceBTCNumeric * quantity
+    }
+    
+    var totalUSD: Double? {
+        guard let priceUSD = coin.priceUSD, let priceUSDNumeric = Double(priceUSD) else { return nil }
+        return priceUSDNumeric * quantity
+    }
+    
+    var totalPreferred: Double? {
+        guard let pricePreferred = coin.pricePreferredCurrency, let pricePreferredNumeric = Double(pricePreferred) else { return nil }
+        return pricePreferredNumeric * quantity
+    }
     
     init(coin: Coin, quantity: Double) {
         self.coin = coin
