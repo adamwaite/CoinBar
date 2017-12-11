@@ -10,6 +10,8 @@ protocol PreferencesServiceProtocol {
     
     func removeHolding(_ holding: Holding)
     
+    func updateHolding(_ holding: Holding)
+    
     func setCurrency(_ currency: Preferences.Currency)
 
     func setChangeInterval(_ changeInterval: Preferences.ChangeInterval)
@@ -58,6 +60,18 @@ final class PreferencesService: PreferencesServiceProtocol {
             var preferences: Preferences = $0
             if let index = preferences.holdings.index(of: holding) {
                 preferences.holdings.remove(at: index)
+            }
+            return preferences
+        }
+        
+        notify()
+    }
+    
+    func updateHolding(_ holding: Holding) {
+        persistence.writePreferences {
+            var preferences: Preferences = $0
+            if let index = preferences.holdings.map({ $0.coin }).index(of: holding.coin) {
+                preferences.holdings[index] = holding
             }
             return preferences
         }

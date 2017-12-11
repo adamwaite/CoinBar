@@ -1,6 +1,6 @@
 import Cocoa
 
-final class HoldingViewController: NSViewController {
+final class HoldingViewController: NSViewController, NSTextFieldDelegate {
     
     private var service: Service!
 
@@ -34,6 +34,11 @@ final class HoldingViewController: NSViewController {
     
     @IBOutlet private(set) var holdingsTotalLabel: NSTextField!
 
+    // MARK: - View Lifecycle
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+    }
     
     // MARK: - Configure
     
@@ -51,6 +56,7 @@ final class HoldingViewController: NSViewController {
         presentPercentChanges(holding: holding)
         presentURL(holding: holding)
         presentHoldings(holding: holding)
+        presentHoldingsTotal(holding: holding)
     }
     
     private func presentTitle(holding: Holding) {
@@ -157,7 +163,47 @@ final class HoldingViewController: NSViewController {
     }
     
     private func presentHoldings(holding: Holding) {
-        holdingsTotalLabel.stringValue = "TODO"
+        holdingsTextField.stringValue = "\(holding.quantity)"
+    }
+    
+    private func presentHoldingsTotal(holding: Holding) {
+        
+        let currency = service.preferencesService.getPreferences().currency
+        
+        if let totalBTC = holding.totalBTC, currency == .bitcoin {
+            holdingsTotalLabel.stringValue = "Total: \(totalBTC) BTC"
+            return
+        }
+        
+        let totalPreferred: Double? = {
+            switch currency {
+            case .bitcoin: return holding.totalBTC
+            case .unitedStatesDollar: return holding.totalUSD
+            default: return holding.totalPreferred
+            }
+        }()
+        
+        if let formattedTotalPreferred = totalPreferred.flatMap({ "\($0)" }).flatMap(currency.formattedValue), let formattedTotalBTC = holding.totalBTC {
+            holdingsTotalLabel.stringValue = "Total: \(formattedTotalPreferred) (\(formattedTotalBTC) BTC)"
+        }
+        
+    }
+    
+    // MARK: - <NSTextFieldDelegate>
+    
+    override func controlTextDidChange(_ obj: Notification) {
+        let text = holdingsTextField.stringValue
+        if let newQuantity = Double(text) {
+            holding = Holding(coin: holding.coin, quantity: newQuantity)
+            service.preferencesService.updateHolding(holding)
+            presentHoldingsTotal(holding: holding)
+        } else {
+            holdingsTotalLabel.stringValue = "Total: / (input error)"
+        }
+    }
+    
+    override func controlTextDidEndEditing(_ obj: Notification) {
+        holdingsTextField.window?.makeFirstResponder(nil)
     }
     
     // MARK: - Actions
@@ -166,6 +212,10 @@ final class HoldingViewController: NSViewController {
         if let url = holding.coin.url {
             NSWorkspace.shared.open(url)
         }
+    }
+    
+    @objc private func endEditing(_ sender: NSGestureRecognizer) {
+        holdingsTextField.window?.makeFirstResponder(nil)
     }
     
 }
