@@ -74,13 +74,13 @@ final class CoinMenuItemView: MenuItemView, NibLoadable {
         case let positive? where positive > 0.0:
             let percentChange = "(\(percentChange)%)"
             attributedChange.append(NSAttributedString(string: percentChange, attributes: [
-                NSAttributedStringKey.foregroundColor: NSColor(red: 52.0/255.0, green: 168.0/255.0, blue: 82.0/255.0, alpha: 1.0)
+                NSAttributedStringKey.foregroundColor: NSColor.positiveGreen
             ]))
             
         case let negative? where negative < 0.0:
             let percentChange = "(\(percentChange)%)"
             attributedChange.append(NSAttributedString(string: percentChange, attributes: [
-                NSAttributedStringKey.foregroundColor: NSColor(red: 234.0/255.0, green: 67.0/255.0, blue: 54.0/255.0, alpha: 1.0)
+                NSAttributedStringKey.foregroundColor: NSColor.negativeRed
             ]))
 
         case let zero? where zero == 0.0:

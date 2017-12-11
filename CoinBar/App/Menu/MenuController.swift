@@ -204,16 +204,6 @@ final class MenuController: NSObject, NSMenuDelegate {
             NSApp.activate(ignoringOtherApps: true)
             holdingWindowController.showWindow(self)
         }
-        
-        
-//        alert.beginSheetModal(for: window) { response in
-        
-//        guard let index = sender.view?.enclosingMenuItem?.tag else { return }
-//
-//        let coin = holdings[index].coin
-//        if let url = coin.url {
-//            NSWorkspace.shared.open(url)
-//        }
     }
     
     @objc private func refreshMenuItemViewClicked(_ sender: NSClickGestureRecognizer) {

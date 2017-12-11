@@ -11,6 +11,7 @@
 		993B7D7A1FDC714E00FD2D06 /* Holding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 993B7D791FDC714E00FD2D06 /* Holding.swift */; };
 		993B7D7C1FDD4D5700FD2D06 /* Holding+Test.swift in Sources */ = {isa = PBXBuildFile; fileRef = 993B7D7B1FDD4D5700FD2D06 /* Holding+Test.swift */; };
 		993B7D7F1FDDAA0200FD2D06 /* HoldingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 993B7D7E1FDDAA0200FD2D06 /* HoldingViewController.swift */; };
+		993B7D811FDF35E200FD2D06 /* NSColor+CoinBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 993B7D801FDF35E200FD2D06 /* NSColor+CoinBar.swift */; };
 		994CA9681F70414000FFE717 /* PreferencesCurrency.swift in Sources */ = {isa = PBXBuildFile; fileRef = 994CA9671F70414000FFE717 /* PreferencesCurrency.swift */; };
 		994CA96E1F7078EA00FFE717 /* PreferencesServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 994CA96D1F7078EA00FFE717 /* PreferencesServiceTests.swift */; };
 		994CA9701F7078F900FFE717 /* PersistenceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 994CA96F1F7078F900FFE717 /* PersistenceTests.swift */; };
@@ -75,6 +76,7 @@
 		993B7D791FDC714E00FD2D06 /* Holding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Holding.swift; sourceTree = "<group>"; };
 		993B7D7B1FDD4D5700FD2D06 /* Holding+Test.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Holding+Test.swift"; sourceTree = "<group>"; };
 		993B7D7E1FDDAA0200FD2D06 /* HoldingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HoldingViewController.swift; sourceTree = "<group>"; };
+		993B7D801FDF35E200FD2D06 /* NSColor+CoinBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSColor+CoinBar.swift"; sourceTree = "<group>"; };
 		994CA9671F70414000FFE717 /* PreferencesCurrency.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreferencesCurrency.swift; sourceTree = "<group>"; };
 		994CA96D1F7078EA00FFE717 /* PreferencesServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreferencesServiceTests.swift; sourceTree = "<group>"; };
 		994CA96F1F7078F900FFE717 /* PersistenceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistenceTests.swift; sourceTree = "<group>"; };
@@ -218,6 +220,7 @@
 				998136C41F6F1150003381BA /* NibLoadable.swift */,
 				99DF633E1F7476DE000A0FEE /* NSView+CoinBar.swift */,
 				99F4EA4D1F77BD7700319783 /* NSApplication+CoinBar.swift */,
+				993B7D801FDF35E200FD2D06 /* NSColor+CoinBar.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -506,6 +509,7 @@
 				99DF63411F747E21000A0FEE /* DispatchQueue+CoinBar.swift in Sources */,
 				99A0C6621F6DCDF500390B95 /* PreferencesViewController.swift in Sources */,
 				994CA9781F70793500FFE717 /* CoinsService.swift in Sources */,
+				993B7D811FDF35E200FD2D06 /* NSColor+CoinBar.swift in Sources */,
 				994CA97A1F70793E00FFE717 /* PreferencesService.swift in Sources */,
 				99F4EA4A1F758B3700319783 /* MenuItemView.swift in Sources */,
 				99D3E98D1F6D016B003C1CB3 /* Coin.swift in Sources */,
