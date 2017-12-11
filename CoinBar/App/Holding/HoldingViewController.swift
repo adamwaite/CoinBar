@@ -36,8 +36,9 @@ final class HoldingViewController: NSViewController, NSTextFieldDelegate {
 
     // MARK: - View Lifecycle
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
+    override func viewDidAppear() {
+        super.viewDidAppear()
+        holdingsTextField.window?.makeFirstResponder(nil)
     }
     
     // MARK: - Configure
@@ -202,10 +203,6 @@ final class HoldingViewController: NSViewController, NSTextFieldDelegate {
         }
     }
     
-    override func controlTextDidEndEditing(_ obj: Notification) {
-        holdingsTextField.window?.makeFirstResponder(nil)
-    }
-    
     // MARK: - Actions
     
     @objc private func openCoinMarketCap(_ sender: NSGestureRecognizer) {
@@ -214,7 +211,8 @@ final class HoldingViewController: NSViewController, NSTextFieldDelegate {
         }
     }
     
-    @objc private func endEditing(_ sender: NSGestureRecognizer) {
+    override func mouseDown(with event: NSEvent) {
+        super.mouseDown(with: event)
         holdingsTextField.window?.makeFirstResponder(nil)
     }
     
