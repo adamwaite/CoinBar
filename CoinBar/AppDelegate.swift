@@ -1,5 +1,7 @@
 import Cocoa
 
+// Input string: BTC, ETH, LTC, NEO, VTC, MIOTA, XRP, ARK
+
 @NSApplicationMain
 final class AppDelegate: NSObject, NSApplicationDelegate {
     

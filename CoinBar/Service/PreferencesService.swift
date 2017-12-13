@@ -15,6 +15,8 @@ protocol PreferencesServiceProtocol {
     func setCurrency(_ currency: Preferences.Currency)
 
     func setChangeInterval(_ changeInterval: Preferences.ChangeInterval)
+    
+    func setShowHoldings(_ showHoldings: Bool)
 
 }
 
@@ -97,6 +99,18 @@ final class PreferencesService: PreferencesServiceProtocol {
         persistence.writePreferences {
             var preferences: Preferences = $0
             preferences.changeInterval = changeInterval
+            return preferences
+        }
+        
+        notify()
+    }
+    
+    // MARK: - Show holdings
+    
+    func setShowHoldings(_ showHoldings: Bool) {
+        persistence.writePreferences {
+            var preferences: Preferences = $0
+            preferences.showHoldings = showHoldings
             return preferences
         }
         

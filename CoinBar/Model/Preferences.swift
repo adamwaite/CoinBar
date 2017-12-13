@@ -7,14 +7,18 @@ struct Preferences: Codable {
     var currency: Currency
     
     var changeInterval: ChangeInterval
+    
+    var showHoldings: Bool
 
     init(holdings: [Holding],
          currency: Currency = Currency.unitedStatesDollar,
-         changeInterval: ChangeInterval = ChangeInterval.oneDay) {
+         changeInterval: ChangeInterval = ChangeInterval.oneDay,
+         showHoldings: Bool = true) {
         
         self.holdings = holdings
         self.currency = currency
         self.changeInterval = changeInterval
+        self.showHoldings = showHoldings
     }
 
 }
@@ -27,6 +31,7 @@ extension Preferences: Equatable {
         return lhs.holdings == rhs.holdings
             && lhs.currency == rhs.currency
             && lhs.changeInterval == rhs.changeInterval
+            && lhs.showHoldings == rhs.showHoldings
     }
 }
 
@@ -38,7 +43,8 @@ extension Preferences {
         return Preferences(
             holdings: [],
             currency: defaultCurrency(locale: locale),
-            changeInterval: ChangeInterval.oneDay)
+            changeInterval: ChangeInterval.oneDay,
+            showHoldings: true)
     }
     
     static private func defaultCurrency(locale: Locale) -> Currency {

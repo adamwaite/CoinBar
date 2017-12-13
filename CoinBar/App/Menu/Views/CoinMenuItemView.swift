@@ -6,18 +6,18 @@ final class CoinMenuItemView: MenuItemView, NibLoadable {
     @IBOutlet private(set) var symbolLabel: NSTextField!
     @IBOutlet private(set) var valueLabel: NSTextField!
     
-    func configure(with coin: Coin, currency: Preferences.Currency, changeInterval: Preferences.ChangeInterval, imagesService: ImagesServiceProtocol) {
-        configureSymbol(coin: coin)
-        configureImage(coin: coin, imagesService: imagesService)
-        configureValue(coin: coin, currency: currency, changeInterval: changeInterval)
+    func configure(with holding: Holding, currency: Preferences.Currency, changeInterval: Preferences.ChangeInterval, showHoldings: Bool, imagesService: ImagesServiceProtocol) {
+        configureSymbol(holding: holding)
+        configureImage(holding: holding, imagesService: imagesService)
+        configureValue(holding: holding, currency: currency, changeInterval: changeInterval, showHoldings: showHoldings)
     }
     
-    private func configureSymbol(coin: Coin) {
-        symbolLabel.stringValue = coin.symbol
+    private func configureSymbol(holding: Holding) {
+        symbolLabel.stringValue = holding.coin.symbol
     }
     
-    private func configureImage(coin: Coin, imagesService: ImagesServiceProtocol) {
-        imagesService.getImage(for: coin) { result in
+    private func configureImage(holding: Holding, imagesService: ImagesServiceProtocol) {
+        imagesService.getImage(for: holding.coin) { result in
             guard let image = result.value else { return }
             DispatchQueue.main.async {
                 self.imageView.image = image
@@ -25,17 +25,22 @@ final class CoinMenuItemView: MenuItemView, NibLoadable {
         }
     }
     
-    private func configureValue(coin: Coin, currency: Preferences.Currency, changeInterval: Preferences.ChangeInterval) {
+    private func configureValue(holding: Holding, currency: Preferences.Currency, changeInterval: Preferences.ChangeInterval, showHoldings: Bool) {
         let attributedValue = NSMutableAttributedString()
         
-        let attributedPrice = makeAttributedPrice(coin: coin, currency: currency)
+        let attributedPrice = makeAttributedPrice(coin: holding.coin, currency: currency)
         attributedValue.append(attributedPrice)
         
         attributedValue.append(NSAttributedString(string: " "))
         
-        let attributedChange = makeAttributedChange(coin: coin, changeInterval: changeInterval)
+        let attributedChange = makeAttributedChange(coin: holding.coin, changeInterval: changeInterval)
         attributedValue.append(attributedChange)
         
+        if showHoldings {
+            let attributedHoldings = makeAttributedHoldings(holding: holding, currency: currency)
+            attributedValue.append(attributedHoldings)
+        }
+
         valueLabel.attributedStringValue = attributedValue
     }
     
@@ -97,6 +102,30 @@ final class CoinMenuItemView: MenuItemView, NibLoadable {
         
         return attributedChange
         
+    }
+    
+    private func makeAttributedHoldings(holding: Holding, currency: Preferences.Currency) -> NSAttributedString {
+        
+        guard let totalPreferred = holding.totalPreferred,
+            let totalPreferredFormatted = currency.formattedValue("\(totalPreferred)") else {
+                return NSAttributedString()
+        }
+        
+        let attributedHoldings = NSMutableAttributedString()
+        
+        let attributedMultiply = NSAttributedString(string: " × ")
+        attributedHoldings.append(attributedMultiply)
+        
+        let attributedQuantity = NSAttributedString(string: "\(holding.quantity)")
+        attributedHoldings.append(attributedQuantity)
+        
+        let attributedEquals = NSAttributedString(string: " = ")
+        attributedHoldings.append(attributedEquals)
+        
+        let attributedTotal = NSAttributedString(string: totalPreferredFormatted)
+        attributedHoldings.append(attributedTotal)
+        
+        return attributedHoldings
     }
     
 }

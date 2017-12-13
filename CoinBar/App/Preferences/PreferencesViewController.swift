@@ -48,6 +48,8 @@ final class PreferencesViewController: NSViewController {
     
     @IBOutlet private(set) var contactLabel: NSTextField!
     
+    @IBOutlet private(set) var showHoldingsCheckbox: NSButton!
+    
     // MARK: - Lifecycle
     
     override func viewDidLoad() {
@@ -115,6 +117,9 @@ final class PreferencesViewController: NSViewController {
             if let index = self.changeIntervalSelect.itemTitles.index(of: self.preferences.changeInterval.rawValue) {
                 self.changeIntervalSelect.selectItem(at: index)
             }
+            
+            self.showHoldingsCheckbox.state = self.preferences.showHoldings ? .on : .off
+        
         }
     }
     
@@ -190,6 +195,12 @@ final class PreferencesViewController: NSViewController {
             service.preferencesService.setChangeInterval(changeInterval)
             reloadData()
         }
+    }
+    
+    @IBAction func showHoldings(_ sender: NSButton) {
+        let show = sender.state == .on
+        service.preferencesService.setShowHoldings(show)
+        reloadData()
     }
     
     @objc private func contact(_ sender: NSClickGestureRecognizer) {

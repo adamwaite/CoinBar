@@ -56,17 +56,28 @@ final class CoinsService: CoinsServiceProtocol {
             
             // If it's the first time getting coins, add the top 10 to the holdings
             if strongSelf.persistence.readCoins().isEmpty {
-                
                 strongSelf.persistence.writePreferences {
                     var prefs = $0
                     prefs.holdings = coins[0..<5].map { Holding(coin: $0, quantity: 0.0) }
                     return prefs
                 }
-                
             }
             
+            // Update coins
             strongSelf.persistence.writeCoins { _ in
                 return coins
+            }
+
+            // Update existing holdings
+            strongSelf.persistence.writePreferences {
+                let updatedHoldings: [Holding] = $0.holdings.flatMap { holding in
+                    guard let coin = coins.first(where: { holding.coin.id == $0.id }) else { return nil }
+                    return Holding(coin: coin, quantity: holding.quantity)
+                }
+                
+                var prefs = $0
+                prefs.holdings = updatedHoldings
+                return prefs
             }
             
             strongSelf.lastUpdated = Date()
@@ -74,6 +85,7 @@ final class CoinsService: CoinsServiceProtocol {
             strongSelf.notify()
         
         }
+    
     }
 
     func getAllCoins() -> [Coin] {
