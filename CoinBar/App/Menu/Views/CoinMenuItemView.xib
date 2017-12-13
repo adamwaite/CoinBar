@@ -30,10 +30,10 @@
                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                 </textField>
-                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="vF4-jN-qcZ">
-                    <rect key="frame" x="358" y="6" width="24" height="18"/>
+                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="vF4-jN-qcZ">
+                    <rect key="frame" x="359" y="7" width="23" height="17"/>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="---" id="hQG-8b-mxp">
-                        <font key="font" metaFont="system" size="14"/>
+                        <font key="font" metaFont="system"/>
                         <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
@@ -46,6 +46,7 @@
                 <constraint firstItem="22Z-53-Sm9" firstAttribute="leading" secondItem="c22-O7-iKe" secondAttribute="leading" constant="20" id="QDB-x1-uyM"/>
                 <constraint firstItem="22Z-53-Sm9" firstAttribute="centerY" secondItem="c22-O7-iKe" secondAttribute="centerY" id="m9t-MX-i9c"/>
                 <constraint firstItem="D21-rs-aM9" firstAttribute="centerY" secondItem="22Z-53-Sm9" secondAttribute="centerY" id="uKJ-jD-UvY"/>
+                <constraint firstItem="vF4-jN-qcZ" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="D21-rs-aM9" secondAttribute="trailing" constant="8" id="wh7-zF-ey3"/>
             </constraints>
             <connections>
                 <outlet property="imageView" destination="22Z-53-Sm9" id="m8E-fH-CG2"/>

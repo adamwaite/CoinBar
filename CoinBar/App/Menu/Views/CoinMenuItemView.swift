@@ -106,7 +106,15 @@ final class CoinMenuItemView: MenuItemView, NibLoadable {
     
     private func makeAttributedHoldings(holding: Holding, currency: Preferences.Currency) -> NSAttributedString {
         
-        guard let totalPreferred = holding.totalPreferred,
+        let total: Double? = {
+            switch currency {
+            case .bitcoin: return holding.totalBTC
+            case .unitedStatesDollar: return holding.totalUSD
+            default: return holding.totalPreferred
+            }
+        }()
+        
+        guard let totalPreferred = total,
             let totalPreferredFormatted = currency.formattedValue("\(totalPreferred)") else {
                 return NSAttributedString()
         }

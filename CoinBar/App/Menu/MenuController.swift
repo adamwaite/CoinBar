@@ -102,6 +102,17 @@ final class MenuController: NSObject, NSMenuDelegate {
         let quitItem = makeQuitItem()
         statusMenu.addItem(quitItem)
         
+        statusMenu.items.forEach {
+            if let view = $0.view {
+                view.frame = NSRect(
+                    x: 0,
+                    y: 0,
+                    width: service.preferencesService.getPreferences().showHoldings ? 450 : 250,
+                    height: Int(view.frame.height)
+                )
+            }
+        }
+            
     }
     
     private func makeCoinItems() -> [NSMenuItem] {
