@@ -5,11 +5,13 @@ final class MenuController: NSObject, NSMenuDelegate {
     // MARK: - Properties
     
     private var service: Service!
+    
     private var serviceObserver: ServiceObserver!
 
-    fileprivate var coins: [Coin] = []
-    fileprivate var isMenuOpen: Bool = false
+    fileprivate var holdings: [Holding] = []
 
+    fileprivate var isMenuOpen: Bool = false
+    
     // MARK: UI
     
     private let statusItem = NSStatusBar.system.statusItem(withLength: NSStatusItem.squareLength)
@@ -17,6 +19,8 @@ final class MenuController: NSObject, NSMenuDelegate {
     @IBOutlet private(set) weak var statusMenu: NSMenu!
 
     private var refreshView: RefreshMenuItemView?
+
+    private var totalView: TotalMenuItemView?
     
     private lazy var preferencesWindowController: NSWindowController = {
         let storyboard = NSStoryboard(name: NSStoryboard.Name("Main"), bundle: nil)
@@ -26,11 +30,19 @@ final class MenuController: NSObject, NSMenuDelegate {
         return preferencesWindowController
     }()
     
+    private lazy var holdingWindowController: NSWindowController = {
+        let storyboard = NSStoryboard(name: NSStoryboard.Name("Main"), bundle: nil)
+        let holdingWindowController = storyboard.instantiateController(withIdentifier: NSStoryboard.SceneIdentifier("Holding")) as! NSWindowController
+        let holdingViewController = holdingWindowController.window!.contentViewController as! HoldingViewController
+        holdingViewController.configure(service: self.service)
+        return holdingWindowController
+    }()
+    
     // MARK: - Lifecycle
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        
+                
         statusItem.menu = statusMenu
         statusItem.button?.image = NSImage(named: NSImage.Name("status-bar-icon"))
         
@@ -45,23 +57,10 @@ final class MenuController: NSObject, NSMenuDelegate {
     // MARK: - UI
     
     private func reloadData() {
-        let previousCoins = coins
-        coins = service.coinsService.getFavouriteCoins()
-        
-        let updated = coins == previousCoins
-        
+        holdings = service.coinsService.getHoldings()
         DispatchQueue.main.async {
-            
             self.flashMenuBar()
-            
-            if !updated {
-                self.reloadMenu()
-            }
-            
-            else {
-                self.refreshMenu()
-            }
-            
+            self.reloadMenu()
         }
     }
     
@@ -79,6 +78,13 @@ final class MenuController: NSObject, NSMenuDelegate {
         let coinItems = makeCoinItems()
         coinItems.forEach { statusMenu.addItem($0) }
         
+        if service.preferencesService.getPreferences().showHoldings {
+            totalView = makeTotalView()
+            let totalItem = NSMenuItem()
+            totalItem.view = totalView
+            statusMenu.addItem(totalItem)
+        }
+        
         let seperator = makeSeperatorItem()
         statusMenu.addItem(seperator)
         
@@ -95,54 +101,36 @@ final class MenuController: NSObject, NSMenuDelegate {
         
         let quitItem = makeQuitItem()
         statusMenu.addItem(quitItem)
+        
     }
     
-    private func refreshMenu() {
-        let prefs = service.preferencesService.getPreferences()
-        let preferredCurrency = Preferences.Currency(rawValue: prefs.currency) ?? .bitcoin
-        let preferredChangeInterval = Preferences.ChangeInterval(rawValue: prefs.changeInterval) ?? .oneDay
-
-        refreshView?.configure(lastRefreshed: service.coinsService.lastUpdated)
-        
-        coins.enumerated().forEach { idx, coin in
-            guard let item = statusMenu.item(at: idx),
-                let coinItemView = item.view as? CoinMenuItemView else {
-                    return
-            }
-            
-            coinItemView.configure(
-                with: coin,
-                currency: preferredCurrency,
-                changeInterval: preferredChangeInterval,
-                imagesService: service.imagesService)
-        }
-    }
-
     private func makeCoinItems() -> [NSMenuItem] {
         let prefs = service.preferencesService.getPreferences()
-        let preferredCurrency = Preferences.Currency(rawValue: prefs.currency) ?? .bitcoin
-        let preferredChangeInterval = Preferences.ChangeInterval(rawValue: prefs.changeInterval) ?? .oneDay
+        let preferredCurrency = prefs.currency
+        let preferredChangeInterval = prefs.changeInterval
+        let showHoldings = prefs.showHoldings
 
-        return coins.enumerated().map {
-            let item = NSMenuItem(title: $0.element.symbol, action: #selector(viewCoin(_:)), keyEquivalent: "")
+        return holdings.enumerated().map {
+            let item = NSMenuItem(title: $0.element.coin.symbol, action: #selector(viewCoin(_:)), keyEquivalent: "")
             item.tag = $0.offset
             item.target = self
-            if let coinMenuItemView = makeCoinMenuItemView(coin: $0.element, currency: preferredCurrency, changeInterval: preferredChangeInterval) {
+            if let coinMenuItemView = makeCoinMenuItemView(holding: $0.element, currency: preferredCurrency, changeInterval: preferredChangeInterval, showHoldings: showHoldings) {
                 item.view = coinMenuItemView
             }
             return item
         }
     }
     
-    private func makeCoinMenuItemView(coin: Coin, currency: Preferences.Currency, changeInterval: Preferences.ChangeInterval) -> CoinMenuItemView? {
+    private func makeCoinMenuItemView(holding: Holding, currency: Preferences.Currency, changeInterval: Preferences.ChangeInterval, showHoldings: Bool) -> CoinMenuItemView? {
         guard let coinMenuItemView = CoinMenuItemView.createFromNib() else {
             return nil
         }
         
         coinMenuItemView.configure(
-            with: coin,
+            with: holding,
             currency: currency,
             changeInterval: changeInterval,
+            showHoldings: showHoldings,
             imagesService: service.imagesService)
 
         coinMenuItemView.onClick = viewCoin
@@ -151,6 +139,16 @@ final class MenuController: NSObject, NSMenuDelegate {
     
     private func makeSeperatorItem() -> NSMenuItem {
         return NSMenuItem.separator()
+    }
+    
+    private func makeTotalView() -> TotalMenuItemView? {
+        guard let totalView = TotalMenuItemView.createFromNib() else {
+            return nil
+        }
+        
+        let prefs = service.preferencesService.getPreferences()
+        totalView.configureWithHoldings(prefs.holdings, currency: prefs.currency)
+        return totalView
     }
     
     private func makeRefreshItem() -> NSMenuItem {
@@ -185,10 +183,12 @@ final class MenuController: NSObject, NSMenuDelegate {
     
     @objc private func viewCoin(_ sender: NSClickGestureRecognizer) {
         guard let index = sender.view?.enclosingMenuItem?.tag else { return }
-        
-        let coin = coins[index]
-        if let url = coin.url {
-            NSWorkspace.shared.open(url)
+        let holding = holdings[index]
+        if let controller = holdingWindowController.contentViewController as? HoldingViewController {
+            holdingWindowController.window?.title = holding.coin.name
+            controller.present(holding: holding)
+            NSApp.activate(ignoringOtherApps: true)
+            holdingWindowController.showWindow(self)
         }
     }
     

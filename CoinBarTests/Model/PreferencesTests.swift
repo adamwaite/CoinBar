@@ -8,33 +8,47 @@ final class PreferencesTests: XCTestCase {
     func test_defaultPreferences_isCorrect() {
         let locale = Locale(identifier: "en_US")
         let subject = Preferences.defaultPreferences(locale: locale)
-        XCTAssertEqual(subject.favouriteCoins, ["bitcoin" , "ethereum", "litecoin"])
-        XCTAssertEqual(subject.currency, "USD")
+        XCTAssertEqual(subject.holdings, [])
+        XCTAssertEqual(subject.currency, .unitedStatesDollar)
     }
     
     func test_defaultPreferences_GBlocale_currencyIsSetToGBP() {
         let locale = Locale(identifier: "en_GB")
         let subject = Preferences.defaultPreferences(locale: locale)
-        XCTAssertEqual(subject.currency, "GBP")
+        XCTAssertEqual(subject.currency, .greatBritishPound)
     }
     
     func test_defaultPreferences_notSupportedLocale_currencyIsSetToUSD() {
         let locale = Locale(identifier: "incorrect_Code")
         let subject = Preferences.defaultPreferences(locale: locale)
-        XCTAssertEqual(subject.currency, "USD")
+        XCTAssertEqual(subject.currency, .unitedStatesDollar)
     }
     
     // MARK: - <Equatabale>
 
     func test_equatable_equal_isTrue() {
-        let a = Preferences(favouriteCoins: ["bitcoin"], currency: "GBP")
-        let b = Preferences(favouriteCoins: ["bitcoin"], currency: "GBP")
+        
+        let a = Preferences(holdings: [
+            Holding.bitcoin()
+        ], currency: .greatBritishPound)
+        
+        let b = Preferences(holdings: [
+            Holding.bitcoin()
+        ], currency: .greatBritishPound)
+        
         XCTAssertTrue(a == b)
     }
     
     func test_equatable_notEqual_isFalse() {
-        let a = Preferences(favouriteCoins: ["bitcoin"], currency: "GBP")
-        let b = Preferences(favouriteCoins: ["bitcoin"], currency: "USD")
+
+        let a = Preferences(holdings: [
+            Holding.bitcoin()
+        ], currency: .greatBritishPound)
+        
+        let b = Preferences(holdings: [
+            Holding.bitcoin()
+        ], currency: .brazilianReal)
+        
         XCTAssertFalse(a == b)
     }
     

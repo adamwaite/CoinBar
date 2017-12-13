@@ -7,7 +7,7 @@ final class PreferencesViewController: NSViewController {
     private var service: Service!
     private var serviceObserver: ServiceObserver!
 
-    fileprivate var coins: [Coin] = []
+    fileprivate var holdings: [Holding] = []
     fileprivate var preferences: Preferences!
 
     // MARK: UI
@@ -48,6 +48,8 @@ final class PreferencesViewController: NSViewController {
     
     @IBOutlet private(set) var contactLabel: NSTextField!
     
+    @IBOutlet private(set) var showHoldingsCheckbox: NSButton!
+    
     // MARK: - Lifecycle
     
     override func viewDidLoad() {
@@ -72,6 +74,8 @@ final class PreferencesViewController: NSViewController {
         super.viewDidDisappear()
         serviceObserver = nil
     }
+    
+    // MARK: - Configure
     
     func configure(service: Service) {
         self.service = service
@@ -99,19 +103,23 @@ final class PreferencesViewController: NSViewController {
     // MARK: - Reload
     
     private func reloadData() {
-        coins = service.coinsService.getFavouriteCoins()
+        holdings = service.coinsService.getHoldings()
         preferences = service.preferencesService.getPreferences()
             
         DispatchQueue.main.async {
+            
             self.coinsTableView.reloadData()
             
-            if let index = self.currencySelect.itemTitles.index(of: self.preferences.currency) {
+            if let index = self.currencySelect.itemTitles.index(of: self.preferences.currency.rawValue) {
                 self.currencySelect.selectItem(at: index)
             }
             
-            if let index = self.changeIntervalSelect.itemTitles.index(of: self.preferences.changeInterval) {
+            if let index = self.changeIntervalSelect.itemTitles.index(of: self.preferences.changeInterval.rawValue) {
                 self.changeIntervalSelect.selectItem(at: index)
             }
+            
+            self.showHoldingsCheckbox.state = self.preferences.showHoldings ? .on : .off
+        
         }
     }
     
@@ -129,6 +137,7 @@ final class PreferencesViewController: NSViewController {
     }
     
     private func addCoins() {
+        
         guard let window = view.window else { return }
         
         let alert = NSAlert()
@@ -152,7 +161,8 @@ final class PreferencesViewController: NSViewController {
                     .replacingOccurrences(of: " ", with: "")
                     .components(separatedBy: ",")
                     .flatMap(self.service.coinsService.getCoin)
-                    .forEach(self.service.preferencesService.addFavouriteCoin)
+                    .flatMap { Holding(coin: $0, quantity: 0.0) }
+                    .forEach(self.service.preferencesService.addHolding)
                 
             default:
                 return
@@ -163,9 +173,9 @@ final class PreferencesViewController: NSViewController {
     
     private func removeCoins() {
         let selected = coinsTableView.selectedRowIndexes
-        let coinsToRemove = selected.map { coins[$0] }
+        let coinsToRemove = selected.map { holdings[$0] }
         coinsToRemove.forEach {
-            service.preferencesService.removeFavouriteCoin($0)
+            service.preferencesService.removeHolding($0)
         }
     }
     
@@ -187,6 +197,12 @@ final class PreferencesViewController: NSViewController {
         }
     }
     
+    @IBAction func showHoldings(_ sender: NSButton) {
+        let show = sender.state == .on
+        service.preferencesService.setShowHoldings(show)
+        reloadData()
+    }
+    
     @objc private func contact(_ sender: NSClickGestureRecognizer) {
         guard let emailService = NSSharingService(named: .composeEmail),
             emailService.canPerform(withItems: [""]) else {
@@ -205,7 +221,7 @@ final class PreferencesViewController: NSViewController {
 extension PreferencesViewController: NSTableViewDelegate, NSTableViewDataSource {
     
     func numberOfRows(in tableView: NSTableView) -> Int {
-        return coins.count
+        return holdings.count
     }
     
     func tableView(_ tableView: NSTableView, viewFor tableColumn: NSTableColumn?, row: Int) -> NSView? {
@@ -214,7 +230,7 @@ extension PreferencesViewController: NSTableViewDelegate, NSTableViewDataSource 
             return nil
         }
         
-        let coin = coins[row]
+        let coin = holdings[row].coin
         
         cell.textField?.stringValue = coin.symbol
         cell.imageView?.image = nil
@@ -253,18 +269,18 @@ extension PreferencesViewController: NSTableViewDelegate, NSTableViewDataSource 
             return false
         }
         
-        let movingCoin = coins[movingFromIndex]
+        let movingCoin = holdings[movingFromIndex]
         let movingToIndex = row
 
-        coins.remove(at: movingFromIndex)
+        holdings.remove(at: movingFromIndex)
         
-        if movingToIndex > coins.endIndex {
-            coins.append(movingCoin)
+        if movingToIndex > holdings.endIndex {
+            holdings.append(movingCoin)
         } else {
-            coins.insert(movingCoin, at: movingToIndex)
+            holdings.insert(movingCoin, at: movingToIndex)
         }
         
-        service.preferencesService.setFavouriteCoins(coins)
+        service.preferencesService.setHoldings(holdings)
         
         return true
     }

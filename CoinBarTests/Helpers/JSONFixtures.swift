@@ -19,12 +19,20 @@ struct JSONFixtures {
         return data(file: "coins")
     }
     
+    static func coinsUpdatedData() -> Data {
+        return data(file: "coins_again") // USD price of bitcoin changed
+    }
+    
     static func coin() -> Coin {
         return try! JSONDecoder().decode(Coin.self, from: coinData())
     }
 
     static func coins() -> [Coin] {
         return try! JSONDecoder().decode([Coin].self, from: coinsData())
+    }
+    
+    static func coinsUpdated() -> [Coin] {
+        return try! JSONDecoder().decode([Coin].self, from: coinsUpdatedData())
     }
 }
 
