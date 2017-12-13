@@ -485,7 +485,7 @@
                                 <subviews>
                                     <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="eBc-ay-9U8">
                                         <rect key="frame" x="-2" y="5" width="414" height="18"/>
-                                        <buttonCell key="cell" type="check" title="Show Holdings" bezelStyle="regularSquare" imagePosition="right" state="on" inset="2" id="3ck-GO-Uq0">
+                                        <buttonCell key="cell" type="check" title="Show Holdings:" bezelStyle="regularSquare" imagePosition="right" state="on" inset="2" id="3ck-GO-Uq0">
                                             <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                             <font key="font" metaFont="system"/>
                                         </buttonCell>
