@@ -30,6 +30,31 @@ final class CoinsServiceTests: XCTestCase {
         XCTAssertEqual(stubPersistence.readCoins().count, 5)
     }
     
+    func test_refreshCoins_noCoinsInPersistence_success_addsTop5AsHoldings() {
+        stubNetworking.resources = JSONFixtures.coins()
+        subject.refreshCoins()
+        XCTAssertEqual(stubPersistence.readCoins().count, 5)
+        XCTAssertEqual(stubPersistence.readPreferences().holdings.count, 5)
+    }
+    
+    func test_refreshCoins_twice_success_savesCoinsAndUpdatesHoldings() {
+        let first = JSONFixtures.coins()
+        stubNetworking.resources = first
+        subject.refreshCoins()
+        
+        stubPersistence.preferences = Preferences(holdings: [Holding(coin: first.first!, quantity: 1.0)])
+        
+        var firstHolding = stubPersistence.readPreferences().holdings.first!
+        XCTAssertEqual(Float(firstHolding.totalUSD!), 4000.55, accuracy: 0.1)
+        
+        let second = JSONFixtures.coinsUpdated()
+        stubNetworking.resources = second
+        subject.refreshCoins()
+        
+        firstHolding = stubPersistence.readPreferences().holdings.first!
+        XCTAssertEqual(Float(firstHolding.totalUSD!), 2000.1, accuracy: 0.1)
+    }
+    
     func test_refreshCoins_success_updatesLastUpdatedTime() {
         XCTAssertNil(subject.lastUpdated)
         stubNetworking.resources = JSONFixtures.coins()
@@ -63,13 +88,12 @@ final class CoinsServiceTests: XCTestCase {
         XCTAssertEqual(coins, stubPersistence.coins)
     }
     
-    // MARK: - getFavouriteCoins
+    // MARK: - getHoldings
     
-    func test_getFavouriteCoins_returnsAllCoinsInPersistenceFilteredByUserFavourite() {
-        stubPersistence.preferences = Preferences(favouriteCoins: ["litecoin", "bitcoin"], currency: "GBP")
-        stubPersistence.coins = JSONFixtures.coins()
-        let coins = subject.getFavouriteCoins()
-        XCTAssertEqual(coins.map { $0.id }, ["litecoin", "bitcoin"])
+    func test_getHoldings_returnsHoldingsFromPersistence() {
+        let holdings = [Holding.bitcoin(0.3), Holding.ether(1)]
+        stubPersistence.preferences = Preferences(holdings: holdings, currency: .greatBritishPound)
+        XCTAssertEqual(subject.getHoldings(), holdings)
     }
     
     // MARK: - getCoin

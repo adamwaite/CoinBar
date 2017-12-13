@@ -5,6 +5,7 @@ CoinBar is an open source macOS menu bar app for tracking the price of crypto co
 ![screenshot-01](resources/01.png)
 ![screenshot-02](resources/02.png)
 ![screenshot-03](resources/03.png)
+![screenshot-04](resources/04.png)
 
 ## Features
 
@@ -13,6 +14,7 @@ CoinBar is an open source macOS menu bar app for tracking the price of crypto co
 - Supports 33 base currencies.
 - Display price % fluctuations between 1h, 24h and 7d.
 - The menu bar icon flashes when new data is available.
+- Add holdings to see the value of your stack in real time.
 
 ## Installation
 

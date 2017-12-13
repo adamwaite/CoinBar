@@ -8,6 +8,14 @@
 
 /* Begin PBXBuildFile section */
 		9939F5251F8C1B1700853157 /* PreferencesChangeInterval.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9939F5241F8C1B1700853157 /* PreferencesChangeInterval.swift */; };
+		993B7D7A1FDC714E00FD2D06 /* Holding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 993B7D791FDC714E00FD2D06 /* Holding.swift */; };
+		993B7D7C1FDD4D5700FD2D06 /* Holding+Test.swift in Sources */ = {isa = PBXBuildFile; fileRef = 993B7D7B1FDD4D5700FD2D06 /* Holding+Test.swift */; };
+		993B7D7F1FDDAA0200FD2D06 /* HoldingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 993B7D7E1FDDAA0200FD2D06 /* HoldingViewController.swift */; };
+		993B7D811FDF35E200FD2D06 /* NSColor+CoinBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 993B7D801FDF35E200FD2D06 /* NSColor+CoinBar.swift */; };
+		993B7D831FDF3FBE00FD2D06 /* HoldingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 993B7D821FDF3FBE00FD2D06 /* HoldingTests.swift */; };
+		993B7D851FE1CBB900FD2D06 /* coins_again.json in Resources */ = {isa = PBXBuildFile; fileRef = 993B7D841FE1CBB900FD2D06 /* coins_again.json */; };
+		993B7D871FE1E68200FD2D06 /* TotalMenuItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 993B7D861FE1E68200FD2D06 /* TotalMenuItemView.swift */; };
+		993B7D891FE1E6A300FD2D06 /* TotalMenuItemView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 993B7D881FE1E6A300FD2D06 /* TotalMenuItemView.xib */; };
 		994CA9681F70414000FFE717 /* PreferencesCurrency.swift in Sources */ = {isa = PBXBuildFile; fileRef = 994CA9671F70414000FFE717 /* PreferencesCurrency.swift */; };
 		994CA96E1F7078EA00FFE717 /* PreferencesServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 994CA96D1F7078EA00FFE717 /* PreferencesServiceTests.swift */; };
 		994CA9701F7078F900FFE717 /* PersistenceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 994CA96F1F7078F900FFE717 /* PersistenceTests.swift */; };
@@ -69,6 +77,14 @@
 
 /* Begin PBXFileReference section */
 		9939F5241F8C1B1700853157 /* PreferencesChangeInterval.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreferencesChangeInterval.swift; sourceTree = "<group>"; };
+		993B7D791FDC714E00FD2D06 /* Holding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Holding.swift; sourceTree = "<group>"; };
+		993B7D7B1FDD4D5700FD2D06 /* Holding+Test.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Holding+Test.swift"; sourceTree = "<group>"; };
+		993B7D7E1FDDAA0200FD2D06 /* HoldingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HoldingViewController.swift; sourceTree = "<group>"; };
+		993B7D801FDF35E200FD2D06 /* NSColor+CoinBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSColor+CoinBar.swift"; sourceTree = "<group>"; };
+		993B7D821FDF3FBE00FD2D06 /* HoldingTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HoldingTests.swift; sourceTree = "<group>"; };
+		993B7D841FE1CBB900FD2D06 /* coins_again.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = coins_again.json; sourceTree = "<group>"; };
+		993B7D861FE1E68200FD2D06 /* TotalMenuItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TotalMenuItemView.swift; sourceTree = "<group>"; };
+		993B7D881FE1E6A300FD2D06 /* TotalMenuItemView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TotalMenuItemView.xib; sourceTree = "<group>"; };
 		994CA9671F70414000FFE717 /* PreferencesCurrency.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreferencesCurrency.swift; sourceTree = "<group>"; };
 		994CA96D1F7078EA00FFE717 /* PreferencesServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreferencesServiceTests.swift; sourceTree = "<group>"; };
 		994CA96F1F7078F900FFE717 /* PersistenceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistenceTests.swift; sourceTree = "<group>"; };
@@ -142,6 +158,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		993B7D7D1FDDA5E800FD2D06 /* Holding */ = {
+			isa = PBXGroup;
+			children = (
+				993B7D7E1FDDAA0200FD2D06 /* HoldingViewController.swift */,
+			);
+			path = Holding;
+			sourceTree = "<group>";
+		};
 		994CA96C1F7078D900FFE717 /* Service */ = {
 			isa = PBXGroup;
 			children = (
@@ -159,6 +183,7 @@
 			isa = PBXGroup;
 			children = (
 				996455251F7103570039DCFB /* CoinTests.swift */,
+				993B7D821FDF3FBE00FD2D06 /* HoldingTests.swift */,
 				996455271F7103700039DCFB /* PreferencesTests.swift */,
 				99DF633C1F7469BA000A0FEE /* PreferencesCurrencyTests.swift */,
 			);
@@ -186,6 +211,7 @@
 		996455221F7088620039DCFB /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
+				993B7D7B1FDD4D5700FD2D06 /* Holding+Test.swift */,
 				996455231F7088760039DCFB /* Coin+Test.swift */,
 				FFAE0B771F7185EA00CE26E2 /* JSONFixtures.swift */,
 				996455291F7103E10039DCFB /* StubValueStore.swift */,
@@ -203,6 +229,7 @@
 				998136C41F6F1150003381BA /* NibLoadable.swift */,
 				99DF633E1F7476DE000A0FEE /* NSView+CoinBar.swift */,
 				99F4EA4D1F77BD7700319783 /* NSApplication+CoinBar.swift */,
+				993B7D801FDF35E200FD2D06 /* NSColor+CoinBar.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -215,6 +242,8 @@
 				998136C61F6F13F3003381BA /* CoinMenuItemView.xib */,
 				99F4EA451F7584C900319783 /* RefreshMenuItemView.swift */,
 				99F4EA471F7584E100319783 /* RefreshMenuItemView.xib */,
+				993B7D861FE1E68200FD2D06 /* TotalMenuItemView.swift */,
+				993B7D881FE1E6A300FD2D06 /* TotalMenuItemView.xib */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -291,6 +320,7 @@
 			isa = PBXGroup;
 			children = (
 				99D3E99A1F6D0C25003C1CB3 /* Menu */,
+				993B7D7D1FDDA5E800FD2D06 /* Holding */,
 				99A0C6601F6DCDE300390B95 /* Preferences */,
 			);
 			path = App;
@@ -300,6 +330,7 @@
 			isa = PBXGroup;
 			children = (
 				99D3E98C1F6D016B003C1CB3 /* Coin.swift */,
+				993B7D791FDC714E00FD2D06 /* Holding.swift */,
 				99D3E98E1F6D0180003C1CB3 /* Preferences.swift */,
 				994CA9671F70414000FFE717 /* PreferencesCurrency.swift */,
 				9939F5241F8C1B1700853157 /* PreferencesChangeInterval.swift */,
@@ -340,6 +371,7 @@
 				FFAE0B7E1F71866F00CE26E2 /* coin.json */,
 				99684A241F7453BD00985612 /* coin_missing_optionals.json */,
 				FFAE0B7A1F71863600CE26E2 /* coins.json */,
+				993B7D841FE1CBB900FD2D06 /* coins_again.json */,
 				99D0017A1F731FA70094B1F6 /* bitcoin.png */,
 			);
 			path = Fixtures;
@@ -446,6 +478,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				993B7D891FE1E6A300FD2D06 /* TotalMenuItemView.xib in Resources */,
 				99D3E9671F6CF8F1003C1CB3 /* Assets.xcassets in Resources */,
 				99D3E96A1F6CF8F1003C1CB3 /* Main.storyboard in Resources */,
 				99F4EA481F7584E100319783 /* RefreshMenuItemView.xib in Resources */,
@@ -461,6 +494,7 @@
 				FFAE0B7F1F71866F00CE26E2 /* coin.json in Resources */,
 				FFAE0B7B1F71863600CE26E2 /* coins.json in Resources */,
 				99684A251F74542B00985612 /* coin_missing_optionals.json in Resources */,
+				993B7D851FE1CBB900FD2D06 /* coins_again.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -471,8 +505,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				993B7D871FE1E68200FD2D06 /* TotalMenuItemView.swift in Sources */,
+				993B7D7F1FDDAA0200FD2D06 /* HoldingViewController.swift in Sources */,
 				99A0C6641F6E5D5500390B95 /* ValueStore.swift in Sources */,
 				99D3E9971F6D05A6003C1CB3 /* WebServices.swift in Sources */,
+				993B7D7A1FDC714E00FD2D06 /* Holding.swift in Sources */,
 				99D3E98F1F6D0180003C1CB3 /* Preferences.swift in Sources */,
 				998136C51F6F1150003381BA /* NibLoadable.swift in Sources */,
 				99F4EA4E1F77BD7700319783 /* NSApplication+CoinBar.swift in Sources */,
@@ -487,6 +524,7 @@
 				99DF63411F747E21000A0FEE /* DispatchQueue+CoinBar.swift in Sources */,
 				99A0C6621F6DCDF500390B95 /* PreferencesViewController.swift in Sources */,
 				994CA9781F70793500FFE717 /* CoinsService.swift in Sources */,
+				993B7D811FDF35E200FD2D06 /* NSColor+CoinBar.swift in Sources */,
 				994CA97A1F70793E00FFE717 /* PreferencesService.swift in Sources */,
 				99F4EA4A1F758B3700319783 /* MenuItemView.swift in Sources */,
 				99D3E98D1F6D016B003C1CB3 /* Coin.swift in Sources */,
@@ -516,7 +554,9 @@
 				99684A211F744C4A00985612 /* StubPersistence.swift in Sources */,
 				994CA9701F7078F900FFE717 /* PersistenceTests.swift in Sources */,
 				996455261F7103570039DCFB /* CoinTests.swift in Sources */,
+				993B7D7C1FDD4D5700FD2D06 /* Holding+Test.swift in Sources */,
 				99684A1F1F74300E00985612 /* ServiceObserverTests.swift in Sources */,
+				993B7D831FDF3FBE00FD2D06 /* HoldingTests.swift in Sources */,
 				99D001791F731B550094B1F6 /* StubURLSession.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

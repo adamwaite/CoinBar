@@ -7,8 +7,10 @@ protocol CoinsServiceProtocol {
     func refreshCoins()
     
     func getAllCoins() -> [Coin]
-    func getFavouriteCoins() -> [Coin]
+    
     func getCoin(symbol: String) -> Coin?
+    
+    func getHoldings() -> [Holding]
     
 }
 
@@ -42,35 +44,52 @@ final class CoinsService: CoinsServiceProtocol {
     // MARK: - Coins
     
     @objc func refreshCoins() {
-        
+
         let currencyCode = persistence.readPreferences().currency
-        let service = CoinWebService.all(currencyCode: currencyCode)
+        let service = CoinWebService.all(currencyCode: currencyCode.rawValue)
         
         networking.getResources(at: service) { [weak self] (result: Result<[Coin]>) in
             
-            guard let coins = result.value else {
+            guard let strongSelf = self, let coins = result.value else {
                 return
             }
             
-            self?.persistence.writeCoins { _ in
-                return coins
+            // If it's the first time getting coins, add the top 10 to the holdings
+            if strongSelf.persistence.readCoins().isEmpty {
+                strongSelf.persistence.writePreferences {
+                    var prefs = $0
+                    prefs.holdings = coins[0..<5].map { Holding(coin: $0, quantity: 0.0) }
+                    return prefs
+                }
             }
             
-            self?.lastUpdated = Date()
-            self?.notify()
+            // Update coins
+            strongSelf.persistence.writeCoins { _ in
+                return coins
+            }
+
+            // Update existing holdings
+            strongSelf.persistence.writePreferences {
+                let updatedHoldings: [Holding] = $0.holdings.flatMap { holding in
+                    guard let coin = coins.first(where: { holding.coin.id == $0.id }) else { return nil }
+                    return Holding(coin: coin, quantity: holding.quantity)
+                }
+                
+                var prefs = $0
+                prefs.holdings = updatedHoldings
+                return prefs
+            }
+            
+            strongSelf.lastUpdated = Date()
+            
+            strongSelf.notify()
+        
         }
+    
     }
 
     func getAllCoins() -> [Coin] {
         return persistence.readCoins()
-    }
-    
-    func getFavouriteCoins() -> [Coin] {
-        let coins = getAllCoins()
-        let favourites = persistence.readPreferences().favouriteCoins
-        return favourites.flatMap { fav in
-            coins.lazy.first { $0.id == fav }
-        }
     }
     
     func getCoin(symbol: String) -> Coin? {
@@ -78,9 +97,28 @@ final class CoinsService: CoinsServiceProtocol {
         return coins.lazy.first { $0.symbol.lowercased() == symbol.lowercased() }
     }
     
+    func getHoldings() -> [Holding] {
+        return persistence.readPreferences().holdings
+    }
+    
     // MARK: - Notifications
     
     private func notify() {
         NotificationCenter.default.post(name: ServiceObserver.coinsUpdateNotificationName, object: nil)
     }
+    
 }
+
+// MARK: - DEBUG
+
+#if DEBUG
+
+extension CoinsService {
+    
+    fileprivate func clearCoins() {
+        persistence.writeCoins { _ in return [] }
+    }
+    
+}
+
+#endif
