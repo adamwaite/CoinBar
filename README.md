@@ -1,5 +1,7 @@
 # CoinBar
 
+> ☠️ CoinMarketCap have deprecated their public API, and I no longer maintain this app.
+
 CoinBar is an open source macOS menu bar app for tracking the price of crypto coins. It's written in Swift 4 and consumes the [CoinMarketCap JSON API](https://coinmarketcap.com/api/).
 
 ![screenshot-01](resources/01.png)
